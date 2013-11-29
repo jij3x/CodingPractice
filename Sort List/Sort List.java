@@ -11,12 +11,9 @@
  */
 public class Solution {
 	public ListNode sortList(ListNode head) {
-		// IMPORTANT: Please reset any member data you declared, as
-		// the same Solution instance will be reused for each test case.
-
 		ListNode start = new ListNode(0);
 		start.next = head;
-		
+
 		int length = 0;
 		while (head != null) {
 			head = head.next;
@@ -44,6 +41,9 @@ public class Solution {
 		return start.next;
 	}
 
+	/*
+	 * return cutted list's head
+	 */
 	private ListNode cutList(ListNode head, int n) {
 		if (head == null)
 			return null;
@@ -58,27 +58,30 @@ public class Solution {
 				break;
 		}
 
-		ListNode listLeft = end.next;
+		ListNode cuttedList = end.next;
 		end.next = null;
 
-		return listLeft;
+		return cuttedList;
 	}
 
-	private ArrayList<ListNode> mergeList(ListNode l1, ListNode l2) {
+	/*
+	 * return[0] - new list head; return[1] - new list end;
+	 */
+	private ArrayList<ListNode> mergeList(ListNode list1, ListNode list2) {
 		ListNode start = new ListNode(0);
 		ListNode end = start;
-		while (l1 != null && l2 != null) {
-			if (l1.val > l2.val) {
-				end.next = l2;
-				l2 = l2.next;
+		while (list1 != null && list2 != null) {
+			if (list1.val > list2.val) {
+				end.next = list2;
+				list2 = list2.next;
 			} else {
-				end.next = l1;
-				l1 = l1.next;
+				end.next = list1;
+				list1 = list1.next;
 			}
 			end = end.next;
 		}
 
-		end.next = l1 == null ? l2 : l1;
+		end.next = list1 == null ? list2 : list1;
 		while (end.next != null)
 			end = end.next;
 
