@@ -18,7 +18,7 @@ public class Solution {
 				continue;
 			}
 
-			if ((dividend <= (divisor << 1))
+			while ((dividend <= (divisor << 1))
 					&& (Integer.MIN_VALUE >> 2 < divisor)) {
 				divisor <<= 1;
 				factor <<= 1;
@@ -27,6 +27,6 @@ public class Solution {
 			dividend -= divisor;
 		}
 
-		return (int) (returnNeg ? 0 - result : result);
+		return returnNeg ? 0 - result : result;
 	}
 }
