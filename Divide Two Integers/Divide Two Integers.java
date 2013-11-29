@@ -4,26 +4,27 @@ public class Solution {
 			return 0;
 
 		int result = 0;
-		long a = dividend, b = divisor;
-		boolean returnNeg = (a < 0 && b > 0) || (a > 0 && b < 0) ? true : false;
-		a = a < 0 ? 0 - a : a;
-		b = b < 0 ? 0 - b : b;
+		boolean returnNeg = (dividend < 0 && divisor > 0)
+				|| (dividend > 0 && divisor < 0) ? true : false;
+		dividend = dividend < 0 ? dividend : 0 - dividend;
+		divisor = divisor < 0 ? divisor : 0 - divisor;
 
 		int factor = 1;
-		long div = b;
-		while (a >= div) {
-			if (a >= (b << 1)) {
-				b <<= 1;
-				factor <<= 1;
-			} else if (b > a && factor > 1) {
-				b >>= 1;
+		long div = divisor;
+		while (dividend <= div) {
+			if (divisor < dividend && factor > 1) {
+				divisor >>= 1;
 				factor >>= 1;
 				continue;
 			}
 
-			if (a - b >= 0)
-				result += factor;
-			a -= b;
+			if ((dividend <= (divisor << 1))
+					&& (Integer.MIN_VALUE >> 2 < divisor)) {
+				divisor <<= 1;
+				factor <<= 1;
+			}
+			result += factor;
+			dividend -= divisor;
 		}
 
 		return (int) (returnNeg ? 0 - result : result);
