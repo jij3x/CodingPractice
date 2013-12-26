@@ -7,17 +7,17 @@ public class Solution {
 			if (A[middle] < A[end])
 				end = middle;
 			else
-                begin = middle + 1;
+				begin = middle + 1;
 		}
 
-        if (begin != 0) {
-            if (target > A[A.length-1]) {
-                end = begin -1;
-                begin = 0;
-            } else {
-                end = A.length -1;
-            }
-        }
+		if (begin != 0) {
+			if (target > A[A.length - 1]) {
+				end = begin - 1;
+				begin = 0;
+			} else {
+				end = A.length - 1;
+			}
+		}
 
 		while (begin <= end) {
 			int middle = (begin + end) / 2;
