@@ -1,29 +1,32 @@
 public class Solution {
 	public int search(int[] A, int target) {
-		int left = 0;
-		int right = A.length - 1;
-		while (left <= right) {
-			int mid = (left + right) / 2;
-			if (A[mid] == target)
-				return mid;
+		int begin = 0;
+		int end = A.length - 1;
+		while (A[begin] > A[end]) {
+			int middle = (begin + end) / 2;
+			if (A[middle] < A[end])
+				end = middle;
+			else
+                begin = middle + 1;
+		}
 
-			if (A[mid] < A[right]) {
-				// 5,6,7,0,(1),2,3,4
-				if (target < A[mid])
-					right = mid - 1;
-				else if (target <= A[right])
-					left = mid + 1;
-				else
-					right = mid - 1;
-			} else {
-				// 3,4,5,(6),7,0,1,2
-				if (target > A[mid])
-					left = mid + 1;
-				else if (target >= A[left])
-					right = mid - 1;
-				else
-					left = mid + 1;
-			}
+        if (begin != 0) {
+            if (target > A[A.length-1]) {
+                end = begin -1;
+                begin = 0;
+            } else {
+                end = A.length -1;
+            }
+        }
+
+		while (begin <= end) {
+			int middle = (begin + end) / 2;
+			if (A[middle] == target)
+				return middle;
+			if (target > A[middle])
+				begin = middle + 1;
+			else
+				end = middle - 1;
 		}
 		return -1;
 	}
