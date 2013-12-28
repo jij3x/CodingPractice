@@ -12,16 +12,16 @@ public class Solution {
 	}
 
 	private int findKthSmallestRecurrsive(int[] A, int aStart, int aEnd, int[] B, int bStart, int bEnd, int k) {
-		if (k == 1)
+		if (aEnd < aStart)
+			return B[bStart + k - 1];
+		else if (bEnd < bStart)
+			return A[aStart + k - 1];
+		else if (k == 1)
 			/*
 			 * In case of k is '1' we don't want it fall to the logic at the end, which will 
 			 * favor the larger number. We need smaller number when k is '1'. 
 			 */
 			return A[aStart] < B[bStart] ? A[aStart] : B[bStart];
-		else if (aEnd < aStart)
-			return B[bStart + k - 1];
-		else if (bEnd < bStart)
-			return A[aStart + k - 1];
 
 		int n = aEnd - aStart + 1;
 		int m = bEnd - bStart + 1;
