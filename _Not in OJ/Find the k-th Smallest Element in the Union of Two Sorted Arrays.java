@@ -52,4 +52,41 @@ public class Solution {
 
 		return findKthSmallestRecurrsive(A, aStart, i - 1, B, j + 1, bEnd, k - m);
 	}
+	
+	class Result {
+		int arrayNo;
+		int arrayIdx;
+
+		Result(int no, int idx) {
+			arrayNo = no;
+			arrayIdx = idx;
+		}
+	}
+
+	private Result findKthSmallestRecurrsive2(int[] A, int aStart, int aEnd, int[] B, int bStart, int bEnd, int k) {
+		if (aEnd < aStart)
+			return new Result(1, bStart + k - 1);
+		else if (bEnd < bStart)
+			return new Result(0, aStart + k - 1);
+		else if (k == 1)
+			return A[aStart] < B[bStart] ? new Result(0, aStart) : new Result(1, bStart);
+
+		int n = aEnd - aStart + 1;
+		int m = bEnd - bStart + 1;
+		n = (k * n) / (m + n);
+		n = n == 0 ? 1 : n;
+		m = k - n;
+		int i = aStart + n - 1;
+		int j = bStart + m - 1;
+
+		if (A[i] >= B[j] && (j == bEnd || A[i] <= B[j + 1]))
+			return new Result(0, i);
+		else if (B[j] >= A[i] && (i == aEnd || B[j] <= A[i + 1]))
+			return new Result(1, j);
+
+		if (A[i] < B[j])
+			return findKthSmallestRecurrsive2(A, i + 1, aEnd, B, bStart, j - 1, k - n);
+
+		return findKthSmallestRecurrsive2(A, aStart, i - 1, B, j + 1, bEnd, k - m);
+	}
 }
