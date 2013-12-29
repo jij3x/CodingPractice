@@ -84,7 +84,7 @@ public class Solution {
 	 * Note, below code is not actually working. It's here just for concept demonstration. And don't feel
 	 * want to spend more time on tricky cases, such as, one empty array.
 	 * 
-	 * Overall, should avoid using this approach in special event.
+	 * Overall, should definitely avoid using this approach in special event.
 	 */
 	double findMedianSortedArrays3(int A[], int B[]) {
 		int[] A1 = A.length > B.length ? A : B;
@@ -101,13 +101,15 @@ public class Solution {
 		 */
 		if (aLeft > aRight) {
 			/* 
-			 * 'left' and 'right' 1-based number, like the array length.
+			 * 'left' and 'right' are 1-based counters, just like the array length.
 			 * 
-			 * Here is the example why their initial value should like below logic:
+			 * Here is the example why their initial value will be like below logic:
 			 *     Two arrays - A[30], and, B[20]. We'd like to know the median's location (range) in A. 
 			 *     The first element in A is not possible be median, since in the virtual merged
 			 *     array C[50], the first element of A's latest position is 21st (after entire B). Same
-			 *     for A[2...4]. Likewise, A[26...30] can't be median.  
+			 *     for A[2...4]. Likewise, A[26...30] can't be median.
+			 *
+			 *     Ond the other hand, for short array, median could be in any position.
 			 */
 			int bLeft = Math.max(1, (A.length + B.length) / 2 - A.length);
 			int bRight = Math.min(B.length, (A.length + B.length) / 2);
