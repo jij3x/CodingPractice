@@ -1,5 +1,3 @@
-package interview;
-
 /*
  * Second efficient O(2log(m+n)), simpler implementation. findKthSmallest() is still difficult to implement.
  */
@@ -171,7 +169,7 @@ class Solution3 {
 			return findMedian(A, B, aLeft, i - 1, result);
 		}
 
-		// At this point is, A[i] is the median.
+		// At this point is, A[i] is the median. Need to find the lower median in case of odd total number.
 		if ((A.length + B.length) % 2 == 1) {
 			result[0] = A[i];
 		} else {
