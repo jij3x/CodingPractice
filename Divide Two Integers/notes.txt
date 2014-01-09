@@ -1,0 +1,2 @@
+Binary search... maintain two extra variables: factor and backupDivisor
+Need to watch carefully on overflow cases.

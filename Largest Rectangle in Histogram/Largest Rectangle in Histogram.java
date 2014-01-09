@@ -16,13 +16,13 @@ public class Solution {
 				heightStack.push(height[i]);
 				indexStack.push(i);
 			} else if (height[i] < heightStack.peek()) {
-				int lastPos = 0;
+				int lastPosition = 0;
 				while (!heightStack.isEmpty() && height[i] < heightStack.peek()) {
-					lastPos = indexStack.peek();
+					lastPosition = indexStack.peek();
 					maxArea = Math.max(maxArea, heightStack.pop() * (i - indexStack.pop()));
 				}
 				heightStack.push(height[i]);
-				indexStack.push(lastPos);
+				indexStack.push(lastPosition);
 			}
 		}
 
@@ -30,6 +30,30 @@ public class Solution {
 			maxArea = Math.max(maxArea, heightStack.pop() * (height.length - indexStack.pop()));
 		}
 
+		return maxArea;
+	}
+}
+
+/*
+ * Very tricky & complicated. Not suitable for special event.
+ */
+class Solution2 {
+	public int largestRectangleArea(int[] height) {
+		int[] h = new int[height.length + 1];
+		System.arraycopy(height, 0, h, 0, height.length);
+		h[h.length - 1] = 0;
+
+		Stack<Integer> workingStack = new Stack<Integer>();
+		int i = 0;
+		int maxArea = 0;
+		while (i < h.length) {
+			if (workingStack.isEmpty() || h[workingStack.peek()] <= h[i]) {
+				workingStack.push(i++);
+			} else {
+				int t = workingStack.pop();
+				maxArea = Math.max(maxArea, h[t] * (workingStack.isEmpty() ? i : i - workingStack.peek() - 1));
+			}
+		}
 		return maxArea;
 	}
 }

@@ -1,0 +1,15 @@
+http://hi.baidu.com/mzry1992/item/030f9740e0475ef7dc0f6cba
+
+An 'hanging line' must be existing in the maximal rectangle ('hanging line' is a vertical line contains only '1')
+    will have three 1D arraies... one for height, one for left (how far left hanging line can expand to),
+    another for right (how far right...)
+
+transitive function:
+    when point(x,y) is '1'
+        height(x,y) = height(x,y-1) + 1
+        left(x,y) = max(left(x,y-1), count of consecutive '1's from x towards left end)
+        right(x,y) = max(right(x,y-1), count of consecutive '1's from x towards right end)
+    when point(x,y) is '0'
+        height(x,y) = 0
+        left(x,y) = 0
+        right(x,y) = 0

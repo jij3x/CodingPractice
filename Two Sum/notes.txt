@@ -1,0 +1,3 @@
+maintain an HashTable. During the table scanning, regist the current number in HashTable, and try to find if there
+is number (target - current) in HashTable already.
+complexity - O(n)

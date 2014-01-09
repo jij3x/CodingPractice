@@ -1,0 +1,1 @@
+Need to use string array to store the keypad's letter. Not a must, but will have cleaner code.

@@ -1,0 +1,21 @@
+Obersvation: scan from left to right... when a bar 'i' is lower than previous one, then, those bars (examed already)
+higher than 'i' won't matter any more. Like diagram below:
+
+     ***            
+    ****            
+   *****    ...     
+  ******#          #######
+ *******#         *#######
+********#        **#######
+
+Will need to maintain 2 stacks to record the ascending index and height. During pop() operation, need to calculate
+the possible maxArea as well. Like in '+' area:
+
+     +++            
+    ++++            
+   +++++ 
+  ++++++#
+ *++++++#
+**++++++#
+
+In the end, need to go one more round on stack to calculate maxArea for ascending bars.

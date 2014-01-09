@@ -1,0 +1,7 @@
+Combination problem - to generate all combinations...
+    C(n,k) = P(n,k)/P(k,k)
+    Example: C(4,2) = (4!/2!)/2! = 6
+
+Don't need a seperate recursive function (with start pointer), as we can start from 'n' to 1.
+Bit complication on base case: need to avoid using if (k==n). Using if (k==1) will do the same thing, plus, it will
+   stop k go below 0.

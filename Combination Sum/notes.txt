@@ -1,0 +1,2 @@
+Need to clear whether the candidate set contains duplicates.
+Duplicates need to be removed first, if there are. Solution here does not deal with duplicates in candidate array.

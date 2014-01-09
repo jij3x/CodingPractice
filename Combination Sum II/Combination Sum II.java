@@ -1,10 +1,10 @@
 public class Solution {
 	public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
 		Arrays.sort(num);
-		return combinationSumRecursive(num, 0, target);
+		return subCombinationSum(num, 0, target);
 	}
 
-	private ArrayList<ArrayList<Integer>> combinationSumRecursive(int[] num, int start, int target) {
+	private ArrayList<ArrayList<Integer>> subCombinationSum(int[] num, int start, int target) {
 		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
 
 		for (int i = start; i < num.length; i++) {
@@ -14,7 +14,7 @@ public class Solution {
 				result.add(row);
 			} else if (num[i] < target) {
 				ArrayList<ArrayList<Integer>> subResult = new ArrayList<ArrayList<Integer>>();
-				subResult = combinationSumRecursive(num, i + 1, target - num[i]);
+				subResult = subCombinationSum(num, i + 1, target - num[i]);
 				for (ArrayList<Integer> row : subResult) {
 					row.add(num[i]);
 					Collections.sort(row);
@@ -22,9 +22,8 @@ public class Solution {
 				}
 			}
 
-			while (i < num.length - 1 && num[i] == num[i + 1]) {
+			while (i < num.length - 1 && num[i] == num[i + 1])
 				i++;
-			}
 		}
 
 		return result;

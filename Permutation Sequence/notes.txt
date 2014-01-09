@@ -1,0 +1,3 @@
+Example, when n=4, we have [1,2,3,4]. The 7th permutation is: '2' + 1st permutation on [1,3,4]
+    '2' is coming from: 7/3! = 1st element in [1,2,3,4]
+    the new 'k' is come from: 7-3!

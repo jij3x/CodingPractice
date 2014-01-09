@@ -1,0 +1,5 @@
+DFS, recursive function will have 4 params - left/right parentheses counts, constructed string, result set
+    base case is when right parenthses are used up
+    if still have some left parentheses, append one '(' to the 'constructed string' and recursivly traverse down
+    if right parentheses count greater than lefts', append one ')' and recursively traverse down
+        (right parentheses can't be more than left parentheses, since it will leed to syntax error.)

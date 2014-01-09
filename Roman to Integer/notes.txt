@@ -1,0 +1,2 @@
+Scan from right to left, if current Roman nubmer is less than previous one, take it out from the final result.
+Otherwise, add up current Roman number to the result.

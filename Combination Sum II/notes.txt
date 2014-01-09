@@ -1,0 +1,2 @@
+Not much difference than problem 'Combination Sum'. Just need to do some extra work on duplicates in candidate set -
+sort the source array first, make sure not to process on numbers been processed before.

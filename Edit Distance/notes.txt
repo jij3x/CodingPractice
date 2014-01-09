@@ -1,0 +1,8 @@
+suffixes way - transitive function is
+
+F(S[i:], T[j:]) =
+    1. if (Si==Tj) : F(S[i+1:], T[i+1:])
+    2. else : 1 + min(EditDist after delete, insert, replace)
+                          EditDist after delete: F(S[i+1:], T[j])
+                          EditDist after insert: F(S[i+1:], T[j+1:])
+                          EditDist after replace: F(S[i:], T[j+1:])
