@@ -1,0 +1,8 @@
+recursive:
+    x^n = 1.0                      if n=0
+          x^(n/2) * x^(n/2)        if n!=0 && n is even
+          x^(n/2) * x^(n/2) * x    if n>0 && n is odd
+          x^(n/2) * x^(n/2) / x    if n<0 && n is odd
+
+iterative: (not binary seach, bit operating instead)
+    move one bit at a time... x^0101 = x^4 * x

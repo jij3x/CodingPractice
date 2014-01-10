@@ -1,0 +1,2 @@
+Have an array -  int[32]. Each element will hold the sum of the according bits.
+if int[i] % 3 != 0, then we need this bits in final result.

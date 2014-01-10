@@ -1,0 +1,4 @@
+recursive: need a isSymmeticSame recursive function to determine whether two trees are symmetic same...
+    one's left child same as another's right child, and vice versa.
+
+iterative: BFS, check each level is symmetic

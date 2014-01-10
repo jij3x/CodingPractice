@@ -1,0 +1,3 @@
+Modular 10 and put remaining on new number's first position (*10). Repeat this until the origin number become 0.
+No need to maintain sign, since result from modular has sign.
+Need to watch for overflow???

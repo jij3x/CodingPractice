@@ -1,0 +1,8 @@
+lowercase the string first.
+maintain two pointers, initially point to head and end. While moving towards to each other, compare the character
+they point to. Only letter and digit counts
+
+Need utilities:
+    String.toLowerCase()
+    Character.isLetter()
+    Character.isDigit()

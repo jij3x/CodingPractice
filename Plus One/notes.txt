@@ -1,0 +1,1 @@
+when final carry is 1, need to create a new return array (with extra one slot) to incoprate the carry.

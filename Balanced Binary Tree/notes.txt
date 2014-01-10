@@ -1,0 +1,2 @@
+Return tree height during recursion. Balanced condition: both left child and right child are balanced, plus, their
+height difference is 1 or 0.

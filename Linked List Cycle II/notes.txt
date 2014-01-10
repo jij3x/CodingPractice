@@ -1,0 +1,6 @@
+'I' is distiance from begining to the loop start node
+'C' is loop's length
+when 1-step cursor at the start node of loop, 2-step cursor is ahead of 'I'
+assume after 'N' steps they meet... 2-step cursor traveled '2N'
+so... I+2N-xC=N -> N=xC-I
+Second time they meet, loop start node will be 'I' steps ahead

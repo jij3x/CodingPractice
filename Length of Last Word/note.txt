@@ -1,0 +1,2 @@
+from right to left, find the first non-space first.
+keep going until find a space, or hit the left boundary. maintain the length during this step.

@@ -1,0 +1,2 @@
+Compare first and last numbers, then get rid off them, and keep going till the number become one digit or 0.
+Need to clarify whether negative number counts.

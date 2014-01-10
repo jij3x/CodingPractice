@@ -1,0 +1,2 @@
+BFS, use stack instead of queue, as stack will give the zigzag effect.
+Will also need to switch the push direction (left first vs. rigth first)

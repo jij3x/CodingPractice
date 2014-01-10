@@ -1,0 +1,1 @@
+x*, and, .* in 'p' is special - when this case happens, need to match more chars in 's' one at a time.
