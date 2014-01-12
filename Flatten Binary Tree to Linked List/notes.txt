@@ -1,0 +1,2 @@
+post order traversal is very interesting: post order traversal (right child first) will have the same topological order
+as flattened list.

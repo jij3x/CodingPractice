@@ -1,0 +1,3 @@
+Pass current depth through recursion, maintain the min depth variable at the same time.
+Watch out for the min depth initial value - should be integer's max value.
+Base case should be set on leaf nodes!

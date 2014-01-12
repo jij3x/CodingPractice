@@ -1,0 +1,3 @@
+Will need to count how many time '1' appeared eventually on ith bit position. If total occurrence is odd number,
+the ith bit on that single number is '0' (since it must be odd number of '0' occurrence). If occurrence is even
+number, single number's ith bit is '1'.

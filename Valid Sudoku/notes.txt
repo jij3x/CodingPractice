@@ -1,0 +1,10 @@
+validate 3 rounds: one for rows, two for columns, three for 3x3 grids
+
+to validate 3x3 grids:
+
+    for (y=0; y<3; i++)
+        for (x=0; x<3; j++)
+            for (yy=y*3; yy<y*3+3; yy++)
+                for (xx=x*3; xx<x*3+3; xx++) {
+                    ...
+                }

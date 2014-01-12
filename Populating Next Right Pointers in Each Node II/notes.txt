@@ -1,0 +1,4 @@
+solution #1: BFS, reuse next pointer as a queue (not real queue, no extra space needed!)
+
+solution #2: DFS, preorder traversal right child first!
+    right child first will make sure next node can be found through parent's next

@@ -1,0 +1,3 @@
+split the list in half
+then, reverse the second half
+finally, merge second half into first half

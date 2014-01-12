@@ -1,0 +1,3 @@
+Has to be in place!
+Will pick row #0 and column #0 for book keeping
+Need extra 2 booleans to keep track on wether row #0 and column #0 need to be cleared.

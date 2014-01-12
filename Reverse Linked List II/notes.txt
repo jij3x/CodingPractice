@@ -1,0 +1,24 @@
+reverse(head, 2, 5)
+
+s->1->2->3->4->5->6->....
+   ^  ^
+prev  pivot
+
+s->1->3->2->4->5->6->....
+   ^     ^
+prev     pivot
+
+s->1->4->3->2->5->6->....
+   ^        ^
+prev        pivot
+
+s->1->5->4->3->2->6->....
+   ^           ^
+prev           pivot
+
+
+for each loop, do
+    next = pivot.next;
+    pivot = next.next;
+    next.next = prev.next;
+    prev.next = next;

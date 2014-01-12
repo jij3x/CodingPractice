@@ -1,2 +1,11 @@
-Have an array -  int[32]. Each element will hold the sum of the according bits.
-if int[i] % 3 != 0, then we need this bits in final result.
+Option #1: Have two extra integers, represent the bits count % 3.
+           For each pair of (highBit, lowBit), 00 for 0 % 3, 01 for 1 % 3, and 10 for 2 % 3.
+           In each counting iteration we need:
+               00 + 1 -> 01;  00 + 0 -> 00
+               01 + 1 -> 10;  01 + 0 -> 01
+               10 + 1 -> 00;  10 + 0 -> 10
+           Another way to look at it is - at the end lowBit will contain the extra once occurrence of '1',
+           while highBit will contain the extra twice occurrence of '1'.
+
+Option #2: Have an array -  int[32]. Each element will hold the sum of the according bits.
+           if int[i] % 3 != 0, then we need this bits in final result.

@@ -1,0 +1,3 @@
+BFS. We can use two queues, current and next, switch them once current become empty.
+     Also, we can use one queue, while maintain two variables: 'nodesInCurrentLevel' and 'nodesInNextLevel'. Same idea
+         as using two queues.
