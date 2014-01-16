@@ -1,0 +1,22 @@
+Need to solve this problem first: How to normalize a line?
+    y = kx + b might not be a good one, as it will introduce 'double'. And even doulbe won't be able to provide enough
+        precision in some cases.
+    ax + by + c = 0 is a better solution. need greatest common divisior here.
+
+sign of GSD(a,b) function is very tricky...
+    we need sign of gsd to be
+        when a!=0, same as a
+        when a=0, same as b
+
+Why? We need those a,b pair have 0 to be normalized to '+': (0,-1) to (0,1), (-1,0) to (1,0). Also, this will give
+a/b a normalized sign.
+
+sample points:
+    (0,1) vs.(0,-3)
+    (1,0) vs.(-3,0)
+    (1,1) vs.(-1,-1)
+    (-1,3) vs. (1,3)
+
+
+Another solution using delta:
+    p1(x1,y1), p2(x2,y2), p3(x3,y3) are on the same line, if (x1-x2)*(y1-y3) = (x1-x3)*(y2-y3)

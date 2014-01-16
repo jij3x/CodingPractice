@@ -1,0 +1,4 @@
+Define a window (head, and end), initially covers the show array. Calculate the water could be contained by these two
+edges, and shrink this window, calculate again and update the Max.
+As head and end go closer, the larger volume of water will happen only when height of edges raise (because width is
+ losing). So, the shrink stretegy is move the shorter bar only.

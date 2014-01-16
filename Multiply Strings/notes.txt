@@ -1,0 +1,6 @@
+same as hand math
+    Maintain an int array (length would be num1.length() + num2.length())
+    Go through each pair of digits, NOTE: ith and jth pair shoul be in (i+j+1)th position of final product
+    The position for final carry from each round is quite tricky!
+    
+    Also, special case: 0*0

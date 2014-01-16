@@ -1,0 +1,4 @@
+Need maintain prevMax during the scan, it stores the max total of sub-array that ends with current pointer 'i'
+    prevMax(i) = Max(prevMax(i-1)+A[i], A[i])
+
+Update the overallMax during the scan as well.
