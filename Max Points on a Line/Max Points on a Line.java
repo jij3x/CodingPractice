@@ -41,3 +41,49 @@ public class Solution {
 		return a == 0 ? b : a / Math.abs(a) * Math.abs(gcd(b % a, a));
 	}
 }
+
+class Solution2 {
+	class Delta {
+		int a, b;
+
+		Delta(int a, int b) {
+			this.a = a;
+			this.b = b;
+		}
+
+		public int hashCode() {
+			if (a == 0)
+				return Integer.MAX_VALUE;
+			else if (b == 0)
+				return Double.valueOf(0.0).hashCode();
+
+			return Double.valueOf((double) b / a).hashCode();
+		}
+
+		public boolean equals(Object obj) {
+			Delta d = (Delta) obj;
+			return (double) this.a * d.b == (double) this.b * d.a;
+		}
+	}
+
+	public int maxPoints(Point[] points) {
+		int finalMax = 0;
+		for (int i = 0; i < points.length; i++) {
+			HashMap<Delta, Integer> deltasMap = new HashMap<Delta, Integer>();
+			int max = 0, same = 1;
+			for (int j = i + 1; j < points.length; j++) {
+				if (points[i].x == points[j].x && points[i].y == points[j].y) {
+					same++;
+				} else {
+					Delta delta = new Delta(points[i].x - points[j].x, points[i].y - points[j].y);
+					deltasMap.put(delta, deltasMap.containsKey(delta) ? deltasMap.get(delta) + 1 : 1);
+
+					max = Math.max(max, deltasMap.get(delta));
+				}
+			}
+			finalMax = Math.max(finalMax, max + same);
+		}
+
+		return finalMax;
+	}
+}
