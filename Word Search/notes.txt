@@ -1,0 +1,4 @@
+DFS
+need a strategyon big visited table - cannot create a visited table every time...
+    if recurrsive function return false, mark visited back to false. 
+        that will avoid create new visited table every once new word search start on a different position

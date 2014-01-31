@@ -1,0 +1,7 @@
+maintain a windows
+    move right boundary towards right if not all chars in T are included in window
+    move left boundary towards right once all chars in T are included in window, until any char is missing from the
+        windows. (This is to make sure find minimum window)
+    repeat above two steps
+
+keep updating the minimum window during above process.

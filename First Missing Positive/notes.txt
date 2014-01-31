@@ -1,0 +1,10 @@
+need to make use of array index
+    scan the array from begin towards end
+        for current position 'i', try to swap the content in the right place (if target index exists)
+        keep swapping until can't swap any more, this is to ensure number in 'i' postion is not swappable
+            before move on to the next index.
+    last, scan altered array once again, find first position where number is not relevent to the index.
+    !!!! in case of empty array, or, array already contains 1...n numbers, return the length+1
+
+special cases: [] -> 1, [0] -> 1, [1] -> 2, [2] -> 1, [100, 200, 300] -> 1
+

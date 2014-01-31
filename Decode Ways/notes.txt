@@ -1,0 +1,6 @@
+DP problem:
+F(Si:) = (Si == '0' ? 0 : F(Si-1:)) + (S(i,i+1) in [1,26] ? F(Si-2:) : 0)
+
+special cases
+    S='', return 0
+    S='0', return 0

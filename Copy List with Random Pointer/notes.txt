@@ -1,0 +1,13 @@
+Linked list manipulation:
+
+    a->b->c->d->e.....
+    |     ^ 
+    +-----+
+
+       +-------------+
+       |             v
+    a->a'->b->b'->c->c'->d->d'->e->e'....
+    |             ^
+    +-------------+
+
+Alternativly, can use method of 'Clone Graph' - DFS with HashMap

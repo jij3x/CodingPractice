@@ -1,0 +1,4 @@
+DFS
+Set base case on 5th level. In base case, cursor should be pointing at the end of string.
+Boundary cases:
+    each segment (if lenght() > 1) should not start with '0'

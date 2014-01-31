@@ -1,0 +1,8 @@
+maintain two pointers, and a HashMap
+scan the string, once dectect a dupicated char, find the previous position, and start from there
+update the maxLength during the scan... using distance between two pointers
+
+example:
+    abcdefgchijklmn
+      ^*   ^*
+once detect duplicated 'c', start process from 'd' (not from 'h').
