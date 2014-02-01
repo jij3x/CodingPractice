@@ -30,10 +30,9 @@ public class Solution {
 		rightHead = sortList(rightHead);
 
 		ListNode start = new ListNode(0);
-		start.next = head;
 		ListNode prev = start;
 		while (head != null && rightHead != null) {
-			if (head.val > rightHead.val) {
+			if (head.val < rightHead.val) {
 				prev.next = head;
 				head = head.next;
 			} else {
