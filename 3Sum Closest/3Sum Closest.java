@@ -9,6 +9,7 @@ public class Solution {
 				int temp = num[i] + num[left] + num[right];
 				if (Math.abs(temp - target) < Math.abs(result - target))
 					result = temp;
+
 				if (temp == target)
 					return target;
 				else if (temp < target)
