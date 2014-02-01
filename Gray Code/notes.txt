@@ -1,1 +1,1 @@
-when a binary number start with '1', it's gray code should be: '1'+ all reversed sub-result
+when a binary number start with '1', it's gray code is: '1'+ all reversed sub-result
