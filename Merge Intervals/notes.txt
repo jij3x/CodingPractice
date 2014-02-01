@@ -1,0 +1,11 @@
+need implement customized comparator for ArrayList<Interval> comparison - 
+    class intervalComparator implements Comparator<Interval> {
+        public int compare(Interval i1, Interval i2) {
+            // DON'T do 'return i1.start - i2.start', since it might overflow!
+            return i1.start == i2.start ? 0 : (i1.start > i2.start ? 1 : -1);
+        }
+    }
+    
+sort the intervals first: Collections.sort(intervals, new intervalComparator ())
+maintain a prev and curr pointer, if no overlap add prev to result and prev point to curr and repeat
+    if overlap update the prev interval (no op on curr pointer in this case) and repeat
