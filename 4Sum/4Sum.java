@@ -24,7 +24,6 @@ public class Solution {
 
 						while (head < end && num[head] == num[head - 1])
 							head++;
-
 						while (head < end && num[end] == num[end + 1])
 							end--;
 					} else if (num[i] + num[j] + num[head] + num[end] < target) {
