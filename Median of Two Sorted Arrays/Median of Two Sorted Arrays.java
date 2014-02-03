@@ -1,53 +1,46 @@
 /*
- * Second efficient O(2log(m+n)), simpler implementation. findKthSmallest() is still difficult to implement.
+ * жи(2*(log(m)+log(n)))
  */
 public class Solution {
 	public double findMedianSortedArrays(int A[], int B[]) {
-		int half = Math.min(A.length, B.length) + Math.abs(A.length - B.length) / 2 + 1;
-		double a = findKthSmallest(A, 0, A.length - 1, B, 0, B.length - 1, half);
-
+		double higherMedian = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2 + 1);
 		if ((A.length + B.length) % 2 == 1)
-			return a;
+			return higherMedian;
 
-		double b = findKthSmallest(A, 0, A.length - 1, B, 0, B.length - 1, half - 1);
-		return (a + b) / 2.0;
+		double lowerMedian = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2);
+		return (lowerMedian + higherMedian) / 2.0;
 	}
 
-	private int findKthSmallest(int[] A, int aStart, int aEnd, int[] B, int bStart, int bEnd, int k) {
-		if (aEnd < aStart)
-			return B[bStart + k - 1];
-		else if (bEnd < bStart)
-			return A[aStart + k - 1];
-		else if (k == 1)
-			return A[aStart] < B[bStart] ? A[aStart] : B[bStart];
+	private int findKthSmallest(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
+		if (al <= 0)
+			return B[bs + k - 1];
+		if (bl <= 0)
+			return A[as + k - 1];
+		if (k == 1)
+			return Math.min(A[as], B[bs]);
 
-		int n = aEnd - aStart + 1;
-		int m = bEnd - bStart + 1;
-		n = (int) ((double) n / (m + n) * k);
-		n = n == 0 ? 1 : n;
-		m = k - n;
-		int i = aStart + n - 1;
-		int j = bStart + m - 1;
+		int m = Math.max(1, (int) ((double) al / (al + bl) * k));
+		int n = k - m;
+		if (A[as + m - 1] >= B[bs + n - 1] && (n == bl || A[as + m - 1] <= B[bs + n]))
+			return A[as + m - 1];
+		else if (B[bs + n - 1] >= A[as + m - 1] && (m == al || B[bs + n - 1] <= A[as + m]))
+			return B[bs + n - 1];
 
-		if (A[i] >= B[j] && (j == bEnd || A[i] <= B[j + 1]))
-			return A[i];
-		else if (B[j] >= A[i] && (i == aEnd || B[j] <= A[i + 1]))
-			return B[j];
+		if (A[as + m - 1] < B[bs + n - 1])
+			// exclude A[as+m-1] and below portion, also, exclude B[bs+n-1] and above portion
+			return findKthSmallest(A, as + m, al - m, B, bs, n - 1, k - m);
 
-		if (A[i] < B[j])
-			return findKthSmallest(A, i + 1, aEnd, B, bStart, j - 1, k - n);
-
-		return findKthSmallest(A, aStart, i - 1, B, j + 1, bEnd, k - m);
+		// exclude B[bs+n-1] and below portion, also, exclude A[as+m-1] and above portion
+		return findKthSmallest(A, as, m - 1, B, bs + n, bl - n, k - n);
 	}
 }
 
 /*
- * Most efficient O(log(m+n)), but not straightforward - many edge cases, tricky implementation.
+ * Most efficient O(log(m)+log(n)), but not straightforward - many edge cases, tricky implementation.
  */
 class Solution2 {
 	public double findMedianSortedArrays(int A[], int B[]) {
-		Result result = findKthSmallest(A, 0, A.length - 1, B, 0, B.length - 1,
-				Math.min(A.length, B.length) + Math.abs(A.length - B.length) / 2 + 1);
+		Result result = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2 + 1);
 		int[] A1 = result.arrayNo == 0 ? A : B;
 		int[] B1 = result.arrayNo == 0 ? B : A;
 
@@ -59,17 +52,14 @@ class Solution2 {
 		double a = A1[i], b = 0;
 		if (j < 0)
 			b = A1[i - 1];
-		else if (i == 0)
-			b = B1[j];
 		else
-			b = Math.max(A1[i - 1], B1[j]);
+			b = i == 0 ? B1[j] : Math.max(A1[i - 1], B1[j]);
 
 		return (a + b) / 2.0;
 	}
 
 	class Result {
-		int arrayNo;
-		int arrayIdx;
+		int arrayNo, arrayIdx;
 
 		Result(int no, int idx) {
 			arrayNo = no;
@@ -77,41 +67,32 @@ class Solution2 {
 		}
 	}
 
-	private Result findKthSmallest(int[] A, int aStart, int aEnd, int[] B, int bStart, int bEnd, int k) {
-		if (aEnd < aStart)
-			return new Result(1, bStart + k - 1);
-		else if (bEnd < bStart)
-			return new Result(0, aStart + k - 1);
-		else if (k == 1)
-			return A[aStart] < B[bStart] ? new Result(0, aStart) : new Result(1, bStart);
+	private Result findKthSmallest(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
+		if (al <= 0)
+			return new Result(1, bs + k - 1);
+		if (bl <= 0)
+			return new Result(0, as + k - 1);
+		if (k == 1)
+			return A[as] < B[bs] ? new Result(0, as) : new Result(1, bs);
 
-		int n = aEnd - aStart + 1;
-		int m = bEnd - bStart + 1;
-		n = (int) ((double) n / (m + n) * k);
-		n = n == 0 ? 1 : n;
-		m = k - n;
-		int i = aStart + n - 1;
-		int j = bStart + m - 1;
+		int m = Math.max(1, (int) ((double) al / (al + bl) * k));
+		int n = k - m;
+		if (A[as + m - 1] >= B[bs + n - 1] && (n == bl || A[as + m - 1] <= B[bs + n]))
+			return new Result(0, as + m - 1);
+		else if (B[bs + n - 1] >= A[as + m - 1] && (m == al || B[bs + n - 1] <= A[as + m]))
+			return new Result(1, bs + n - 1);
 
-		if (A[i] >= B[j] && (j == bEnd || A[i] <= B[j + 1]))
-			return new Result(0, i);
-		else if (B[j] >= A[i] && (i == aEnd || B[j] <= A[i + 1]))
-			return new Result(1, j);
+		if (A[as + m - 1] < B[bs + n - 1])
+			return findKthSmallest(A, as + m, al - m, B, bs, n - 1, k - m);
 
-		if (A[i] < B[j])
-			return findKthSmallest(A, i + 1, aEnd, B, bStart, j - 1, k - n);
-
-		return findKthSmallest(A, aStart, i - 1, B, j + 1, bEnd, k - m);
+		return findKthSmallest(A, as, m - 1, B, bs + n, bl - n, k - n);
 	}
 }
 
 /*
- * The alternative way to achieve O(log(m+n)). Idea is from MIT's 6.046J/18.410J hand out -
+ * The alternative way to achieve O(log(m)+log(n)). Idea is from MIT's 6.046J/18.410J hand out -
  *     Should avoid the original pseudo code - it is unnecessarily complicated, and will involve
- *     even more edge cases.
- *     
- * This algorithm is actually O(log(m)+log(n)), not the fastest. But might be a relatively simple
- *     way to implement binary search for this problem, since only two pointers are involved here.
+ *     even more boundary cases.
  */
 class Solution3 {
 	double findMedianSortedArrays(int A[], int B[]) {
@@ -180,33 +161,31 @@ class Solution3 {
 }
 
 /*
- * Simplest way to implement and understand, but most inefficient O((m+n)/2).
+ * Simplest way
  */
 class Solution4 {
 	public double findMedianSortedArrays(int A[], int B[]) {
-		int aIndex = 0;
-		int bIndex = 0;
-		int previous = 0;
-		int current = 0;
+		double higherMedian = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2 + 1);
+		if ((A.length + B.length) % 2 == 1)
+			return higherMedian;
 
-		int half = Math.min(A.length, B.length) + Math.abs(A.length - B.length) / 2 + 1;
-		for (int count = 1; count <= half; count++) {
-			previous = current;
-			if (aIndex < A.length && bIndex < B.length) {
-				if (A[aIndex] < B[bIndex])
-					current = A[aIndex++];
-				else
-					current = B[bIndex++];
-			} else if (aIndex == A.length) {
-				current = B[bIndex++];
-			} else {
-				current = A[aIndex++];
-			}
-		}
+		double lowerMedian = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2);
+		return (lowerMedian + higherMedian) / 2.0;
+	}
 
-		if ((A.length + B.length) % 2 == 0)
-			return (double) (previous + current) / 2.0;
+	private int findKthSmallest(int A[], int as, int al, int B[], int bs, int bl, int k) {
+		if (al <= 0)
+			return B[bs + k - 1];
+		if (bl <= 0)
+			return A[as + k - 1];
+		if (k == 1)
+			return Math.min(A[as], B[bs]);
 
-		return current;
+		int n = al < bl ? Math.min(k / 2, al) : k - Math.min(k / 2, bl);
+		int m = k - n;
+		if (A[as + n - 1] <= B[bs + m - 1])
+			return findKthSmallest(A, as + n, al - n, B, bs, bl, k - n);
+
+		return findKthSmallest(A, as, al, B, bs + m, bl - m, k - m);
 	}
 }
