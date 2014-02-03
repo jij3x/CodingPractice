@@ -1,5 +1,5 @@
 /*
- * жи(2*(log(m)+log(n)))
+ * O(2*(log(m)+log(n)))
  */
 public class Solution {
 	public double findMedianSortedArrays(int A[], int B[]) {
@@ -101,16 +101,17 @@ class Solution3 {
 		/*
 		 * The range here is [0..A.length-1].
 		 * 
-		 * However, the optimized range should be:
-		 *     left = max(1, (A.length+B.length)/2-B.length) - 1
-		 *     right = min(A.length, (A.length+B.length)/2) - 1
-		 *
-		 * Here is the example:
-		 *     Two arrays - A[30], and, B[20]. We'd like to know the median's location (range) in A. 
-		 *     The 1st element of A is impossible to be the median, since in the merged (virtual) 
-		 *     array C[50], the 1st element of A's latest position is 21st (after entire elements
-		 *     from B). Same for A[2...4]. Likewise, A[26...30] can't be median.
-		 *     On the other hand, for shorter array, median could be in any position.
+		 * However, the optimized range should be: left = max(1,
+		 * (A.length+B.length)/2-B.length) - 1 right = min(A.length,
+		 * (A.length+B.length)/2) - 1
+		 * 
+		 * Here is the example: Two arrays - A[30], and, B[20]. We'd like to
+		 * know the median's location (range) in A. The 1st element of A is
+		 * impossible to be the median, since in the merged (virtual) array
+		 * C[50], the 1st element of A's latest position is 21st (after entire
+		 * elements from B). Same for A[2...4]. Likewise, A[26...30] can't be
+		 * median. On the other hand, for shorter array, median could be in any
+		 * position.
 		 */
 		if (findMedian(A, B, 0, A.length - 1, result))
 			return result[0];
@@ -120,41 +121,38 @@ class Solution3 {
 	}
 
 	/*
-	 * If the median is in A, return 'true'. And set the result. Otherwise, return 'false'.
+	 * If the median is in A, return 'true'. And set the result. Otherwise,
+	 * return 'false'.
 	 */
 	private boolean findMedian(int[] A, int[] B, int aLeft, int aRight, double[] result) {
-		if (A.length == 0 || aLeft > aRight)
+		if (A.length == 0 || aLeft > aRight) {
 			return false;
-
-		int i = (aLeft + aRight) / 2;
-		int j = ((A.length + B.length) / 2 + 1) - (i + 1) - 1;
-		if (j == -1) {
-			if (B.length == 0) {
-				result[0] = A.length % 2 == 1 ? A[i] : (double) (A[i] + A[i - 1]) / 2.0;
-				return true;
-			} else if (A[i] <= B[0]) {
-				result[0] = (A.length + B.length) % 2 == 1 ? A[i] : (double) (A[i] + A[i - 1]) / 2.0;
-				return true;
-			} else {
-				return findMedian(A, B, aLeft, i - 1, result);
-			}
-		} else if (j < -1) {
-			return findMedian(A, B, aLeft, i - 1, result);
-		} else if (j > B.length - 1) {
-			return findMedian(A, B, i + 1, aRight, result);
+		}
+		if (B.length == 0) {
+			result[0] = A.length % 2 == 1 ? A[A.length / 2] : (double) (A[A.length / 2] + A[A.length / 2 - 1]) / 2.0;
+			return true;
 		}
 
-		if (A[i] < B[j]) {
-			return findMedian(A, B, i + 1, aRight, result);
-		} else if (j < B.length - 1 && A[i] > B[j + 1]) {
-			return findMedian(A, B, aLeft, i - 1, result);
+		int m = (aLeft + aRight + 1) / 2 + 1;
+		int n = ((A.length + B.length) / 2 + 1) - m;
+		if (n < 0 || (n < B.length && A[m - 1] > B[n])) {
+			return findMedian(A, B, aLeft, m - 2, result);
+		}
+		if (n > B.length || (n > 0 && A[m - 1] < B[n - 1])) {
+			return findMedian(A, B, m, aRight, result);
 		}
 
-		// At this point is, A[i] is the median. Need to find the lower median in case of odd total number.
+		// At this point is, A[m-1] is the median. Need to find the lower median
+		// in case of odd total number.
 		if ((A.length + B.length) % 2 == 1) {
-			result[0] = A[i];
+			result[0] = A[m - 1];
 		} else {
-			result[0] = (double) (A[i] + (i == 0 ? B[j] : Math.max(A[i - 1], B[j]))) / 2.0;
+			if (n == 0)
+				result[0] = (double) (A[m - 1] + A[m - 2]) / 2.0;
+			else if (m == 1)
+				result[0] = (double) (A[m - 1] + B[n - 1]) / 2.0;
+			else
+				result[0] = (double) (A[m - 1] + Math.max(A[m - 2], B[n - 1])) / 2.0;
 		}
 		return true;
 	}
