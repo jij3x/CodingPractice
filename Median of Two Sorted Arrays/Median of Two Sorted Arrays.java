@@ -99,19 +99,17 @@ class Solution3 {
 		double[] result = new double[1];
 
 		/*
-		 * The range here is [0..A.length-1].
+		 * The initial range here is [0..A.length-1].
 		 * 
-		 * However, the optimized range should be: left = max(1,
-		 * (A.length+B.length)/2-B.length) - 1 right = min(A.length,
-		 * (A.length+B.length)/2) - 1
+		 * However, the optimized initial range should be:
+		 *     left = max(1, (A.length+B.length)/2-B.length) - 1)
+		 *     right = min(A.length, (A.length+B.length)/2) - 1)
 		 * 
-		 * Here is the example: Two arrays - A[30], and, B[20]. We'd like to
-		 * know the median's location (range) in A. The 1st element of A is
-		 * impossible to be the median, since in the merged (virtual) array
-		 * C[50], the 1st element of A's latest position is 21st (after entire
-		 * elements from B). Same for A[2...4]. Likewise, A[26...30] can't be
-		 * median. On the other hand, for shorter array, median could be in any
-		 * position.
+		 * Here is the example: Two arrays - A[30], and, B[20]. We'd like to know the median's 
+		 *     location (range) in A. The 1st element of A is impossible to be the median, since
+		 *     in the merged (virtual) array C[50], the 1st element of A's latest position is
+		 *     21st (after entire elements from B). Same for A[2...4]. Likewise, A[26...30] can't
+		 *     be median. On the other hand, for shorter array, median could be in any position.
 		 */
 		if (findMedian(A, B, 0, A.length - 1, result))
 			return result[0];
@@ -121,8 +119,7 @@ class Solution3 {
 	}
 
 	/*
-	 * If the median is in A, return 'true'. And set the result. Otherwise,
-	 * return 'false'.
+	 * If the median is in A, return 'true'. And set the result. Otherwise, return 'false'.
 	 */
 	private boolean findMedian(int[] A, int[] B, int aLeft, int aRight, double[] result) {
 		if (A.length == 0 || aLeft > aRight) {
@@ -142,8 +139,7 @@ class Solution3 {
 			return findMedian(A, B, m, aRight, result);
 		}
 
-		// At this point is, A[m-1] is the median. Need to find the lower median
-		// in case of odd total number.
+		// At this point is, A[m-1] is the median. Need to find the lower median  in case of odd total number.
 		if ((A.length + B.length) % 2 == 1) {
 			result[0] = A[m - 1];
 		} else {
