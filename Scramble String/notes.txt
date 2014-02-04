@@ -1,0 +1,10 @@
+3D DP
+transitive function:
+    f(i,j,l) = (f(i,j,k) && f(i+k,j+k,l-k)) || (f(i,j+l-k,k) && f(i+k,j,l-k))
+        where 1 <= k < l
+
+f(i,j,l) means: whether, substring starts at s1[i] and substring starts at s2[j] (both have length 'l') are scrambled.
+
+
+Alternative solution: backtracking
+add same characters set checking as a base case.
