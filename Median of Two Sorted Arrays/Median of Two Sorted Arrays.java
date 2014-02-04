@@ -126,7 +126,8 @@ class Solution3 {
 			return false;
 		}
 		if (B.length == 0) {
-			result[0] = A.length % 2 == 1 ? A[A.length / 2] : (double) (A[A.length / 2] + A[A.length / 2 - 1]) / 2.0;
+			int al = A.length;
+			result[0] = al % 2 == 1 ? A[al / 2] : (double) (A[al / 2] + A[al / 2 - 1]) / 2.0;
 			return true;
 		}
 
@@ -139,7 +140,7 @@ class Solution3 {
 			return findMedian(A, B, m, aRight, result);
 		}
 
-		// At this point is, A[m-1] is the median. Need to find the lower median  in case of odd total number.
+		// At this point is, A[m-1] is the median. Need to find the lower median in case of odd total number.
 		if ((A.length + B.length) % 2 == 1) {
 			result[0] = A[m - 1];
 		} else {
