@@ -1,0 +1,8 @@
+2D DP problem
+
+Transitive function:
+    f(i,j) = 
+        f(i+1,j), when S1[i]==S3[i+j]
+        f(j,i+1), when S2[j]==S3[i+j]
+
+f(i,j) means S1i: and S2j: are interleaving strings of S3(i+j):
