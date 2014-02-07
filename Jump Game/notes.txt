@@ -1,0 +1,4 @@
+An Teslar car start from array[0], and want to get to array[n] (the content in array[i] presents battery capacity)
+    When this Teslar car go along the path, it will choose a battery with more energy - either the one it carraying,
+       or, the one in the new position.
+    Teslar will use this stretety to make sure have as much eneregy as possible to travel all the way down to the end.
