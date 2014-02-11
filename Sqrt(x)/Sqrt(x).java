@@ -1,6 +1,6 @@
 public class Solution {
 	public int sqrt(int x) {
-		int start = 1, end = x;
+		int start = 0, end = x;
 		while (start <= end) {
 			long middle = ((long) start + (long) end) / 2;
 			if (middle * middle == x)
