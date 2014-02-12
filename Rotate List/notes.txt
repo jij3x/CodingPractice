@@ -1,0 +1,4 @@
+no safeguard required in this problem
+many edge cases - empty list, k = 0, k > list length
+need to go through the list and found how many nodes, then calculate the break position, find new head and tail
+    be caution - kth mean k number of nodes from end move to head (not the another way around)
