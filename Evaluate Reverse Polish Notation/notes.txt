@@ -1,0 +1,2 @@
+use stack
+watch out for operand's sequence - 0, 3, / = 0/3 (not 3/0, if use the pop() sequence)
