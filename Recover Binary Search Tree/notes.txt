@@ -1,0 +1,12 @@
+in-order tree traversal
+maintain three pointer - prev, node1, node2
+    find first current < prev, prev should be the first mistakenly placed node
+    next time current < prev, current should be the second mistakenly placed node
+    special case - two mistakenly swapped node might be neighbors in topological order
+        here, prev and current are the two nodes in first time we found current < prev
+            so first time current < prev, assign prev to node1, and current to node2
+            next time if current < prev happens again, assign current to node2
+exampes:
+1->2->3->4->5->6->7
+1->2->4->3->5->6->7
+1->6->3->4->5->2->7
