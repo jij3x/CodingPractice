@@ -1,11 +1,11 @@
 public class Solution {
 	public int removeElement(int[] A, int elem) {
-		int l = 0;
+		int len = 0;
 		for (int i = 0; i < A.length; i++) {
 			if (A[i] != elem)
-				A[l++] = A[i];
+				A[len++] = A[i];
 		}
 
-		return l;
+		return len;
 	}
 }
