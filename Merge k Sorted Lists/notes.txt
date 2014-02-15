@@ -1,0 +1,9 @@
+In mergesort solution, each original list has been touched O(logk) times, where k is the number of lists.
+That said, each node has been touched O(logk) times. So the total running time is O(nlogk), where n is 
+the total number of nodes. Note that, for odd cases, as shown above, some list(s) may be touched more 
+than logk times, but still O(logk) times.
+
+HeapSort Solution - 
+* Build up a min heap of the k head nodes of given lists.
+* Take the smallest one (i.e. the head of min heap) and add its next to heap.
+* Repeat until all nodes in lists have been merged into one list.
