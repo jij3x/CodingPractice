@@ -1,3 +1,15 @@
+Top Down approach:
+
+create as many sub-functions as needed -
+    isInteger(String s)
+    isFloat(String s)
+    isENotion(String s)
+    allDigits(String s)
+    ...
+
+edge cases:
+".3", "3." are valid float number, but "." is not.
+
 
 DFA:
        ___________               _____________
