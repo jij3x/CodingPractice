@@ -1,1 +1,18 @@
-when a binary number start with '1', it's gray code is: '1'+ all reversed sub-result
+        000
+ (x) -> 001 -+
+        010  |
+        011  |
+        100  |
+        101  |
+ (y) -> 110 -+
+        111
+
+1. Bits in x and y are all different (x = ~y)
+        which means x^(x>>1) and y^(y>>1) only differ on 1st bit (prefix)
+            abcdefgh          ABCDEFGH
+            (xor)       vs.   (xor)
+            0abcdefg          0ABCDEFG         (a = ~A, b = ~B .....)
+
+2. While x and y's gray code also only differ on 1st bit (reflect prefix)
+
+3. Therefore, n's gray code is: n^(n>>1)

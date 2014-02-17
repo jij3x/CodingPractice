@@ -1,0 +1,5 @@
+Trim leading spaces first.
+Then, process sign character if exists.
+Add digits on result, check if result exceed the int boundary.
+
+special case: 12a45 will return 12
