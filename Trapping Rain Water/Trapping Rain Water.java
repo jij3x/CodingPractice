@@ -3,16 +3,12 @@ public class Solution {
 		if (A.length == 0)
 			return 0;
 
-		int[] leftPeak = new int[A.length];
+		int[] leftPeak = new int[A.length], rightPeak = new int[A.length];
 		leftPeak[0] = A[0];
-		for (int i = 1; i < A.length; i++) {
-			leftPeak[i] = Math.max(leftPeak[i - 1], A[i]);
-		}
-
-		int[] rightPeak = new int[A.length];
 		rightPeak[A.length - 1] = A[A.length - 1];
-		for (int i = A.length - 2; i >= 0; i--) {
-			rightPeak[i] = Math.max(rightPeak[i - 1], A[i]);
+		for (int i = 1, j = A.length - 2; i < A.length; i++, j--) {
+			leftPeak[i] = Math.max(leftPeak[i - 1], A[i]);
+			rightPeak[j] = Math.max(rightPeak[j + 1], A[j]);
 		}
 
 		int sum = 0;
