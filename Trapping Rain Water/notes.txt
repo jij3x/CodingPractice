@@ -1,0 +1,3 @@
+DP solution:
+
+Volumn of water A(i) will trap - Max(max in left of 'i', max in right of 'i') - A(i)
