@@ -1,0 +1,2 @@
+total = sum (node[i].leftTotal x node[i].rightTotal)    i in [1,n]
+base case: when n = 0, total = 1

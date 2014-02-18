@@ -1,4 +1,8 @@
-Need maintain prevMax during the scan, it stores the max total of sub-array that ends with current pointer 'i'
-    prevMax(i) = Max(prevMax(i-1)+A[i], A[i])
+DP solution:
 
-Update the overallMax during the scan as well.
+maintain two variables during the one round scan - "max", and, "sum"
+    max for max sum of sub-array
+    sum for sum of window end with 'i'
+        during table scan, window will be adjusted base on previous window sum:
+            if previous window sum < 0, new winodw will start with A[i]
+            else expand window to incorperate A[i] (sum += A[i])
