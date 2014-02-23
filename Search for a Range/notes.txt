@@ -1,0 +1,3 @@
+Need to binary search two numbers:
+    A[i]==target && (i==0 || A[i-1]<target)
+    A[j]==target && (j==A.length-1 || A[j+1]>target)
