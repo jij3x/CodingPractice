@@ -1,0 +1,6 @@
+3 steps:
+    add all intervals on the left side of new interval,
+    merge and add merged interval,
+    add all intervals on the right side of new interval
+
+watch out: the expectation is to have sorted output!
