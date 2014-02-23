@@ -2,13 +2,14 @@ Option #1: DP
 Easy on idea, but not efficient. Difficult and tedious to impliment in iterative fashion. Overall, it is inefficient
 because of DP nature.
 
-Option #2: Divide and Conquer
-Look t as P1*P2*...Pn, or, *P1*P2*...Pn, or, P1*P2*...Pn*. 
-Find all patterns in s (follow sequence as patterns in p) will give a basic pattern match. No need to worry about
-pattern backtracking (s=ababcdcd, p=ab*cd), since wildcard will absort these cases.
-After basic match, need to look out for
-1. still something remaining in s. In this case, need to match last pattern with s' tail (only if * shown before!)
-2. still something remaining in p. In this case, need to check if all remaining in p is wildcard '*'.
+Option #2: Greedy
+Look s as P1*P2*...Pn, or, *P1*P2*...Pn, or, P1*P2*...Pn*. 
+Try to find all patterns in s (follow the sequence as these patterns show up in p). For example, 
+(s=ababzzabcdcdabcdefef, p=ab*cd*ef) will have an inital match ([ab]abzzab[cd]cdabcd[ef]ef). No worry on chars among
+initial matched groups, since wild card will absorb them.
+After initial match, need to look out for:
+    1. still something remaining in s. In this case, need to match last pattern with s' tail (only if * shown before!)
+    2. still something remaining in p. In this case, need to check if all remaining in p is wildcard '*'.
 
 special cases:
     s=abab, p=ab (no wildcard, and it has to be exact match)
