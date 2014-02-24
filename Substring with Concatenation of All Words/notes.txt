@@ -1,0 +1,7 @@
+option #1 O((n-m)*m)
+    Slide a size of m*l window on S, check to see if all words in dictionary contain in this window.
+
+Option #2 O(n)
+    Use "Minimum Window Substring" approach. It has to be 'l' (length of single word in dictionary) iterations,
+as we need to take care of offset cases. Since we'll process on word, total steps are (n/l). Overall complexity
+is still O(n).
