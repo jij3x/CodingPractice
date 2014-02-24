@@ -1,0 +1,4 @@
+no algorithm involved
+special cases:
+    last line - only one space in between
+    line with one word
