@@ -3,7 +3,7 @@
  * m = L.length
  * l = L[0].length()
  * 
- * O(n*m*l)
+ * O((n-m)*m)
  */
 public class Solution {
 	public ArrayList<Integer> findSubstring(String S, String[] L) {
