@@ -1,3 +1,5 @@
 Similar to "Word Ladder", with modified BFS:
     Maintain a prev list for each word, so that we can reconstruct the ladder after find the end word.
     Maintain an exploring table, instead of using visited table only. This will allow one word have multiple prevs.
+    
+Use DFS to restore the ladder.
