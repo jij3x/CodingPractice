@@ -1,0 +1,3 @@
+Maintain a hashmap during list scanning.
+The hashmap will contain a char sorted word as a key, and all it's anagram list as value.
+After list scan done, output all anagram list with size() > 1.
