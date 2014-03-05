@@ -1,0 +1,4 @@
+partition(S, 0, l) = {S(0,i) X partition(S(i+1,l)}    where 0<=i<S.length()
+
+Or, use DP to calculate and save if a given substring of S is palindrome. Then using backtracking to build up
+the solution.
