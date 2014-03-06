@@ -51,7 +51,6 @@ class Solution2 {
 				level++;
 			}
 		}
-
 		return 0;
 	}
 }
