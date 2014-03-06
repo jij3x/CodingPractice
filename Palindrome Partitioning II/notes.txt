@@ -7,3 +7,5 @@ Transitive Function:
         F(-1) = 0; meaning S(0,n) is a prlindrome
 
 Find all palindrome sub-strings is also an DP problem.
+
+Another option is find short distance (BFS) in palindrome table.
