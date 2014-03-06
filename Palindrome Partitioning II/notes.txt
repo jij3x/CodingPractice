@@ -8,4 +8,4 @@ Transitive Function:
 
 Find all palindrome sub-strings is also an DP problem.
 
-Another option is find short distance (BFS) in palindrome table.
+Another option is to find short distance (using BFS) in palindrome table.
