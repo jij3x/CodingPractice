@@ -1,0 +1,8 @@
+Dual DP
+
+transitive function:
+F(n) = min(F(i-1) + 1); 
+    0 <= i <= n, and, S(i,n) is palindrome
+    F(-1) = 0; meaning S(0,n) is a prlindrome
+
+find all palindrome sub-string is also an DP problem.
