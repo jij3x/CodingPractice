@@ -1,4 +1,4 @@
-find first hop range, within rage, find the max reachable next rage, repeat previous until reach to the end
+find first hop range, within this range, find the max reachable next rage, repeat previous until reach to the end
 
 +---+      +--------+       +----+  
 |   v      |        v       |    v  
