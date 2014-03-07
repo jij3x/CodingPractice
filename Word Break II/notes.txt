@@ -1,0 +1,1 @@
+Need backtracking mechanism on possible breaks (DP here) - maintain an memo(i) indicates whether S(i,n) is breakable.
