@@ -1,0 +1,3 @@
+DP problem:
+
+F(n) = true; if ( F(i) == true && S(i+1,n) in dictionary)
