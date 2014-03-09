@@ -9,7 +9,8 @@ With this discover, we can skip checking station 0...i-1, if a car will stuck in
 solution to O(n).
 
 
-Otimization: whether a car can finish the circule is determined by total gas in each station, and, total cost
-of all path. Total gas greater than total cost make it possible for car to complete the circule. 
-And because there is only one possilbe start point, the end point should be the station with max accumated gas debt.
+Otimization: whether a car can finish the circule is determined by total gas from all stations, and, total cost
+from all path. Total gas greater than total cost makes it possible for car to complete the circule. 
+And because there is only one possilbe start point, the end point should be the station with max accumated gas debt
+along the route.
 
