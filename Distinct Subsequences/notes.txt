@@ -1,0 +1,8 @@
+Transitive function:
+    f(i,j) = f(i+1,j) + S[i]==T[j] ? f(i+1,j+1) : 0
+
+Example: S="ABBBCABBBC" T1="ABC" T2="BC"; for T1, f(0,0)=f(1,0)+f(1,1); for T2, f(0,0)=f(1,0);
+
+Alternative transitive function
+    f(i,j) = f(i-1,j) + S[i]==T[j] ? f(i-1,j-1) : 0
+    here we deal with prefix strings S(:i) and T(:j), instead of surfix strings in first transitive function.

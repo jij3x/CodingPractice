@@ -1,0 +1,4 @@
+create a HashSet base on given array
+for each element i in array find consecutive seq's length by find num(i+1++...) + num(i-1--...)
+update maxLength each time
+when n(i+1) or n(i-1) found, remove it from HashSet (remove origin i as well), this makes algo's complexity as O(n)
