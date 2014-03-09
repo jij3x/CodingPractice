@@ -1,0 +1,15 @@
+Basic idea is to start from each station and check wether a car can finish the circular route. O(n^2)
+
+One discover is:
+If a car starts from station 0 and cannot go further on station i, then, station 0 to i won't be qualified as a
+start point. Because after the car trave from station 0 to station j (0>j>i), it will have at least 0 gas. So, if
+a car cannot reach to station i+1 (from station 0), it cannot start from station j drive to station i+1.
+
+With this discover, we can skip checking station 0...i-1, if a car will stuck in station i. This bring the
+solution to O(n).
+
+
+Otimization: whether a car can finish the circule is determined by total gas in each station, and, total cost
+of all path. Total gas greater than total cost make it possible for car to complete the circule. 
+And because there is only one possilbe start point, the end point should be the station with max accumated gas debt.
+

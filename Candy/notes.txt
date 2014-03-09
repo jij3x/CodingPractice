@@ -1,0 +1,8 @@
+Have a 'candy' table to record the candies should give to Nth child.
+
+Two scans on 'ratings' table:
+    one from start to end, update candy[i] (candy[i] = candy[i-1]+1) if ratings[i] > ratings[i-1]
+    another from end to start, update candy[i] (candy[i] = candy[i+1]+1)
+        if ratings[i] > ratings[i+1] && candy[i] <= candy[i+1]
+
+The requirement is fulfilled after two scans.
