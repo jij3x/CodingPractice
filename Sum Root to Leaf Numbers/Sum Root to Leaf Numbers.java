@@ -8,24 +8,26 @@
  * }
  */
 public class Solution {
+	private int sum;
+
 	public int sumNumbers(TreeNode root) {
 		if (root == null)
 			return 0;
 
-		int[] result = new int[1];
-		dfs(root, 0, result);
-		return result[0];
+		sum = 0;
+		dfs(root, 0);
+		return sum;
 	}
 
-	private void dfs(TreeNode root, int past, int[] result) {
+	private void dfs(TreeNode root, int past) {
 		if (root.left == null && root.right == null) {
-			result[0] += past * 10 + root.val;
+			sum += past * 10 + root.val;
 			return;
 		}
 
 		if (root.left != null)
-			dfs(root.left, past * 10 + root.val, result);
+			dfs(root.left, past * 10 + root.val);
 		if (root.right != null)
-			dfs(root.right, past * 10 + root.val, result);
+			dfs(root.right, past * 10 + root.val);
 	}
 }
