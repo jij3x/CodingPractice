@@ -1,0 +1,3 @@
+Pick the middle element and create new node from it.
+Recurrsively link left part as left-child, and right part as right-child.
+

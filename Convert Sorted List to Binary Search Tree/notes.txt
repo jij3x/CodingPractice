@@ -1,0 +1,11 @@
+Pick the middle node, and recurrsively construct left and right tree 
+    need step half length of list to reach to middle node
+
+Optimized solution:
+    Have a recurrsive buildBST(&head, length) function.
+    note: &head need to be changeable, as we need keep track on the next node.
+        build left tree (by passing half length) first
+        build root on &head, and &head move it self to it's next node.
+            this will ensure &head always point the next node of processed one.
+        build right tree on the updated &head
+        attach left and right children to root, and return
