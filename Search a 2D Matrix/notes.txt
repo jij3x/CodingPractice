@@ -1,0 +1,1 @@
+This kind of 2D matrix can be treated as 1D matrix - element 0 to element m*n-1.
