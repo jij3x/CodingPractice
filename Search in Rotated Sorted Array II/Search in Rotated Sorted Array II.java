@@ -8,13 +8,11 @@ public class Solution {
 				return true;
 
 			if (A[mid] < A[right]) {
-				// 4,5,5,5,5,6,0,(1),1,1,1,1,2,3
 				if (target < A[mid] || target > A[right])
 					right = mid - 1;
 				else
 					left = mid + 1;
 			} else if (A[mid] > A[right]) {
-				// 4,5,5,5,(5),6,0,1,1,1,1,1,2,3
 				if (target > A[mid] || target < A[left])
 					left = mid + 1;
 				else
