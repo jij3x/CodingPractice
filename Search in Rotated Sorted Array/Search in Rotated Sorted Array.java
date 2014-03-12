@@ -7,18 +7,12 @@ public class Solution {
 			if (A[mid] == target)
 				return mid;
 
-			/*
-			 * compare with right to avoid comparing self.
-			 * in case [3,1], if (A[mid] > A[left]) will go wrong...
-			 */
 			if (A[mid] < A[right]) {
-				// 5,6,7,0,(1),2,3,4
 				if (target < A[mid] || target > A[right])
 					right = mid - 1;
 				else
 					left = mid + 1;
 			} else {
-				// 3,4,5,(6),7,0,1,2
 				if (target > A[mid] || target < A[left])
 					left = mid + 1;
 				else
