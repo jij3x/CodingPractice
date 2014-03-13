@@ -1,0 +1,10 @@
+0,1,2,3,4,5,6,7,8,9... nRow=5
+
+0     6
+1   5 7
+2 4   8
+3     ....
+
+x = ith % (n+(n-2))
+when x/n == 0, rowNum = x
+when x/n == 1, rowNum = (n-2) - x%n
