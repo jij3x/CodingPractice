@@ -1,6 +1,3 @@
-/*
- * O(log(m)+log(n))
- */
 public class Solution {
 	public boolean searchMatrix(int[][] matrix, int target) {
 		int m = matrix.length, n = matrix[0].length, start = 0, end = m - 1, mid = 0;
@@ -29,9 +26,6 @@ public class Solution {
 	}
 }
 
-/*
- * O(log(m*n))
- */
 class Solution2 {
 	public boolean searchMatrix(int[][] matrix, int target) {
 		for (int rowCnt = matrix[0].length, start = 0, end = matrix.length * rowCnt - 1; start <= end;) {
