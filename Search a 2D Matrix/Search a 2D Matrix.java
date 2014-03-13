@@ -11,13 +11,14 @@ public class Solution {
 			} else if (matrix[mid][n - 1] < target) {
 				start = mid + 1;
 			} else {
-				int i = 0, j = n - 1;
-				while (i <= j) {
-					int k = (i + j) / 2;
-					if (matrix[mid][k] > target)
-						j = k - 1;
-					else if (matrix[mid][k] < target)
-						i = k + 1;
+				start = 0;
+				end = n - 1;
+				while (start <= end) {
+					int c = (start + end) / 2;
+					if (matrix[mid][c] > target)
+						end = c - 1;
+					else if (matrix[mid][c] < target)
+						start = c + 1;
 					else
 						return true;
 				}
