@@ -1,0 +1,3 @@
+Two boundary cases:
+1. no common prefix
+2. input array is empty

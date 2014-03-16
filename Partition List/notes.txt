@@ -1,0 +1,1 @@
+move greater or equal node to new list, and append the new list to original list.
