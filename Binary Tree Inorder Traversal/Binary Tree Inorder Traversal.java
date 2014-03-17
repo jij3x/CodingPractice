@@ -8,16 +8,18 @@
  * }
  */
 public class Solution {
-	public ArrayList<Integer> preorderTraversal(TreeNode root) {
+	public ArrayList<Integer> inorderTraversal(TreeNode root) {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		Stack<TreeNode> parentStack = new Stack<TreeNode>();
-		parentStack.push(root);
-		while (!parentStack.isEmpty()) {
-			TreeNode curr = parentStack.pop();
+		TreeNode curr = root;
+		while (!parentStack.isEmpty() || curr != null) {
 			if (curr != null) {
+				parentStack.push(curr);
+				curr = curr.left;
+			} else {
+				curr = parentStack.pop();
 				result.add(curr.val);
-				parentStack.push(curr.right);
-				parentStack.push(curr.left);
+				curr = curr.right;
 			}
 		}
 		return result;
@@ -25,18 +27,19 @@ public class Solution {
 }
 
 class Solution2 {
-	public ArrayList<Integer> preorderTraversal(TreeNode root) {
+	public ArrayList<Integer> inorderTraversal(TreeNode root) {
 		ArrayList<Integer> result = new ArrayList<Integer>();
-		doPreorderTraversal(root, result);
+		doInorderTraversal(root, result);
+
 		return result;
 	}
 
-	private void doPreorderTraversal(TreeNode root, ArrayList<Integer> result) {
+	private void doInorderTraversal(TreeNode root, ArrayList<Integer> result) {
 		if (root == null)
 			return;
 
+		doInorderTraversal(root.left, result);
 		result.add(root.val);
-		doPreorderTraversal(root.left, result);
-		doPreorderTraversal(root.right, result);
+		doInorderTraversal(root.right, result);
 	}
 }
