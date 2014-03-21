@@ -6,21 +6,25 @@
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
- */
-
-/*
- * DFS
+ * 
+ * Definition for N-ary tree
+ * public class NaryTreeNode {
+ *     int val;
+ *     ArrayList<NaryTreeNode> children;
+ *     NaryTreeNode(int x) { val = x; children = new ArrayList<NaryTreeNode>(); }
+ * }
  */
 public class Solution {
-	public String serialize(TreeNode root) {
+	// serialize binary tree (DFS fashion)
+	public String dfsBTSerialize(TreeNode root) {
 		StringBuilder result = new StringBuilder();
-		doSerialize(root, result);
+		doDfsBTSerialize(root, result);
 		result.delete(0, 1);
 
 		return result.toString();
 	}
 
-	private void doSerialize(TreeNode root, StringBuilder result) {
+	private void doDfsBTSerialize(TreeNode root, StringBuilder result) {
 		result.append(",");
 		if (root == null) {
 			result.append("n");
@@ -28,16 +32,17 @@ public class Solution {
 		}
 
 		result.append(Integer.toString(root.val));
-		doSerialize(root.left, result);
-		doSerialize(root.right, result);
+		doDfsBTSerialize(root.left, result);
+		doDfsBTSerialize(root.right, result);
 	}
 
-	public TreeNode deserialize(String s) {
+	// deserialize binary tree (DFS fashion)
+	public TreeNode dfsBTDeserialize(String s) {
 		StringBuilder buffer = new StringBuilder(s);
-		return doDeserialize(buffer);
+		return doDfsBTDeserialize(buffer);
 	}
 
-	private TreeNode doDeserialize(StringBuilder buffer) {
+	private TreeNode doDfsBTDeserialize(StringBuilder buffer) {
 		TreeNode root = null;
 		if (buffer.length() == 0)
 			return root;
@@ -52,19 +57,15 @@ public class Solution {
 
 		if (!token.toString().equals("n")) {
 			root = new TreeNode(Integer.parseInt(token.toString()));
-			root.left = doDeserialize(buffer);
-			root.right = doDeserialize(buffer);
+			root.left = doDfsBTDeserialize(buffer);
+			root.right = doDfsBTDeserialize(buffer);
 		}
 
 		return root;
 	}
-}
 
-/*
- * BFS
- */
-class Solution2 {
-	public String serialize(TreeNode root) {
+	// serialize binary tree (BFS fashion)
+	public String bfsBTSerialize(TreeNode root) {
 		StringBuilder result = new StringBuilder();
 		Queue<TreeNode> workingQue = new LinkedList<TreeNode>();
 		workingQue.add(root);
@@ -83,9 +84,10 @@ class Solution2 {
 		return result.toString();
 	}
 
-	public TreeNode deserialize(String s) {
+	// deserialize binary tree (BFS fashion)
+	public TreeNode bfsBTDeserialize(String s) {
 		s += ",";
-		List<TreeNode> list = new ArrayList<TreeNode>();
+		ArrayList<TreeNode> list = new ArrayList<TreeNode>();
 		StringBuilder token = new StringBuilder();
 		for (int i = 0; i < s.length(); i++) {
 			if (s.charAt(i) != ',') {
@@ -108,5 +110,50 @@ class Solution2 {
 			}
 		}
 		return list.get(0);
+	}
+
+	// serialize N-ary tree (grafting to binary tree internally)
+	public String NTSerialize(NaryTreeNode root) {
+		TreeNode lcrsTree = grafting(root);
+		return bfsBTSerialize(lcrsTree);
+	}
+
+	// deserialize N-ary tree (grafting to binary tree internally)
+	public NaryTreeNode NTdeserialize(String s) {
+		TreeNode lcrsTree = bfsBTDeserialize(s);
+		return unGrafting(lcrsTree);
+	}
+
+	private TreeNode grafting(NaryTreeNode root) {
+		if (root == null)
+			return null;
+
+		ArrayList<TreeNode> childList = new ArrayList<TreeNode>();
+		TreeNode binaryNode = new TreeNode(root.val);
+		for (int i = 0; i < root.children.size(); i++) {
+			childList.add(grafting(root.children.get(i)));
+			if (i > 0) {
+				childList.get(i - 1).right = childList.get(i);
+			}
+		}
+
+		binaryNode.left = childList.isEmpty() ? null : childList.get(0);
+		return binaryNode;
+	}
+
+	private NaryTreeNode unGrafting(TreeNode root) {
+		if (root == null)
+			return null;
+
+		NaryTreeNode naryNode = new NaryTreeNode(root.val);
+		ArrayList<NaryTreeNode> childList = new ArrayList<NaryTreeNode>();
+		TreeNode child = root.left;
+		while (child != null) {
+			childList.add(unGrafting(child));
+			child = child.right;
+		}
+
+		naryNode.children = childList;
+		return naryNode;
 	}
 }
