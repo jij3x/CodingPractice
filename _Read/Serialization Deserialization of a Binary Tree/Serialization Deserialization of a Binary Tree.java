@@ -1,3 +1,6 @@
+/*
+ * DFS
+ */
 public class Solution {
 	public String serialize(TreeNode root) {
 		StringBuilder result = new StringBuilder();
@@ -47,6 +50,9 @@ public class Solution {
 	}
 }
 
+/*
+ * BFS
+ */
 class Solution2 {
 	public String serialize(TreeNode root) {
 		StringBuilder result = new StringBuilder();
