@@ -69,34 +69,28 @@ class Solution2 {
 
 	public TreeNode deserialize(String s) {
 		s += ",";
-		Queue<TreeNode> workingQue = new LinkedList<TreeNode>();
-		TreeNode root = null;
-		String token = "";
-		boolean toLeft = true;
-		for (int p = 0; p < s.length(); p++) {
-			if (s.charAt(p) == ',') {
-				TreeNode curr = token.equals("n") ? null : new TreeNode(Integer.parseInt(token));
-				if (workingQue.isEmpty()) {
-					root = curr;
-				} else {
-					while (workingQue.peek() == null)
-						workingQue.poll();
-
-					if (toLeft) {
-						workingQue.peek().left = curr;
-						toLeft = false;
-					} else {
-						workingQue.poll().right = curr;
-						toLeft = true;
-					}
-				}
-				workingQue.add(curr);
-				token = "";
+		List<TreeNode> list = new ArrayList<TreeNode>();
+		StringBuilder token = new StringBuilder();
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) != ',') {
+				token.append(s.charAt(i));
 			} else {
-				token += s.charAt(p);
+				TreeNode node = token.charAt(0) == 'n' ? null : new TreeNode(Integer.parseInt(token.toString()));
+				list.add(node);
+				token = new StringBuilder();
 			}
 		}
 
-		return root;
+		for (int i = 1, j = 0, c = 0; i < list.size(); i++, c = (c + 1) % 2) {
+			if (c == 0) {
+				list.get(j).left = list.get(i);
+			} else {
+				list.get(j++).right = list.get(i);
+				while (j < list.size() && list.get(j) == null) {
+					j++;
+				}
+			}
+		}
+		return list.get(0);
 	}
 }
