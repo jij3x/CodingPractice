@@ -191,49 +191,4 @@ public class Solution {
 		}
 		return nodeList[0];
 	}
-
-	// serialize N-ary tree (grafting to binary tree internally)
-	public String NTSerialize(NaryTreeNode root) {
-		TreeNode lcrsTree = grafting(root);
-		return bfsBTSerialize(lcrsTree);
-	}
-
-	// deserialize N-ary tree (grafting to binary tree internally)
-	public NaryTreeNode NTdeserialize(String s) {
-		TreeNode lcrsTree = bfsBTDeserialize(s);
-		return unGrafting(lcrsTree);
-	}
-
-	private TreeNode grafting(NaryTreeNode root) {
-		if (root == null)
-			return null;
-
-		ArrayList<TreeNode> childList = new ArrayList<TreeNode>();
-		TreeNode binaryNode = new TreeNode(root.val);
-		for (int i = 0; i < root.children.size(); i++) {
-			childList.add(grafting(root.children.get(i)));
-			if (i > 0) {
-				childList.get(i - 1).right = childList.get(i);
-			}
-		}
-
-		binaryNode.left = childList.isEmpty() ? null : childList.get(0);
-		return binaryNode;
-	}
-
-	private NaryTreeNode unGrafting(TreeNode root) {
-		if (root == null)
-			return null;
-
-		NaryTreeNode naryNode = new NaryTreeNode(root.val);
-		ArrayList<NaryTreeNode> childList = new ArrayList<NaryTreeNode>();
-		TreeNode child = root.left;
-		while (child != null) {
-			childList.add(unGrafting(child));
-			child = child.right;
-		}
-
-		naryNode.children = childList;
-		return naryNode;
-	}
 }
