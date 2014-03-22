@@ -35,28 +35,27 @@ public class Solution {
 		doDfsBTSerialize(root.right, result);
 	}
 
+	private int p;
+
 	public TreeNode dfsBTDeserialize(String s) {
-		StringBuilder buffer = new StringBuilder(s);
-		return doDfsBTDeserialize(buffer);
+		this.p = 0;
+		return doDfsBTDeserialize(s);
 	}
 
-	private TreeNode doDfsBTDeserialize(StringBuilder buffer) {
-		TreeNode root = null;
-		if (buffer.length() == 0)
-			return root;
+	private TreeNode doDfsBTDeserialize(String s) {
+		if (this.p == s.length())
+			return null;
 
+		TreeNode root = null;
 		StringBuilder token = new StringBuilder();
-		while (buffer.length() > 0 && buffer.charAt(0) != ',') {
-			token.append(buffer.charAt(0));
-			buffer.delete(0, 1);
+		while (this.p < s.length() && s.charAt(this.p++) != ',') {
+			token.append(s.charAt(this.p - 1));
 		}
-		if (buffer.length() > 0)
-			buffer.delete(0, 1);
 
 		if (!token.toString().equals("n")) {
 			root = new TreeNode(Integer.parseInt(token.toString()));
-			root.left = doDfsBTDeserialize(buffer);
-			root.right = doDfsBTDeserialize(buffer);
+			root.left = doDfsBTDeserialize(s);
+			root.right = doDfsBTDeserialize(s);
 		}
 
 		return root;
