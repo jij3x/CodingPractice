@@ -7,25 +7,23 @@ public class Solution {
             if (i > 0 && num[i] == num[i - 1])
                 continue;
 
-            int m = i + 1, n = num.length - 1;
-            while (m < n) {
-                if (num[m] + num[n] < -num[i]) {
-                    m++;
-                } else if (num[m] + num[n] > -num[i]) {
-                    n--;
+            int start = i + 1, end = num.length - 1;
+            while (start < end) {
+                if (num[start] + num[end] > -num[i]) {
+                    end--;
+                } else if (num[start] + num[end] < -num[i]) {
+                    start++;
                 } else {
-                    ArrayList<Integer> r = new ArrayList<Integer>(Arrays.asList(num[i], num[m++], num[n--]));
-                    result.add(r);
+                    result.add(new ArrayList<Integer>(Arrays.asList(num[i], num[start++], num[end--])));
 
-                    while (m < n && num[m] == num[m - 1])
-                        m++;
+                    while (start < end && num[start] == num[start - 1])
+                        start++;
 
-                    while (m < n && num[n] == num[n + 1])
-                        n--;
+                    while (start < end && num[end] == num[end + 1])
+                        end--;
                 }
             }
         }
-
         return result;
     }
 }
