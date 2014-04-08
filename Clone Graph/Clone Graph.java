@@ -30,25 +30,23 @@ public class Solution {
     }
 }
 
-class Solution2 {
-	public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-		if (node == null)
-			return null;
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null)
+            return null;
 
-		HashMap<Integer, UndirectedGraphNode> visited = new HashMap<Integer, UndirectedGraphNode>();
-		dfs(node, visited);
-		return visited.get(node.label);
-	}
+        Map<UndirectedGraphNode, UndirectedGraphNode> visited = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+        dfsClone(node, visited);
+        return visited.get(node);
+    }
 
-	private void dfs(UndirectedGraphNode node, HashMap<Integer, UndirectedGraphNode> visited) {
-		UndirectedGraphNode returnNode = new UndirectedGraphNode(node.label);
-		visited.put(node.label, returnNode);
+    private void dfsClone(UndirectedGraphNode root, Map<UndirectedGraphNode, UndirectedGraphNode> visited) {
+        visited.put(root, new UndirectedGraphNode(root.label));
+        for (UndirectedGraphNode n : root.neighbors) {
+            if (!visited.containsKey(n))
+                dfsClone(n, visited);
 
-		for (UndirectedGraphNode sn : node.neighbors) {
-			if (!visited.containsKey(sn.label)) {
-				dfs(sn, visited);
-			}
-			returnNode.neighbors.add(visited.get(sn.label));
-		}
-	}
+            visited.get(root).neighbors.add(visited.get(n));
+        }
+    }
 }
