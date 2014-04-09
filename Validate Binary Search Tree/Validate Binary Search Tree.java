@@ -40,12 +40,6 @@ public class Solution2 {
     }
 
     private boolean doIsValidBST(TreeNode root, int[] boundary) {
-        if (root.left == null && root.right == null) {
-            boundary[0] = root.val;
-            boundary[1] = root.val;
-            return true;
-        }
-
         int smallest = root.val, largest = root.val;
 
         if (root.left != null) {
