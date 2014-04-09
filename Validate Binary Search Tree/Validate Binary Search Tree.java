@@ -30,7 +30,7 @@ public class Solution {
     }
 }
 
-public class Solution2 {
+class Solution2 {
     public boolean isValidBST(TreeNode root) {
         if (root == null)
             return true;
