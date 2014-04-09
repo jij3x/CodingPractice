@@ -30,7 +30,7 @@ public class Solution {
     }
 }
 
-public class Solution {
+class Solution2 {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if (node == null)
             return null;
