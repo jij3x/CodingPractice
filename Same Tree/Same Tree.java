@@ -18,3 +18,28 @@ public class Solution {
         return false;
     }
 }
+
+// Solution for case: if node can be pointed by more than one parent.
+class Solution2 {
+    public boolean isSameTree(TreeNode root1, TreeNode root2) {
+        Map<TreeNode, TreeNode> visited = new HashMap<TreeNode, TreeNode>();
+
+        return doIsSameTree(root1, root2, visited);
+    }
+
+    private boolean doIsSameTree(TreeNode root1, TreeNode root2, Map<TreeNode, TreeNode> visited) {
+        if (root1 == null && root2 == null)
+            return true;
+        if (root1 == null || root2 == null || root1.val != root2.val
+                || visited.containsKey(root1) != visited.containsKey(root2))
+            return false;
+
+        if (visited.containsKey(root1))
+            return visited.get(root1) == root2;
+
+        visited.put(root1, root2);
+        visited.put(root2, root1);
+
+        return doIsSameTree(root1.left, root2.left, visited) && doIsSameTree(root1.right, root2.right, visited);
+    }
+}
