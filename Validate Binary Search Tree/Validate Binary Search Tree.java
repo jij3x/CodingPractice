@@ -42,29 +42,25 @@ public class Solution {
 	}
 }
 
-class Solution2 {
-	private TreeNode prev;
+public class Solution2 {
+    private TreeNode prev;
 
-	public boolean isValidBST(TreeNode root) {
-		prev = null;
-		return doIsValidBST(root);
-	}
+    public boolean isValidBST(TreeNode root) {
+        prev = null;
+        return doIsValidBST(root);
+    }
 
-	private boolean doIsValidBST(TreeNode root) {
-		if (root == null)
-			return true;
+    private boolean doIsValidBST(TreeNode root) {
+        if (root == null)
+            return true;
 
-		if (!doIsValidBST(root.left))
-			return false;
+        if (!doIsValidBST(root.left))
+            return false;
 
-		if (prev != null && prev.val >= root.val)
-			return false;
-		else
-			prev = root;
+        if (prev != null && prev.val >= root.val)
+            return false;
+        prev = root;
 
-		if (!doIsValidBST(root.right))
-			return false;
-
-		return true;
-	}
+        return doIsValidBST(root.right);
+    }
 }
