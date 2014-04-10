@@ -1,5 +1,5 @@
-option 1: dynamic programming - p(i,j) -> is p(i+1,j-1) palindrom, if so and S(i) and S(j) are same, p(i,j) is true
-              maintain a 2D boolean table (memo) to store p(i,j) .....O(n2) and space O(n2)
+option 1: dynamic programming -> p(i,j) = S(i)==S(j) && p(i+1,j-1)
+              maintain a 2D boolean table (memo) to store p(i,j) .....O(n^2) and space O(n^2)
 
 option 2: have a p(center,s), since palindromic string will have a center, just need to pass i(0...length-1) as center
               p(center,s) will handle two cases: 1.center itself; 2.center' between center and center+1
