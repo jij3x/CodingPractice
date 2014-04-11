@@ -26,26 +26,18 @@ public class Solution {
 class Solution2 {
     public ArrayList<ArrayList<Integer>> combine(int n, int k) {
         ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-        if (k > n) {
+        if (k == 0) {
+            result.add(new ArrayList<Integer>());
             return result;
-        } else if (k == 1) {
-            for (int i = 1; i <= n; i++) {
-                ArrayList<Integer> row = new ArrayList<Integer>();
-                row.add(i);
-                result.add(row);
+        }
+
+        for (int i = n; i >= k; i--) {
+            for (ArrayList<Integer> r : combine(i - 1, k - 1)) {
+                r.add(i);
+                Collections.sort(r);
+                result.add(r);
             }
-            return result;
         }
-
-        ArrayList<ArrayList<Integer>> subResult = combine(n - 1, k - 1);
-        for (ArrayList<Integer> row : subResult) {
-            row.add(n);
-            Collections.sort(row);
-            result.add(row);
-        }
-
-        subResult = combine(n - 1, k);
-        result.addAll(subResult);
 
         return result;
     }
