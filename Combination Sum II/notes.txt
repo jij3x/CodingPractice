@@ -1,2 +1,4 @@
 Not much difference than problem 'Combination Sum'. Just need to do some extra work on duplicates in candidate set -
 sort the source array first, make sure not to process on numbers been processed before.
+For instance, [1,1,2,3], target is 4. After first round, we will have [1,1,2],[1,3]. In second round, we need to skip
+second 1 to avoid another [1,3].
