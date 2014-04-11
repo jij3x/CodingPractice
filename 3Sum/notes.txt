@@ -1,5 +1,5 @@
 sort array first
 for each index in array, find if there are two numbers' sum equals -array[i] - (in the right part of 'i')
-maintain a windows during the array scaning (i's right part), keep shrinking the window till window close.
+maintain a window during the array scaning (i's right part), keep shrinking the window till it closes.
 Note - only for right part of the array, since all possible solutions involve numbers in left part already found.
 complexity: O(n^2)
