@@ -1,4 +1,3 @@
 'same' conditions:
-    both tree are null
-    or
+    both tree are null, or,
     root values are same, and, each left/right children are same
