@@ -1,2 +1,3 @@
 Binary search
-need to watch out: overflow when middle*middle, and, cast between long and int.
+need to watch out: overflow when middle*middle
+   and, need cast to long.
