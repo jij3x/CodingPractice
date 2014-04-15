@@ -1,26 +1,25 @@
 public class Solution {
-	public boolean search(int[] A, int target) {
-		int left = 0;
-		int right = A.length - 1;
-		while (left <= right) {
-			int mid = left + (right - left) / 2;
-			if (A[mid] == target)
-				return true;
+    public boolean search(int[] A, int target) {
+        int start = 0, end = A.length - 1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (A[mid] == target)
+                return true;
 
-			if (A[mid] < A[right]) {
-				if (target < A[mid] || target > A[right])
-					right = mid - 1;
-				else
-					left = mid + 1;
-			} else if (A[mid] > A[right]) {
-				if (target > A[mid] || target < A[left])
-					left = mid + 1;
-				else
-					right = mid - 1;
-			} else {
-				right--;
-			}
-		}
-		return false;
-	}
+            if (A[mid] > A[end]) {
+                if (A[start] <= target && A[mid] > target)
+                    end = mid - 1;
+                else
+                    start = mid + 1;
+            } else if (A[mid] < A[end]) {
+                if (A[mid] < target && A[end] >= target)
+                    start = mid + 1;
+                else
+                    end = mid - 1;
+            } else {
+                end--;
+            }
+        }
+        return false;
+    }
 }
