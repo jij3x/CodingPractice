@@ -8,67 +8,69 @@
  * }
  */
 public class Solution {
-	public void flatten(TreeNode root) {
-		if (root == null)
-			return;
-		dfs(root);
-	}
+    public void flatten(TreeNode root) {
+        if (root == null)
+            return;
 
-	private TreeNode dfs(TreeNode root) {
-		if (root.left == null && root.right == null) {
-			return root;
-		} else if (root.left == null) {
-			return dfs(root.right);
-		} else if (root.right == null) {
-			root.right = root.left;
-			root.left = null;
-			return dfs(root.right);
-		}
+        dfsFlatten(root);
+    }
 
-		TreeNode leftTail = dfs(root.left);
-		TreeNode rightTail = dfs(root.right);
-		leftTail.right = root.right;
-		root.right = root.left;
-		root.left = null;
-		return rightTail;
-	}
+    private TreeNode dfsFlatten(TreeNode root) {
+        if (root.left == null && root.right == null)
+            return root;
+        if (root.left == null)
+            return dfsFlatten(root.right);
+        if (root.right == null) {
+            root.right = root.left;
+            root.left = null;
+            return dfsFlatten(root.right);
+        }
+
+        TreeNode leftTail = dfsFlatten(root.left);
+        TreeNode rightTail = dfsFlatten(root.right);
+        leftTail.right = root.right;
+        root.right = root.left;
+        root.left = null;
+        return rightTail;
+    }
 }
 
 class Solution2 {
-	public void flatten(TreeNode root) {
-		if (root == null)
-			return;
+    public void flatten(TreeNode root) {
+        if (root == null)
+            return;
 
-		if (root.left != null) {
-			TreeNode rightMost = root.left;
-			while (rightMost.right != null)
-				rightMost = rightMost.right;
+        if (root.left != null) {
+            TreeNode tail = root.left;
+            while (tail.right != null)
+                tail = tail.right;
 
-			rightMost.right = root.right;
-			root.right = root.left;
-			root.left = null;
-		}
+            tail.right = root.right;
+            root.right = root.left;
+            root.left = null;
+        }
 
-		flatten(root.right);
-	}
+        flatten(root.right);
+    }
 }
 
 class Solution3 {
-	public void flatten(TreeNode root) {
-		TreeNode[] lastVisited = new TreeNode[1];
-		postOrderTraversal(root, lastVisited);
-	}
+    private TreeNode prev;
 
-	private void postOrderTraversal(TreeNode root, TreeNode[] lastVisited) {
-		if (root == null)
-			return;
-		
-		postOrderTraversal(root.right, lastVisited);
-		postOrderTraversal(root.left, lastVisited);
-		
-		root.right = lastVisited[0];
-		root.left = null;
-		
-		lastVisited[0] = root;
-	}
+    public void flatten(TreeNode root) {
+        prev = null;
+        postOrderTraversal(root);
+    }
+
+    private void postOrderTraversal(TreeNode root) {
+        if (root == null)
+            return;
+
+        postOrderTraversal(root.right);
+        postOrderTraversal(root.left);
+
+        root.right = prev;
+        root.left = null;
+        prev = root;
+    }
 }
