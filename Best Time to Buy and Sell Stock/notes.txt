@@ -1,6 +1,6 @@
 Maintain "minPrice" and "maxProfit"
-During the price list scan, update minPice, and maxProfit (current profix is prices[i] - minPrice) as well
+During the price list scan, update minPice, and maxProfit (current profit is prices[i] - minPrice).
 Idea is - minPrice will potentially lead to maxProfit, but maxProfit not necessary base on minPrice because highest
 price could happened before the minPrice appear.
 
-Pay attention to empty price list.
+Watch out empty price list.
