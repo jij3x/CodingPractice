@@ -1,4 +1,5 @@
-/** * Definition for binary tree
+/**
+ * Definition for binary tree
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
@@ -7,27 +8,26 @@
  * }
  */
 public class Solution {
-	public boolean isBalanced(TreeNode root) {
-		int[] height = new int[1];
-		return doIsBalanced(root, height);
-	}
+    private int height;
 
-	private boolean doIsBalanced(TreeNode root, int[] height) {
-		if (root == null) {
-			height[0] = 0;
-			return true;
-		}
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            height = 0;
+            return true;
+        }
 
-		boolean leftChildBalanced = doIsBalanced(root.left, height);
-		int leftHeight = height[0];
+        if (!isBalanced(root.left))
+            return false;
+        int leftHeight = height;
 
-		boolean rightChildBalanced = doIsBalanced(root.right, height);
-		int rightHeight = height[0];
+        if (!isBalanced(root.right))
+            return false;
+        int rightHeight = height;
 
-		if (!leftChildBalanced || !rightChildBalanced || Math.abs(leftHeight - rightHeight) > 1)
-			return false;
+        if (Math.abs(leftHeight - rightHeight) > 1)
+            return false;
 
-		height[0] = Math.max(leftHeight, rightHeight) + 1;
-		return true;
-	}
+        height = Math.max(leftHeight, rightHeight) + 1;
+        return true;
+    }
 }
