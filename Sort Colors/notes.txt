@@ -1,7 +1,7 @@
 Will need 3 pointers: one for redAfter, one for blueBefore, the other for scan pivot.
 
 scan pivot will start from 0, towards blueBefore. During the scan, there are 3 situation:
-    1. meet red, swap with redAfter
+    1. meet red, swap with redAfter, and advance pivot
     2. meet blue, swap with blueBefore
     3. meet white, advance pivot
 
