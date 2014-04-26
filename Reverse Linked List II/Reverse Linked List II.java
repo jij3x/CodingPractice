@@ -10,43 +10,44 @@
  * }
  */
 public class Solution {
-	public ListNode reverseBetween(ListNode head, int m, int n) {
-		ListNode start = new ListNode(0);
-		start.next = head;
-		ListNode prev = start;
-		for (int i = 1; i < m; i++)
-			prev = prev.next;
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode start = new ListNode(0);
+        start.next = head;
+        ListNode prev = start;
+        for (int i = 1; i < m; i++)
+            prev = prev.next;
 
-		ListNode curr = prev.next;
-		for (int i = m; i < n; i++) {
-			ListNode next = curr.next;
-			curr.next = next.next;
-			next.next = prev.next;
-			prev.next = next;
-		}
+        ListNode curr = prev.next;
+        for (int i = m; i < n; i++) {
+            ListNode next = curr.next;
+            curr.next = next.next;
+            next.next = prev.next;
+            prev.next = next;
+        }
 
-		return start.next;
-	}
+        return start.next;
+    }
 }
 
 class Solution2 {
-	public ListNode reverseBetween(ListNode head, int m, int n) {
-		ListNode start = new ListNode(0);
-		start.next = head;
-		ListNode prev = start;
-		for (int i = 1; i < m; i++)
-			prev = prev.next;
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode start = new ListNode(0);
+        start.next = head;
+        ListNode prev = start;
+        for (int i = 1; i < m; i++)
+            prev = prev.next;
 
-		ListNode subTail = prev.next, subHead = prev, next = prev.next;
-		for (int i = m; i <= n; i++) {
-			ListNode temp = next.next;
-			next.next = subHead;
-			subHead = next;
-			next = temp;
-		}
+        head = prev;
+        ListNode tail = prev.next, next = prev.next;
+        for (int i = m; i <= n; i++) {
+            ListNode temp = next.next;
+            next.next = head;
+            head = next;
+            next = temp;
+        }
 
-		prev.next = subHead;
-		subTail.next = next;
-		return start.next;
-	}
+        prev.next = head;
+        tail.next = next;
+        return start.next;
+    }
 }
