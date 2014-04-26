@@ -1,56 +1,90 @@
 public class Solution {
-	public int minCut(String s) {
-		boolean[][] palindromeMemo = new boolean[s.length()][s.length()];
-		int[] minCutMemo = new int[s.length()];
+    public int minCut(String s) {
+        boolean[][] palTbl = new boolean[s.length()][s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i; j >= 0; j--) {
+                if (s.charAt(j) == s.charAt(i) && (i - j <= 1 || palTbl[j + 1][i - 1]))
+                    palTbl[j][i] = true;
+            }
+        }
 
-		for (int i = 0; i < s.length(); i++) {
-			minCutMemo[i] = i + 1;
-			for (int j = i; j >= 0; j--) {
-				if (s.charAt(j) == s.charAt(i) && (i - j <= 1 || palindromeMemo[j + 1][i - 1])) {
-					palindromeMemo[j][i] = true;
-					minCutMemo[i] = Math.min(minCutMemo[i], j == 0 ? 1 : minCutMemo[j - 1] + 1);
-				}
-			}
-		}
-		return minCutMemo[s.length() - 1] - 1;
-	}
+        int[] memo = new int[s.length()];
+        Arrays.fill(memo, -1);
+        return dpMinPatitions(s, 0, palTbl, memo) - 1;
+    }
+
+    private int dpMinPatitions(String s, int start, boolean[][] palTbl, int[] memo) {
+        if (start == s.length())
+            return 0;
+
+        if (memo[start] != -1)
+            return memo[start];
+
+        int min = s.length() - start;
+        for (int i = start; i < s.length(); i++) {
+            if (palTbl[start][i])
+                min = Math.min(min, dpMinPatitions(s, i + 1, palTbl, memo));
+        }
+
+        memo[start] = min + 1;
+        return memo[start];
+    }
 }
 
 class Solution2 {
-	public int minCut(String s) {
-		boolean[][] palindromeMemo = new boolean[s.length()][s.length()];
-		for (int i = 0; i < s.length(); i++) {
-			for (int j = i; j >= 0; j--) {
-				if (j == i || (s.charAt(j) == s.charAt(i) && (j == i - 1 || palindromeMemo[j + 1][i - 1])))
-					palindromeMemo[j][i] = true;
-			}
-		}
+    public int minCut(String s) {
+        boolean[][] palTbl = new boolean[s.length()][s.length()];
+        int[] minPal = new int[s.length() + 1];
 
-		Queue<Integer> workingQue = new LinkedList<Integer>();
-		boolean[] visited = new boolean[s.length() + 1];
-		workingQue.add(0);
-		visited[0] = true;
-		int currLvlCnt = 1, nextLvlCnt = 0, level = 0;
-		while (currLvlCnt > 0) {
-			int ps = workingQue.poll();
-			currLvlCnt--;
-			if (ps == s.length())
-				return level - 1;
+        for (int i = 0; i < s.length(); i++) {
+            minPal[i + 1] = i + 1;
+            for (int j = i; j >= 0; j--) {
+                if (s.charAt(j) == s.charAt(i) && (i - j <= 1 || palTbl[j + 1][i - 1])) {
+                    palTbl[j][i] = true;
+                    minPal[i + 1] = Math.min(minPal[i + 1], minPal[j] + 1);
+                }
+            }
+        }
 
-			for (int i = ps; i < s.length(); i++) {
-				if (palindromeMemo[ps][i] && !visited[i + 1]) {
-					workingQue.add(i + 1);
-					visited[i + 1] = true;
-					nextLvlCnt++;
-				}
-			}
+        return minPal[s.length()] - 1;
+    }
+}
 
-			if (currLvlCnt == 0) {
-				currLvlCnt = nextLvlCnt;
-				nextLvlCnt = 0;
-				level++;
-			}
-		}
-		return 0;
-	}
+class Solution3 {
+    public int minCut(String s) {
+        boolean[][] palTbl = new boolean[s.length()][s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i; j >= 0; j--) {
+                if (j == i || (s.charAt(j) == s.charAt(i) && (j == i - 1 || palTbl[j + 1][i - 1])))
+                    palTbl[j][i] = true;
+            }
+        }
+
+        Queue<Integer> que = new LinkedList<Integer>();
+        boolean[] visited = new boolean[s.length() + 1];
+        que.add(0);
+        visited[0] = true;
+        int currLvlCnt = 1, nextLvlCnt = 0, level = 0;
+        while (currLvlCnt > 0) {
+            int ps = que.poll();
+            currLvlCnt--;
+            if (ps == s.length())
+                return level - 1;
+
+            for (int i = ps; i < s.length(); i++) {
+                if (palTbl[ps][i] && !visited[i + 1]) {
+                    que.add(i + 1);
+                    visited[i + 1] = true;
+                    nextLvlCnt++;
+                }
+            }
+
+            if (currLvlCnt == 0) {
+                currLvlCnt = nextLvlCnt;
+                nextLvlCnt = 0;
+                level++;
+            }
+        }
+        return 0;
+    }
 }
