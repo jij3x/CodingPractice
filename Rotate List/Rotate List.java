@@ -10,28 +10,28 @@
  * }
  */
 public class Solution {
-	public ListNode rotateRight(ListNode head, int n) {
-		if (head == null)
-			return null;
+    public ListNode rotateRight(ListNode head, int n) {
+        if (head == null)
+            return head;
 
-		int length = 0;
-		for (ListNode temp = head; temp != null; temp = temp.next)
-			length++;
-		if (n == length)
-			return head;
-		n %= length;
+        int length = 0;
+        for (ListNode temp = head; temp != null; temp = temp.next)
+            length++;
+        n %= length;
+        if (n == 0)
+            return head;
 
-		ListNode tail = head, pinoeer = head;
-		for (int i = 0; i < n; i++)
-			pinoeer = pinoeer.next;
-		while (pinoeer.next != null) {
-			pinoeer = pinoeer.next;
-			tail = tail.next;
-		}
+        ListNode prev = head, tail = head.next;
+        for (int i = 0; i < n - 1; i++)
+            tail = tail.next;
+        while (tail.next != null) {
+            prev = prev.next;
+            tail = tail.next;
+        }
 
-		pinoeer.next = head;
-		head = tail.next;
-		tail.next = null;
-		return head;
-	}
+        tail.next = head;
+        head = prev.next;
+        prev.next = null;
+        return head;
+    }
 }
