@@ -1,63 +1,63 @@
 public class Solution {
-	public ArrayList<String> restoreIpAddresses(String s) {
-		ArrayList<String> result = new ArrayList<String>();
-		ArrayList<String> path = new ArrayList<String>();
-		dfs(s, 0, 1, path, result);
-		return result;
-	}
+    public ArrayList<String> restoreIpAddresses(String s) {
+        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> path = new ArrayList<String>();
+        doRestore(s, path, result, 0);
+        return result;
+    }
 
-	private void dfs(String s, int start, int level, ArrayList<String> path, ArrayList<String> result) {
-		if (level == 5) {
-			if (start == s.length()) {
-				String ip = "";
-				for (String segment : path)
-					ip += "." + segment;
-				result.add(ip.substring(1));
-			}
-			return;
-		}
+    private void doRestore(String s, ArrayList<String> path, ArrayList<String> result, int start) {
+        if (path.size() == 4) {
+            if (start == s.length()) {
+                StringBuilder ip = new StringBuilder("");
+                for (String seg : path)
+                    ip.append("." + seg);
+                result.add(ip.substring(1));
+            }
+            return;
+        }
 
-		for (int i = start; i < start + 3 && i < s.length(); i++) {
-			String segment = s.substring(start, i + 1);
-			if ((segment.length() > 1 && segment.charAt(0) == '0') || Integer.parseInt(segment) > 255)
-				break;
+        for (int i = start; i < s.length(); i++) {
+            String seg = s.substring(start, i + 1);
+            if ((seg.charAt(0) == '0' && seg.length() > 1) || Integer.valueOf(seg) > 255)
+                break;
 
-			path.add(segment);
-			dfs(s, i + 1, level + 1, path, result);
-			path.remove(path.size() - 1);
-		}
-	}
+            path.add(s.substring(start, i + 1));
+            doRestore(s, path, result, i + 1);
+            path.remove(path.size() - 1);
+        }
+    }
 }
 
 class Solution2 {
-	public ArrayList<String> restoreIpAddresses(String s) {
-		ArrayList<String> result = new ArrayList<String>();
-		for (int i = 0; i <= 3 && i < s.length(); i++) {
-			String first = s.substring(0, i + 1);
-			if (isInvalid(first))
-				break;
-			for (int j = i + 1; j <= i + 3 && j < s.length(); j++) {
-				String second = s.substring(i + 1, j + 1);
-				if (isInvalid(second))
-					break;
-				for (int k = j + 1; k <= j + 3 && k < s.length(); k++) {
-					String third = s.substring(j + 1, k + 1);
-					if (isInvalid(third))
-						break;
+    public ArrayList<String> restoreIpAddresses(String s) {
+        ArrayList<String> result = new ArrayList<String>();
+        for (int i = 0; i <= 3 && i < s.length(); i++) {
+            String first = s.substring(0, i + 1);
+            if (isInvalid(first))
+                break;
+            for (int j = i + 1; j <= i + 3 && j < s.length(); j++) {
+                String second = s.substring(i + 1, j + 1);
+                if (isInvalid(second))
+                    break;
+                for (int k = j + 1; k <= j + 3 && k < s.length(); k++) {
+                    String third = s.substring(j + 1, k + 1);
+                    if (isInvalid(third))
+                        break;
 
-					if (k + 1 >= s.length())
-						break;
-					String fourth = s.substring(k + 1);
-					if (fourth.length() <= 3 && !isInvalid(fourth))
-						result.add(first + '.' + second + '.' + third + '.' + fourth);
-				}
-			}
-		}
+                    if (k + 1 >= s.length())
+                        break;
+                    String fourth = s.substring(k + 1);
+                    if (fourth.length() <= 3 && !isInvalid(fourth))
+                        result.add(first + '.' + second + '.' + third + '.' + fourth);
+                }
+            }
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	private boolean isInvalid(String s) {
-		return (s.length() > 1 && s.charAt(0) == '0') || Integer.parseInt(s) > 255;
-	}
+    private boolean isInvalid(String s) {
+        return (s.length() > 1 && s.charAt(0) == '0') || Integer.parseInt(s) > 255;
+    }
 }
