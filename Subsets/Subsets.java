@@ -18,6 +18,7 @@ public class Solution {
 
 class Solution2 {
     public ArrayList<ArrayList<Integer>> subsets(int[] S) {
+        Arrays.sort(S);
         return doSubset(S, 0);
     }
 
@@ -29,8 +30,7 @@ class Solution2 {
 
         for (int i = idx; i < S.length; i++) {
             for (ArrayList<Integer> r : doSubset(S, i + 1)) {
-                r.add(S[i]);
-                Collections.sort(r);
+                r.add(0, S[i]);
                 result.add(r);
             }
         }
