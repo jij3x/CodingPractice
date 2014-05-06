@@ -9,16 +9,14 @@ public class Solution {
 
     private void doCombine(int n, int k, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> result) {
         if (k == 0) {
-            ArrayList<Integer> r = new ArrayList<Integer>(path);
-            Collections.sort(r);
-            result.add(r);
+            result.add(new ArrayList<Integer>(path));
             return;
         }
 
         for (int i = n; i >= k; i--) {
-            path.add(i);
+            path.add(0, i);
             doCombine(i - 1, k - 1, path, result);
-            path.remove(path.size() - 1);
+            path.remove(0);
         }
     }
 }
@@ -34,11 +32,9 @@ class Solution2 {
         for (int i = n; i >= k; i--) {
             for (ArrayList<Integer> r : combine(i - 1, k - 1)) {
                 r.add(i);
-                Collections.sort(r);
                 result.add(r);
             }
         }
-
         return result;
     }
 }
