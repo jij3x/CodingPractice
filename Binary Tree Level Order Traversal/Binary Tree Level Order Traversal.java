@@ -8,73 +8,67 @@
  * }
  */
 public class Solution {
-	public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		if (root == null)
-			return result;
+    public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if (root == null)
+            return result;
 
-		Queue<TreeNode> queue1 = new LinkedList<TreeNode>();
-		Queue<TreeNode> queue2 = new LinkedList<TreeNode>();
-		Queue<TreeNode> currentLevel = queue1;
-		Queue<TreeNode> nextLevel = queue2;
+        result.add(new ArrayList<Integer>());
+        Queue<TreeNode> q1 = new LinkedList<TreeNode>(), q2 = new LinkedList<TreeNode>();
+        Queue<TreeNode> currLevel = q1, nextLevel = q2;
+        currLevel.add(root);
+        while (!currLevel.isEmpty()) {
+            TreeNode node = currLevel.poll();
+            result.get(result.size() - 1).add(node.val);
 
-		currentLevel.add(root);
-		ArrayList<Integer> row = new ArrayList<Integer>();
-		while (!currentLevel.isEmpty()) {
-			TreeNode currentNode = currentLevel.poll();
-			row.add(currentNode.val);
+            if (node.left != null)
+                nextLevel.add(node.left);
+            if (node.right != null)
+                nextLevel.add(node.right);
 
-			if (currentNode.left != null)
-				nextLevel.add(currentNode.left);
-			if (currentNode.right != null)
-				nextLevel.add(currentNode.right);
+            if (currLevel.isEmpty() && !nextLevel.isEmpty()) {
+                result.add(new ArrayList<Integer>());
+                currLevel = currLevel == q1 ? q2 : q1;
+                nextLevel = nextLevel == q1 ? q2 : q1;
+            }
+        }
 
-			if (currentLevel.isEmpty()) {
-				result.add(row);
-				row = new ArrayList<Integer>();
-				currentLevel = currentLevel == queue1 ? queue2 : queue1;
-				nextLevel = nextLevel == queue1 ? queue2 : queue1;
-			}
-		}
-
-		return result;
-	}
+        return result;
+    }
 }
 
 class Solution2 {
-	public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		if (root == null)
-			return result;
+    public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if (root == null)
+            return result;
 
-		Queue<TreeNode> workingQue = new LinkedList<TreeNode>();
-		int nodesInCurrentLevel = 1;
-		int nodesInNextLevel = 0;
-		workingQue.add(root);
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.add(root);
+        int currLevelCnt = 1, nextLevelCnt = 0;
 
-		ArrayList<Integer> row = new ArrayList<Integer>();
-		while (!workingQue.isEmpty()) {
-			TreeNode currentNode = workingQue.poll();
-			nodesInCurrentLevel--;
-			row.add(currentNode.val);
+        result.add(new ArrayList<Integer>());
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            currLevelCnt--;
+            result.get(result.size() - 1).add(node.val);
 
-			if (currentNode.left != null) {
-				workingQue.add(currentNode.left);
-				nodesInNextLevel++;
-			}
-			if (currentNode.right != null) {
-				workingQue.add(currentNode.right);
-				nodesInNextLevel++;
-			}
+            if (node.left != null) {
+                q.add(node.left);
+                nextLevelCnt++;
+            }
+            if (node.right != null) {
+                q.add(node.right);
+                nextLevelCnt++;
+            }
 
-			if (nodesInCurrentLevel == 0) {
-				result.add(row);
-				row = new ArrayList<Integer>();
-				nodesInCurrentLevel = nodesInNextLevel;
-				nodesInNextLevel = 0;
-			}
-		}
+            if (currLevelCnt == 0 && nextLevelCnt > 0) {
+                currLevelCnt = nextLevelCnt;
+                nextLevelCnt = 0;
+                result.add(new ArrayList<Integer>());
+            }
+        }
 
-		return result;
-	}
+        return result;
+    }
 }
