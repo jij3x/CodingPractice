@@ -15,28 +15,20 @@ public class Solution {
         if (!s.isEmpty() && (s.charAt(0) == '+' || s.charAt(0) == '-'))
             s = s.substring(1);
 
-        int dotIdx = 0;
-        for (; dotIdx < s.length(); dotIdx++) {
+        for (int dotIdx = 0; dotIdx < s.length(); dotIdx++) {
             if (s.charAt(dotIdx) == '.')
-                break;
+                return s.length() > 1 && allDigits(s.substring(0, dotIdx)) && allDigits(s.substring(dotIdx + 1));
         }
-        if (dotIdx == s.length())
-            return false;
-
-        return s.length() > 1 && allDigits(s.substring(0, dotIdx)) && allDigits(s.substring(dotIdx + 1));
+        return false;
     }
 
     private boolean isENotion(String s) {
-        int expIdx = 0;
-        for (; expIdx < s.length(); expIdx++) {
+        for (int expIdx = 0; expIdx < s.length(); expIdx++) {
             if (s.charAt(expIdx) == 'E' || s.charAt(expIdx) == 'e')
-                break;
+                return (isInteger(s.substring(0, expIdx)) || isFloat(s.substring(0, expIdx)))
+                        && isInteger(s.substring(expIdx + 1));
         }
-        if (expIdx == s.length())
-            return false;
-
-        return (isInteger(s.substring(0, expIdx)) || isFloat(s.substring(0, expIdx)))
-                && isInteger(s.substring(expIdx + 1));
+        return false;
     }
 
     private boolean allDigits(String s) {
