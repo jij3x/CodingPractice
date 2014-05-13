@@ -1,10 +1,7 @@
 public class Solution {
     public boolean isNumber(String s) {
         s = s.trim();
-        if (isInteger(s) || isFloat(s) || isENotion(s))
-            return true;
-
-        return false;
+        return isInteger(s) || isFloat(s) || isENotion(s);
     }
 
     private boolean isInteger(String s) {
