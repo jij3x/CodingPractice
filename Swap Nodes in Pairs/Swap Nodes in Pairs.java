@@ -11,18 +11,14 @@
  */
 public class Solution {
     public ListNode swapPairs(ListNode head) {
-        ListNode safeGuard = new ListNode(0);
-        safeGuard.next = head;
-        ListNode prev = safeGuard;
-        while (prev.next != null && prev.next.next != null) {
-            ListNode second = prev.next.next;
-            ListNode first = prev.next;
-            
-            first.next = second.next;
-            second.next = first;
-            prev.next = second;
-            prev = prev.next.next;
+        ListNode start = new ListNode(0);
+        start.next = head;
+        for (ListNode pivot = start; pivot.next != null && pivot.next.next != null; pivot = pivot.next.next) {
+            ListNode node1 = pivot.next, node2 = pivot.next.next;
+            node1.next = node2.next;
+            node2.next = node1;
+            pivot.next = node2;
         }
-        return safeGuard.next;
+        return start.next;
     }
 }
