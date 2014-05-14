@@ -11,16 +11,10 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        if (head == null)
-            return false;
-
-        ListNode oneStepPivot = head;
-        ListNode twoStepsPivot = head;
-        
-        while (twoStepsPivot.next!= null && twoStepsPivot.next.next!=null) {
-            oneStepPivot = oneStepPivot.next;
-            twoStepsPivot = twoStepsPivot.next.next;
-            if (oneStepPivot == twoStepsPivot)
+        for (ListNode pioneer = head; pioneer != null && pioneer.next != null && pioneer.next.next != null;) {
+            head = head.next;
+            pioneer = pioneer.next.next;
+            if (head == pioneer)
                 return true;
         }
         return false;
