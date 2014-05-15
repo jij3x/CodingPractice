@@ -11,26 +11,16 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        if (head == null)
-            return null;
-            
-        ListNode fastCursor = head;
-        ListNode slowCursor = head;
-        
-        while (fastCursor.next != null && fastCursor.next.next!=null) {
-            fastCursor = fastCursor.next.next;
-            slowCursor = slowCursor.next;
-            
-            if (fastCursor == slowCursor) {
-                ListNode breakCursor = head;
-                while (breakCursor != slowCursor) {
-                    slowCursor = slowCursor.next;
-                    breakCursor = breakCursor.next;
+        for (ListNode pioneer = head, pivot = head;
+                pioneer != null && pioneer.next != null && pioneer.next.next != null;) {
+            if ((pivot = pivot.next) == (pioneer = pioneer.next.next)) {
+                while (head != pivot) {
+                    head = head.next;
+                    pivot = pivot.next;
                 }
-                return breakCursor;
+                return head;
             }
         }
-
         return null;
     }
 }
