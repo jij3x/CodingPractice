@@ -1,26 +1,24 @@
 public class Solution {
-	public int atoi(String str) {
-		str = str.trim();
-		if (str.isEmpty())
-			return 0;
+    public int atoi(String str) {
+        long result = 0;
+        int sign = 1, idx = 0;
 
-		long result = 0, sign = 1;
-		if (str.charAt(0) == '-' || str.charAt(0) == '+') {
-			sign = str.charAt(0) == '-' ? -1 : 1;
-			str = str.substring(1);
-		}
+        while (idx < str.length() && str.charAt(idx) == ' ')
+            idx++;
 
-		for (int i = 0; i < str.length(); i++) {
-			if (str.charAt(i) < '0' || str.charAt(i) > '9')
-				break;
+        if (idx < str.length() && (str.charAt(idx) == '+' || str.charAt(idx) == '-'))
+            sign = str.charAt(idx++) == '+' ? 1 : -1;
 
-			result = result * 10 + (str.charAt(i) - '0');
-			if (sign * result > Integer.MAX_VALUE)
-				return Integer.MAX_VALUE;
-			if (sign * result < Integer.MIN_VALUE)
-				return Integer.MIN_VALUE;
-		}
+        while (idx < str.length() && str.charAt(idx) >= '0' && str.charAt(idx) <= '9') {
+            int digit = str.charAt(idx++) - '0';
 
-		return (int) (sign * result);
-	}
+            result = result * 10 + digit;
+            if (result * sign >= Integer.MAX_VALUE)
+                return Integer.MAX_VALUE;
+            if (result * sign <= Integer.MIN_VALUE)
+                return Integer.MIN_VALUE;
+        }
+
+        return (int) result * sign;
+    }
 }
