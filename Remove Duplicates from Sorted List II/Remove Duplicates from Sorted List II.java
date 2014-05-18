@@ -10,23 +10,21 @@
  * }
  */
 public class Solution {
-	public ListNode deleteDuplicates(ListNode head) {
-		ListNode safeGuard = new ListNode(0);
-		safeGuard.next = head;
-		ListNode prev = safeGuard;
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode start = new ListNode(0), tail = start;
 
-		ListNode pivot = prev.next;
-		while (pivot != null) {
-			while (pivot.next != null && pivot.val == pivot.next.val)
-				pivot = pivot.next;
+        while (head != null) {
+            if (head.next == null || head.val != head.next.val) {
+                tail.next = head;
+                tail = tail.next;
+            } else {
+                while (head.next != null && head.val == head.next.val)
+                    head.next = head.next.next;
+            }
+            head = head.next;
+        }
 
-			if (prev.next == pivot) {
-				prev = pivot;
-			} else {
-				prev.next = pivot.next;
-			}
-			pivot = pivot.next;
-		}
-		return safeGuard.next;
-	}
+        tail.next = null;
+        return start.next;
+    }
 }
