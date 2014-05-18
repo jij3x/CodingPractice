@@ -3,20 +3,16 @@ public class Solution {
         if (x < 0)
             return false;
 
-        int div = 10;
-        while (x / div > 9) {
-            div *= 10;
-        }
-        
-        while (x > 9) {
-            int head = x / div;
-            int tail = x % 10;
-            if (head != tail)
+        int divisor = 1;
+        while (x / divisor > 9)
+            divisor *= 10;
+
+        while (divisor > 1) {
+            if (x / divisor != x % 10)
                 return false;
-                
-            x %= div;
-            x /= 10;
-            div /= 100;
+
+            x = x % divisor / 10;
+            divisor /= 100;
         }
         return true;
     }
