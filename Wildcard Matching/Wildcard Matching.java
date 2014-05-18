@@ -71,7 +71,7 @@ class Solution2 {
             } else {
                 for (int j = 0; j < s.length(); j++)
                     memo[j] = (p.charAt(i) == s.charAt(j) || p.charAt(i) == '?') ? memo[j + 1] : false;
-                memo[memo.length - 1] = false;
+                memo[memo.length - 1] = false; // s:'', p:'?*'
             }
         }
         return memo[0];
