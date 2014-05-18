@@ -11,18 +11,14 @@
  */
 public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        if (head==null)
-            return null;
-        
-        ListNode pivot = head;
-        while (pivot.next != null) {
-            if (pivot.next.val == pivot.val) {
-                pivot.next = pivot.next.next;
-            } else {
-                pivot = pivot.next;
+        if (head != null) {
+            for (ListNode pivot = head; pivot.next != null;) {
+                if (pivot.val == pivot.next.val)
+                    pivot.next = pivot.next.next;
+                else
+                    pivot = pivot.next;
             }
         }
-        
         return head;
     }
 }
