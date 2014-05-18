@@ -8,7 +8,7 @@ public class Solution {
                     return false;
 
                 // wildcard was detected. s:"ABCDEF"; p:"AB*CD";
-                seenStar = false; // to match last pattern in p ("CD"), and, s tail ("EF")
+                seenStar = false; // to match last pattern in p ("CD"), and, s' tail ("EF")
                 si = s.length() - (p.length() - pp);
                 pi = pp;
             } else if (p.charAt(pi) == '*') {
