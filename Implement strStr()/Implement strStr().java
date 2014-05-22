@@ -54,7 +54,7 @@ class Solution2 {
                 cnd++;
                 kmpTbl[pos] = cnd;
                 pos++;
-            } else if (cnd > 0) {
+            } else if (cnd > 0) { // ABABACABABABAC
                 cnd = kmpTbl[cnd];
             } else {
                 kmpTbl[pos] = 0;
