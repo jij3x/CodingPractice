@@ -9,6 +9,26 @@ class ThreadedTreeNode {
 }
 
 public class Solution {
+    public void test() {
+        ThreadedTreeNode n1 = new ThreadedTreeNode(1);
+        ThreadedTreeNode n2 = new ThreadedTreeNode(2);
+        ThreadedTreeNode n3 = new ThreadedTreeNode(3);
+        ThreadedTreeNode n4 = new ThreadedTreeNode(4);
+        ThreadedTreeNode n5 = new ThreadedTreeNode(5);
+        ThreadedTreeNode n6 = new ThreadedTreeNode(6);
+        ThreadedTreeNode n7 = new ThreadedTreeNode(7);
+
+        n4.left = n2;
+        n4.right = n6;
+        n2.left = n1;
+        n2.right = n3;
+        n6.left = n5;
+        n6.right = n7;
+
+        inThreading(n4);
+        System.out.println(inorderTraversal(n4));
+    }
+
     private ThreadedTreeNode prev;
 
     public void inThreading(ThreadedTreeNode root) {
