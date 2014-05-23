@@ -9,13 +9,35 @@ class ThreadedTreeNode {
 }
 
 public class Solution {
-    public void inThread(ThreadedTreeNode root) {
+    private ThreadedTreeNode prev;
+
+    public void inThreading(ThreadedTreeNode root) {
+        prev = null;
+        doInThreading(root);
+    }
+
+    private void doInThreading(ThreadedTreeNode root) {
         if (root == null)
             return;
 
+        doInThreading(root.left);
+
+        if (prev != null) {
+            if (root.left == null) {
+                root.left = prev;
+                root.leftThread = true;
+            }
+            if (prev.right == null) {
+                prev.right = root;
+                prev.rightThread = true;
+            }
+        }
+        prev = root;
+
+        doInThreading(root.right);
     }
 
-    private ArrayList<Integer> inorderTraversal(ThreadedTreeNode root) {
+    public ArrayList<Integer> inorderTraversal(ThreadedTreeNode root) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         if (root == null)
             return result;
@@ -25,12 +47,16 @@ public class Solution {
             curr = curr.left;
 
         result.add(curr.val);
-        while (curr.right != root && curr.right != null) {
+        while (curr.right != null) {
             if (!curr.rightThread) {
+                curr = curr.right;
                 while (!curr.leftThread)
                     curr = curr.left;
-
+            } else {
+                curr = curr.right;
             }
+
+            result.add(curr.val);
         }
 
         return result;
