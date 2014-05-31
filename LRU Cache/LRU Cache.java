@@ -1,70 +1,64 @@
-public class Solution {
-	public class LRUCache {
-		private class DoubleLinkedNode {
-			public int key, val;
-			public DoubleLinkedNode prev, next;
+public class LRUCache {
+    private class DoublyLinkedNode {
+        int key, value;
+        DoublyLinkedNode prev, next;
 
-			public DoubleLinkedNode(int key, int val) {
-				this.key = key;
-				this.val = val;
-				prev = null;
-				next = null;
-			}
-		}
+        DoublyLinkedNode(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
 
-		private int capacity, size;
-		private DoubleLinkedNode head, tail;
-		private HashMap<Integer, DoubleLinkedNode> repo;
+    private HashMap<Integer, DoublyLinkedNode> map;
+    private int capacity, size;
+    private DoublyLinkedNode head, tail;
 
-		public LRUCache(int capacity) {
-			this.capacity = capacity;
-			this.size = 0;
-			head = new DoubleLinkedNode(0, 0);
-			tail = new DoubleLinkedNode(0, 0);
-			repo = new HashMap<Integer, DoubleLinkedNode>();
-			head.next = tail;
-			tail.prev = head;
-		}
+    public LRUCache(int capacity) {
+        this.map = new HashMap<Integer, DoublyLinkedNode>();
+        this.capacity = capacity;
+        head = new DoublyLinkedNode(0, 0);
+        tail = new DoublyLinkedNode(0, 0);
+        head.next = tail;
+        tail.prev = head;
+    }
 
-		private void refreshNode(DoubleLinkedNode currentNode, DoubleLinkedNode head, DoubleLinkedNode tail) {
-			currentNode.prev.next = currentNode.next;
-			currentNode.next.prev = currentNode.prev;
-			currentNode.next = head.next;
-			head.next.prev = currentNode;
-			head.next = currentNode;
-			currentNode.prev = head;
-		}
+    private void refresh(DoublyLinkedNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        node.next = head.next;
+        head.next.prev = node;
+        head.next = node;
+        node.prev = head;
+    }
 
-		public int get(int key) {
-			DoubleLinkedNode currentNode = repo.get(key);
-			if (currentNode == null)
-				return -1;
+    public int get(int key) {
+        if (!map.containsKey(key))
+            return -1;
 
-			refreshNode(currentNode, head, tail);
-			return currentNode.val;
-		}
+        DoublyLinkedNode curr = map.get(key);
+        refresh(curr);
+        return curr.value;
+    }
 
-		public void set(int key, int value) {
-			DoubleLinkedNode currentNode = repo.get(key);
-			if (currentNode == null) {
-				currentNode = new DoubleLinkedNode(key, value);
-				currentNode.next = head.next;
-				head.next.prev = currentNode;
-				head.next = currentNode;
-				currentNode.prev = head;
-				repo.put(key, currentNode);
+    public void set(int key, int value) {
+        DoublyLinkedNode curr = map.get(key);
+        if (curr != null) {
+            curr.value = value;
+            refresh(curr);
+            return;
+        }
 
-				if (size + 1 > capacity) {
-					repo.remove(tail.prev.key);
-					tail.prev.prev.next = tail;
-					tail.prev = tail.prev.prev;
-				} else {
-					size++;
-				}
-			} else {
-				currentNode.val = value;
-				refreshNode(currentNode, head, tail);
-			}
-		}
-	}
+        curr = new DoublyLinkedNode(key, value);
+        map.put(key, curr);
+        curr.next = head.next;
+        head.next.prev = curr;
+        head.next = curr;
+        curr.prev = head;
+        if (++size > capacity) {
+            size = capacity;
+            map.remove(tail.prev.key);
+            tail.prev = tail.prev.prev;
+            tail.prev.next = tail;
+        }
+    }
 }
