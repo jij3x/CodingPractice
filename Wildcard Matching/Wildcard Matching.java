@@ -115,9 +115,6 @@ class Solution3 {
     }
 }
 
-/*
- * Just for idea of matching process. With only basic backtracking mechanism, very inefficient.
- */
 class Solution4 {
     public boolean isMatch(String s, String p) {
         if (p.isEmpty() && s.isEmpty())
