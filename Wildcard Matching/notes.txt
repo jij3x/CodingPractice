@@ -1,4 +1,8 @@
 Option #1: DP
+transitive function:
+    f(i,j) = true, if
+        1. (P[i]==S[j] or P[i]=='?') and f(i+1,j+1)==true
+        2. (P[i]=='*') and there exist f(i+1,x)==true (where x>=j)
 
 Option #2: Greedy
 Look s as P1*P2*...Pn, or, *P1*P2*...Pn, or, P1*P2*...Pn*. 
