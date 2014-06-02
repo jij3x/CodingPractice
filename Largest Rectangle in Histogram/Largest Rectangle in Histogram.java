@@ -31,26 +31,20 @@ public class Solution {
     }
 }
 
-/*
- * Hard to explain. Not suitable for special event.
- */
 class Solution2 {
     public int largestRectangleArea(int[] height) {
-        int[] h = new int[height.length + 1];
-        System.arraycopy(height, 0, h, 0, height.length);
-        h[h.length - 1] = 0;
-
-        Stack<Integer> workingStack = new Stack<Integer>();
-        int i = 0;
-        int maxArea = 0;
-        while (i < h.length) {
-            if (workingStack.isEmpty() || h[workingStack.peek()] <= h[i]) {
-                workingStack.push(i++);
-            } else {
-                int t = workingStack.pop();
-                maxArea = Math.max(maxArea, h[t] * (workingStack.isEmpty() ? i : i - workingStack.peek() - 1));
-            }
+        Stack<Integer> stack = new Stack<Integer>();
+        int max = 0;
+        for (int i = 0; i < height.length;) {
+            if (stack.isEmpty() || height[stack.peek()] <= height[i])
+                stack.push(i++);
+            else
+                max = Math.max(max, height[stack.pop()] * (stack.isEmpty() ? i : i - stack.peek() - 1));
         }
-        return maxArea;
+
+        while (!stack.isEmpty())
+            max = Math.max(max, height[stack.pop()]
+                    * (stack.isEmpty() ? height.length : height.length - stack.peek() - 1));
+        return max;
     }
 }
