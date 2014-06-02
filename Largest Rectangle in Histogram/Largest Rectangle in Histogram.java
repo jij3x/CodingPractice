@@ -34,8 +34,8 @@ public class Solution {
 class Solution2 {
     public int largestRectangleArea(int[] height) {
         Stack<Integer> stack = new Stack<Integer>();
-        int max = 0;
-        for (int i = 0; i < height.length;) {
+        int max = 0, i=0;
+        while (i < height.length) {
             if (stack.isEmpty() || height[stack.peek()] <= height[i])
                 stack.push(i++);
             else
