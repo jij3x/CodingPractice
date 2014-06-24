@@ -8,30 +8,30 @@
  * }
  */
 public class Solution {
-	public ArrayList<TreeNode> generateTrees(int n) {
-		return doGenerateTrees(1, n);
-	}
+    public List<TreeNode> generateTrees(int n) {
+        return doGenerate(1, n);
+    }
 
-	private ArrayList<TreeNode> doGenerateTrees(int start, int end) {
-		ArrayList<TreeNode> result = new ArrayList<TreeNode>();
-		if (start > end) {
-			result.add(null);
-			return result;
-		}
+    private List<TreeNode> doGenerate(int start, int end) {
+        List<TreeNode> result = new ArrayList<TreeNode>();
+        if (start > end) {
+            result.add(null);
+            return result;
+        }
 
-		for (int i = start; i <= end; i++) {
-			ArrayList<TreeNode> leftTrees = doGenerateTrees(start, i - 1);
-			ArrayList<TreeNode> rightTrees = doGenerateTrees(i + 1, end);
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> leftSet = doGenerate(start, i - 1);
+            List<TreeNode> rightSet = doGenerate(i + 1, end);
 
-			for (int l = 0; l < leftTrees.size(); l++) {
-				for (int r = 0; r < rightTrees.size(); r++) {
-					TreeNode root = new TreeNode(i);
-					root.left = leftTrees.get(l); // Need deep copy?
-					root.right = rightTrees.get(r); // Need deep copy?
-					result.add(root);
-				}
-			}
-		}
-		return result;
-	}
+            for (TreeNode leftNode : leftSet) {
+                for (TreeNode rightNode : rightSet) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = leftNode; // Need deep copy?
+                    root.right = rightNode; // Need deep copy?
+                    result.add(root);
+                }
+            }
+        }
+        return result;
+    }
 }
