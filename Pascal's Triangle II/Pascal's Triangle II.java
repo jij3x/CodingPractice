@@ -19,8 +19,7 @@ public class Solution {
 class Solution2 {
     public List<Integer> getRow(int rowIndex) {
         Integer[] result = new Integer[rowIndex + 1];
-        for (int i = 0; i <= rowIndex; i++)
-            result[i] = 1;
+        Arrays.fill(result, 1);
 
         for (int i = 2; i <= rowIndex; i++) {
             for (int j = i - 1; j >= 1; j--)
