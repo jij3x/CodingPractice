@@ -1,5 +1,3 @@
-Need following map for implementation:
-
      1     ....row #0
     1,1    ....row #1
    1,2,1   ....row #2
@@ -9,5 +7,5 @@ Need following map for implementation:
 one way is maintain two rows: one for previous, another for current... both have row #0 as initial row, and loop start
     from row #1
 
-another way is have one row, expanding from middle. For example if we need row #4, will have 1 in middle first...
+another way is have one row, expanding from middle. For example, if we need row #4, will have 1 in middle first...
     then 2,1... then 3,3,1... then 4,6,4,1. Will have to prefill '1' in 1st element.
