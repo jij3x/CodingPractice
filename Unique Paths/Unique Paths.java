@@ -20,7 +20,7 @@ class Solution2 {
     private int dpUniquePaths(int m, int n, int y, int x, int[][] memo) {
         if (y == m && x == n)
             return 1;
-        if (y>m || x >n)
+        if (y > m || x > n)
             return 0;
         if (memo[y][x] != 0)
             return memo[y][x];
