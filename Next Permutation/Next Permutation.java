@@ -1,31 +1,29 @@
 public class Solution {
-	public void nextPermutation(int[] num) {
-		int pivot = num.length - 2;
-		while (pivot >= 0) {
-			if (num[pivot] < num[pivot + 1]) {
-				int i = pivot + 1;
-				while (i < num.length) {
-					if (num[i] <= num[pivot])
-						break;
-					i++;
-				}
-				int temp = num[pivot];
-				num[pivot] = num[i - 1];
-				num[i - 1] = temp;
-				break;
-			}
-			pivot--;
-		}
-		reverse(num, pivot + 1);
-	}
+    public void nextPermutation(int[] num) {
+        int maxIdx = num.length - 1;
+        while (maxIdx > 0) {
+            if (num[maxIdx] > num[maxIdx - 1])
+                break;
+            maxIdx--;
+        }
 
-	private void reverse(int[] num, int start) {
-		int n = num.length - 1;
-		for (int i = start; i <= start + (n - start) / 2; i++) {
-			int temp = num[i];
-			num[i] = num[n - (i - start)];
-			num[n - (i - start)] = temp;
-		}
-		return;
-	}
+        if (maxIdx != 0) {
+            int i = maxIdx;
+            while (i < num.length - 1) {
+                if (num[i] > num[maxIdx - 1] && num[i + 1] <= num[maxIdx - 1])
+                    break;
+                i++;
+            }
+
+            int temp = num[i];
+            num[i] = num[maxIdx - 1];
+            num[maxIdx - 1] = temp;
+        }
+
+        for (int i = maxIdx, j = num.length - 1; i < j; i++, j--) {
+            int temp = num[i];
+            num[i] = num[j];
+            num[j] = temp;
+        }
+    }
 }
