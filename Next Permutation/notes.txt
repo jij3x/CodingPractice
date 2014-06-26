@@ -1,4 +1,4 @@
-from right to left, find 1st element that less than previous one, swap it with the just smaller element in past,
+from right to left, find 1st element that less than previous one, swap it with the just larger element in past,
     and reverse the rest of the array.
 
 sample cases:
