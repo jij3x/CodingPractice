@@ -1,15 +1,11 @@
 public class Solution {
-	public String addBinary(String a, String b) {
-		int ae = a.length() - 1, be = b.length() - 1, carry = 0;
-		StringBuilder result = new StringBuilder("");
-		while (ae >= 0 || be >= 0 || carry > 0) {
-			carry += (ae >= 0 ? a.charAt(ae) - '0' : 0) + (be >= 0 ? b.charAt(be) - '0' : 0);
-			result.insert(0, (char) ((carry % 2) + '0'));
-			carry /= 2;
-
-			ae = ae >= 0 ? ae - 1 : ae;
-			be = be >= 0 ? be - 1 : be;
-		}
-		return result.toString();
-	}
+    public String addBinary(String a, String b) {
+        StringBuilder result = new StringBuilder();
+        for (int i = a.length() - 1, j = b.length() - 1, carry = 0; i >= 0 || j >= 0 || carry > 0; i--, j--) {
+            carry += (i >= 0 ? a.charAt(i) - '0' : 0) + (j >= 0 ? b.charAt(j) - '0' : 0);
+            result.insert(0, (char) (carry % 2 + '0'));
+            carry /= 2;
+        }
+        return result.toString();
+    }
 }
