@@ -1,24 +1,20 @@
 public class Solution {
-	public int[] plusOne(int[] digits) {
-		int[] result = new int[digits.length];
+    public int[] plusOne(int[] digits) {
+        int[] buf = new int[digits.length];
+        int carry = 1;
 
-		int carry = 1;
-		for (int i = digits.length - 1; i >= 0; i--) {
-			result[i] = digits[i] + carry;
-			if (result[i] == 10) {
-				result[i] = 0;
-				carry = 1;
-			} else {
-				carry = 0;
-			}
-		}
+        for (int i = digits.length - 1; i >= 0; i--) {
+            buf[i] += digits[i] + carry;
+            carry = buf[i] / 10;
+            buf[i] %= 10;
+        }
 
-		if (carry == 0)
-			return result;
-
-		int[] r = new int[result.length + 1];
-		System.arraycopy(result, 0, r, 1, result.length);
-		r[0] = 1;
-		return r;
-	}
+        if (carry == 0)
+            return buf;
+        
+        int[] buf2 = new int[buf.length + 1];
+        buf2[0] = carry;
+        System.arraycopy(buf, 0, buf2, 1, buf.length);
+        return buf2;
+    }
 }
