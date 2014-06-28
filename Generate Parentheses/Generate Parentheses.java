@@ -20,10 +20,10 @@ public class Solution {
 
 class Solution2 {
     public List<String> generateParenthesis(int n) {
-        return generate(n, n);
+        return dfs(n, n);
     }
 
-    private List<String> generate(int left, int right) {
+    private List<String> dfs(int left, int right) {
         List<String> result = new LinkedList<String>();
         if (right == 0) {
             result.add("");
@@ -31,16 +31,16 @@ class Solution2 {
         }
 
         if (left == right) {
-            for (String s : generate(left - 1, right))
+            for (String s : dfs(left - 1, right))
                 result.add("(" + s);
             return result;
         }
 
-        for (String s : generate(left, right - 1))
+        for (String s : dfs(left, right - 1))
             result.add(")" + s);
 
         if (left > 0)
-            for (String s : generate(left - 1, right))
+            for (String s : dfs(left - 1, right))
                 result.add("(" + s);
 
         return result;
