@@ -8,7 +8,7 @@
  */
 public class Solution {
     public void connect(TreeLinkNode root) {
-        if (root == null || (root.left==null && root.right==null))
+        if (root == null || root.left == null)
             return;
 
         root.left.next = root.right;
