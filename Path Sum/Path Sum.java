@@ -8,28 +8,18 @@
  * }
  */
 public class Solution {
-	public boolean hasPathSum(TreeNode root, int sum) {
-		if (root == null)
-			return false;
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null)
+            return false;
+        return doHasPathSum(root, 0, sum);
+    }
 
-		return hasSum(root, sum, 0);
-	}
+    private boolean doHasPathSum(TreeNode root, int sum, int target) {
+        if (root.left == null && root.right == null)
+            return sum + root.val == target;
 
-	private boolean hasSum(TreeNode root, int target, int sum) {
-		sum += root.val;
-		if (root.left == null && root.right == null) {
-			if (sum == target)
-				return true;
-			else
-				return false;
-		}
-
-		if (root.left != null && root.right == null)
-			return hasSum(root.left, target, sum);
-
-		if (root.right != null && root.left == null)
-			return hasSum(root.right, target, sum);
-
-		return hasSum(root.left, target, sum) || hasSum(root.right, target, sum);
-	}
+        boolean leftHas = root.left == null ? false : doHasPathSum(root.left, sum + root.val, target);
+        boolean rightHas = root.right == null ? false : doHasPathSum(root.right, sum + root.val, target);
+        return leftHas || rightHas;
+    }
 }
