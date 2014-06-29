@@ -8,21 +8,22 @@
  * }
  */
 public class Solution {
-	private int max;
+    private int max;
 
-	public int maxPathSum(TreeNode root) {
-		max = root == null ? 0 : root.val;
-		dfsMaxPathSum(root);
-		return max;
-	}
+    public int maxPathSum(TreeNode root) {
+        max = root == null ? 0 : root.val;
+        dfsMaxPathSum(root);
+        return max;
+    }
 
-	private int dfsMaxPathSum(TreeNode root) {
-		if (root == null)
-			return 0;
+    private int dfsMaxPathSum(TreeNode root) {
+        if (root == null)
+            return 0;
 
-		int lMax = dfsMaxPathSum(root.left);
-		int rMax = dfsMaxPathSum(root.right);
-		max = Math.max(Math.max(max, lMax + root.val + rMax), Math.max(root.val + lMax, root.val + rMax));
-		return Math.max(root.val, Math.max(root.val + lMax, root.val + rMax));
-	}
+        int lMax = dfsMaxPathSum(root.left);
+        int rMax = dfsMaxPathSum(root.right);
+        max = Math.max(Math.max(max, lMax + root.val + rMax), Math.max(root.val + lMax, root.val + rMax));
+        max = Math.max(max, root.val);
+        return Math.max(root.val, Math.max(root.val + lMax, root.val + rMax));
+    }
 }
