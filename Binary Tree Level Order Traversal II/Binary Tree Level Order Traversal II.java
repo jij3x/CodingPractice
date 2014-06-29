@@ -8,58 +8,56 @@
  * }
  */
 public class Solution {
-	public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		if (root == null)
-			return result;
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> result = new LinkedList<List<Integer>>();
+        if (root == null)
+            return result;
 
-		Stack<ArrayList<Integer>> buffer = new Stack<ArrayList<Integer>>();
-		Queue<TreeNode> currentLevel = new LinkedList<TreeNode>();
-		Queue<TreeNode> nextLevel = new LinkedList<TreeNode>();
+        Queue<TreeNode> que = new LinkedList<TreeNode>();
+        que.add(root);
+        List<Integer> row = new ArrayList<Integer>();
+        for (int currLvl = 1, nextLvl = 0; currLvl > 0;) {
+            TreeNode curr = que.poll();
+            currLvl--;
+            row.add(curr.val);
 
-		ArrayList<Integer> row = new ArrayList<Integer>();
-		currentLevel.add(root);
-		while (!currentLevel.isEmpty()) {
-			TreeNode currentNode = currentLevel.poll();
-			row.add(currentNode.val);
+            if (curr.left != null) {
+                que.add(curr.left);
+                nextLvl++;
+            }
+            if (curr.right != null) {
+                que.add(curr.right);
+                nextLvl++;
+            }
 
-			if (currentNode.left != null)
-				nextLevel.add(currentNode.left);
-			if (currentNode.right != null)
-				nextLevel.add(currentNode.right);
-
-			if (currentLevel.isEmpty()) {
-				buffer.push(row);
-				row = new ArrayList<Integer>();
-				currentLevel = nextLevel;
-				nextLevel = new LinkedList<TreeNode>();
-			}
-		}
-
-		while (!buffer.empty())
-			result.add(buffer.pop());
-
-		return result;
-	}
+            if (currLvl == 0) {
+                result.addFirst(row);
+                row = new ArrayList<Integer>();
+                currLvl = nextLvl;
+                nextLvl = 0;
+            }
+        }
+        return result;
+    }
 }
 
 class Solution2 {
-	public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		dfs(root, 0, result);
-		Collections.reverse(result);
-		return result;
-	}
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+        dfs(root, 0, result);
+        Collections.reverse(result);
+        return result;
+    }
 
-	private void dfs(TreeNode root, int level, ArrayList<ArrayList<Integer>> result) {
-		if (root == null)
-			return;
+    private void dfs(TreeNode root, int level, List<List<Integer>> result) {
+        if (root == null)
+            return;
 
-		if (level > result.size() - 1)
-			result.add(new ArrayList<Integer>());
-		result.get(level).add(root.val);
+        if (result.size() <= level)
+            result.add(new ArrayList<Integer>());
 
-		dfs(root.left, level + 1, result);
-		dfs(root.right, level + 1, result);
-	}
+        result.get(level).add(root.val);
+        dfs(root.left, level + 1, result);
+        dfs(root.right, level + 1, result);
+    }
 }
