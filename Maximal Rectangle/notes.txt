@@ -7,8 +7,8 @@ An 'hanging line' must be existing in the maximal rectangle ('hanging line' is a
 transitive function:
     when point(x,y) is '1'
         height(x,y) = height(x,y-1) + 1
-        left(x,y) = max(left(x,y-1), count of consecutive '1's from x towards left end)
-        right(x,y) = max(right(x,y-1), count of consecutive '1's from x towards right end)
+        left(x,y) = min(left(x,y-1), count of consecutive '1's from x towards left end)
+        right(x,y) = min(right(x,y-1), count of consecutive '1's from x towards right end)
     when point(x,y) is '0'
         height(x,y) = 0
         left(x,y) = 0
