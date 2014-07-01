@@ -1,48 +1,24 @@
 public class Solution {
-	public int maximalRectangle(char[][] matrix) {
-		if (matrix.length == 0 || matrix[0].length == 0)
-			return 0;
+    public int maximalRectangle(char[][] matrix) {
+        if (matrix.length == 0 || matrix[0].length == 0)
+            return 0;
 
-		int[] height = new int[matrix[0].length];
-		int[] left = new int[matrix[0].length];
-		int[] right = new int[matrix[0].length];
-		Arrays.fill(left, left.length);
-		Arrays.fill(right, right.length);
-		int maxArea = 0;
+        int m = matrix.length, n = matrix[0].length, max = 0;
+        int[] heightMemo = new int[n], leftMemo = new int[n], rightMemo = new int[n];
+        for (int y = 0; y < m; y++) {
+            int[] left = new int[n], right = new int[n];
+            for (int x = 0, rx = n - 1; x < n; x++, rx--) {
+                left[x] = matrix[y][x] == '1' ? (x == 0 ? 1 : left[x - 1] + 1) : 0;
+                right[rx] = matrix[y][rx] == '1' ? (rx == n - 1 ? 1 : right[rx + 1] + 1) : 0;
+            }
 
-		for (int y = 0; y < matrix.length; y++) {
-			int[] countLeft = new int[left.length];
-			countLeft[0] = 0;
-			for (int x = 1; x < countLeft.length; x++) {
-				if (matrix[y][x - 1] == '1')
-					countLeft[x] = countLeft[x - 1] + 1;
-				else
-					countLeft[x] = 0;
-			}
-
-			int[] countRight = new int[right.length];
-			countRight[countRight.length - 1] = 0;
-			for (int x = countRight.length - 2; x >= 0; x--) {
-				if (matrix[y][x + 1] == '1')
-					countRight[x] = countRight[x + 1] + 1;
-				else
-					countRight[x] = 0;
-			}
-
-			for (int x = 0; x < matrix[0].length; x++) {
-				if (matrix[y][x] == '1') {
-					height[x]++;
-					left[x] = Math.min(left[x], countLeft[x]);
-					right[x] = Math.min(right[x], countRight[x]);
-					maxArea = Math.max(maxArea, height[x] * (right[x] + left[x] + 1));
-				} else {
-					height[x] = 0;
-					left[x] = left.length;
-					right[x] = right.length;
-				}
-			}
-		}
-
-		return maxArea;
-	}
+            for (int x = 0; x < n; x++) {
+                leftMemo[x] = leftMemo[x] == 0 ? left[x] : Math.min(leftMemo[x], left[x]);
+                rightMemo[x] = rightMemo[x] == 0 ? right[x] : Math.min(rightMemo[x], right[x]);
+                heightMemo[x] = matrix[y][x] == '1' ? heightMemo[x] + 1 : 0;
+                max = Math.max(max, heightMemo[x] * (leftMemo[x] + rightMemo[x] - 1));
+            }
+        }
+        return max;
+    }
 }
