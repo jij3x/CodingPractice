@@ -1,36 +1,35 @@
 public class Solution {
-	public int ladderLength(String start, String end, HashSet<String> dict) {
-		HashSet<String> visited = new HashSet<String>();
-		LinkedList<String> workingQue = new LinkedList<String>();
+    public int ladderLength(String start, String end, Set<String> dict) {
+        Queue<String> que = new LinkedList<String>();
+        HashSet<String> visited = new HashSet<String>();
+        que.add(start);
+        int currLvl = 1, nextLvl = 0, level = 1;
+        visited.add(start);
+        while (currLvl != 0) {
+            String curr = que.poll();
+            currLvl--;
+            if (curr.equals(end))
+                return level;
 
-		workingQue.add(start);
-		int dist = 1, currLevelCnt = 1, nextLevelCnt = 0;
-		while (!workingQue.isEmpty()) {
-			String word = workingQue.poll();
-			if (word.equals(end))
-				return dist;
+            for (int i = 0; i < curr.length(); i++) {
+                StringBuilder buffer = new StringBuilder(curr);
+                for (char c = 'a'; c <= 'z'; c++) {
+                    buffer.setCharAt(i, c);
+                    String word = buffer.toString();
+                    if (!word.equals(curr) && dict.contains(word) && !visited.contains(word)) {
+                        visited.add(word);
+                        que.add(word);
+                        nextLvl++;
+                    }
+                }
+            }
 
-			for (int i = 0; i < word.length(); i++) {
-				StringBuilder buffer = new StringBuilder(word);
-				for (char c = 'a'; c <= 'z'; c++) {
-					buffer.setCharAt(i, c);
-					String newWord = buffer.toString();
-					if (c == word.charAt(i) || !dict.contains(newWord) || visited.contains(newWord))
-						continue;
-
-					workingQue.add(newWord);
-					visited.add(newWord);
-					nextLevelCnt++;
-				}
-			}
-
-			if (--currLevelCnt == 0) {
-				currLevelCnt = nextLevelCnt;
-				nextLevelCnt = 0;
-				dist++;
-			}
-		}
-
-		return 0;
-	}
+            if (currLvl == 0) {
+                currLvl = nextLvl;
+                nextLvl = 0;
+                level++;
+            }
+        }
+        return 0;
+    }
 }
