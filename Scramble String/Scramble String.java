@@ -75,24 +75,21 @@ class Solution2 {
 
 class Solution3 {
     public boolean isScramble(String s1, String s2) {
-        boolean memo[][][] = new boolean[s1.length()][s2.length()][s1.length() + 1];
-        for (int i = 0; i < s1.length(); i++) {
-            for (int j = 0; j < s2.length(); j++)
-                memo[i][j][1] = s1.charAt(i) == s2.charAt(j);
-        }
-
+        boolean memo[][][] = new boolean[s1.length()][s2.length()][s1.length()];
         for (int i = s1.length() - 1; i >= 0; i--) {
             for (int j = s2.length() - 1; j >= 0; j--) {
+                memo[i][j][0] = s1.charAt(i) == s2.charAt(j);
                 for (int len = 2; len <= Math.min(s1.length() - i, s2.length() - j); len++) {
                     for (int m = 1, n = len - 1; m < len; m++, n--) {
-                        if ((memo[i][j][m] && memo[i + m][j + m][n]) || (memo[i][j + m][n] && memo[i + n][j][m])) {
-                            memo[i][j][len] = true;
+                        if ((memo[i][j][m - 1] && memo[i + m][j + m][n - 1])
+                                || (memo[i][j + m][n - 1] && memo[i + n][j][m - 1])) {
+                            memo[i][j][len - 1] = true;
                             break;
                         }
                     }
                 }
             }
         }
-        return memo[0][0][s1.length()];
+        return memo[0][0][s1.length() - 1];
     }
 }
