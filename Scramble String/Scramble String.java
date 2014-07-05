@@ -1,56 +1,98 @@
 public class Solution {
-	public boolean isScramble(String s1, String s2) {
-		if (s1.length() != s2.length())
-			return false;
+    public boolean isScramble(String s1, String s2) {
+        byte memo[][][] = new byte[s1.length()][s2.length()][s1.length()];
+        return dp(s1, 0, s2, 0, s1.length(), memo);
+    }
 
-		boolean[][][] scramble = new boolean[s1.length()][s2.length()][s1.length() + 1];
-		for (int i = 0; i < s1.length(); i++)
-			for (int j = 0; j < s2.length(); j++)
-				scramble[i][j][1] = (s1.charAt(i) == s2.charAt(j));
+    private boolean dp(String s1, int s1s, String s2, int s2s, int length, byte[][][] memo) {
+        if (memo[s1s][s2s][length - 1] != 0)
+            return memo[s1s][s2s][length - 1] == 1 ? true : false;
 
-		for (int i = s1.length() - 1; i >= 0; i--)
-			for (int j = s2.length() - 1; j >= 0; j--)
-				for (int l = 2; l <= Math.min(s1.length() - i, s2.length() - j); l++)
-					for (int k = 1; k < l; k++)
-						if ((scramble[i][j][k] && scramble[i + k][j + k][l - k])
-								|| (scramble[i][j + l - k][k] && scramble[i + k][j][l - k])) {
-							scramble[i][j][l] = true;
-							break;
-						}
+        boolean identical = true;
+        for (int i = s1s, j = s2s; i < s1s + length; i++, j++) {
+            if (s1.charAt(i) != s2.charAt(j)) {
+                identical = false;
+                break;
+            }
+        }
+        if (identical) {
+            memo[s1s][s2s][length - 1] = 1;
+            return true;
+        }
 
-		return scramble[0][0][s1.length()];
-	}
+        for (int i = 1, j = length - 1; i < length; i++, j--) {
+            if ((dp(s1, s1s, s2, s2s, i, memo) && dp(s1, s1s + i, s2, s2s + i, j, memo))
+                    || (dp(s1, s1s, s2, s2s + j, i, memo) && dp(s1, s1s + i, s2, s2s, j, memo))) {
+                memo[s1s][s2s][length - 1] = 1;
+                return true;
+            }
+        }
+        memo[s1s][s2s][length - 1] = -1;
+        return false;
+    }
 }
 
-/*
- * backtracking
- */
+// Backtracking only
 class Solution2 {
-	public boolean isScramble(String s1, String s2) {
-		if (s1.equals(s2))
-			return true;
-		if (!containsSameChars(s1, s2))
-			return false;
+    public boolean isScramble(String s1, String s2) {
+        return bt(s1, 0, s2, 0, s1.length());
+    }
 
-		for (int i = 1; i < s1.length(); i++) {
-			String s1p1 = s1.substring(0, i), s1p2 = s1.substring(i);
-			String s2p1 = s2.substring(0, i), s2p2 = s2.substring(i);
-			String s2rp1 = s2.substring(0, s2.length() - i), s2rp2 = s2.substring(s2.length() - i);
+    private boolean bt(String s1, int s1s, String s2, int s2s, int length) {
+        if (isIdentical(s1, s1s, s2, s2s, length))
+            return true;
+        if (!sameCharSet(s1, s1s, s2, s2s, length))
+            return false;
 
-			if ((isScramble(s1p1, s2p1) && isScramble(s1p2, s2p2))
-					|| (isScramble(s1p1, s2rp2) && isScramble(s1p2, s2rp1)))
-				return true;
-		}
-		return false;
-	}
+        for (int i = 1, j = length - 1; i < length; i++, j--) {
+            if ((bt(s1, s1s, s2, s2s, i) && bt(s1, s1s + i, s2, s2s + i, j))
+                    || (bt(s1, s1s, s2, s2s + j, i) && bt(s1, s1s + i, s2, s2s, j)))
+                return true;
+        }
+        return false;
+    }
 
-	private boolean containsSameChars(String s1, String s2) {
-		char[] chars1 = s1.toCharArray(), chars2 = s2.toCharArray();
-		Arrays.sort(chars1);
-		Arrays.sort(chars2);
-		s1 = new String(chars1);
-		s2 = new String(chars2);
+    private boolean isIdentical(String s1, int s1s, String s2, int s2s, int length) {
+        for (int i = s1s, j = s2s; i < s1s + length; i++, j++) {
+            if (s1.charAt(i) != s2.charAt(j))
+                return false;
+        }
+        return true;
+    }
 
-		return s1.equals(s2);
-	}
+    private boolean sameCharSet(String s1, int s1s, String s2, int s2s, int length) {
+        char[] charSet1 = s1.substring(s1s, s1s + length).toCharArray();
+        char[] charSet2 = s2.substring(s2s, s2s + length).toCharArray();
+        Arrays.sort(charSet1);
+        Arrays.sort(charSet2);
+        for (int i = 0; i < length; i++) {
+            if (charSet1[i] != charSet2[i])
+                return false;
+        }
+        return true;
+    }
+}
+
+class Solution3 {
+    public boolean isScramble(String s1, String s2) {
+        boolean memo[][][] = new boolean[s1.length()][s2.length()][s1.length() + 1];
+        for (int i = 0; i < s1.length(); i++) {
+            for (int j = 0; j < s2.length(); j++)
+                memo[i][j][1] = s1.charAt(i) == s2.charAt(j);
+        }
+
+        for (int i = s1.length() - 1; i >= 0; i--) {
+            for (int j = s2.length() - 1; j >= 0; j--) {
+                for (int len = 2; len <= Math.min(s1.length() - i, s2.length() - j); len++) {
+                    for (int m = 1, n = len - 1; m < len; m++, n--) {
+                        if ((memo[i][j][m] && memo[i + m][j + m][n]) || (memo[i][j + m][n] && memo[i + n][j][m])) {
+                            memo[i][j][len] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return memo[0][0][s1.length()];
+    }
 }
