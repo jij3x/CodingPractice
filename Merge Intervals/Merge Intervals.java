@@ -35,7 +35,6 @@ public class Solution {
     public ArrayList<Interval> merge2(ArrayList<Interval> intervals) {
         ArrayList<Interval> result = new ArrayList<Interval>();
         Collections.sort(intervals, new myComparator());
-
         for (int i = 0; i < intervals.size();) {
             Interval last = new Interval(intervals.get(i).start, intervals.get(i).end);
             result.add(last);
