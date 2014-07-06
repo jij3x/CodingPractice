@@ -8,30 +8,20 @@
  * }
  */
 public class Solution {
-	public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
-		ArrayList<Interval> result = new ArrayList<Interval>();
-
-		int index = 0;
-		for (; index < intervals.size(); index++) {
-			if (intervals.get(index).end >= newInterval.start)
-				break;
-
-			result.add(intervals.get(index));
-		}
-
-		Interval mergeInt = new Interval(newInterval.start, newInterval.end);
-		for (; index < intervals.size(); index++) {
-			if (intervals.get(index).start > newInterval.end)
-				break;
-
-			mergeInt.start = Math.min(mergeInt.start, intervals.get(index).start);
-			mergeInt.end = Math.max(mergeInt.end, intervals.get(index).end);
-		}
-		result.add(mergeInt);
-
-		while (index < intervals.size())
-			result.add(intervals.get(index++));
-
-		return result;
-	}
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        ArrayList<Interval> result = new ArrayList<Interval>();
+        for (Interval i : intervals) {
+            if (i.end < newInterval.start) {
+                result.add(i);
+            } else if (i.start > newInterval.end) {
+                result.add(newInterval);
+                newInterval = i;
+            } else {
+                newInterval.start = Math.min(newInterval.start, i.start);
+                newInterval.end = Math.max(newInterval.end, i.end);
+            }
+        }
+        result.add(newInterval);
+        return result;
+    }
 }
