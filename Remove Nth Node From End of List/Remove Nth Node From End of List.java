@@ -10,20 +10,17 @@
  * }
  */
 public class Solution {
-	public ListNode removeNthFromEnd(ListNode head, int n) {
-		ListNode start = new ListNode(0), prev = start, pivot = head, pioneer = head;
-		start.next = head;
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode start = new ListNode(0), pioneer = start, curr = start;
+        start.next = head;
+        for (int i = 0; i < n; i++)
+            pioneer = pioneer.next;
 
-		for (int i = 0; i < n; i++)
-			pioneer = pioneer.next;
-
-		while (pioneer != null) {
-			pioneer = pioneer.next;
-			pivot = pivot.next;
-			prev = prev.next;
-		}
-		
-		prev.next = pivot.next;
-		return start.next;
-	}
+        while (pioneer.next != null) {
+            pioneer = pioneer.next;
+            curr = curr.next;
+        }
+        curr.next = curr.next.next;
+        return start.next;
+    }
 }
