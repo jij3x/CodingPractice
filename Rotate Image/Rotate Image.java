@@ -23,12 +23,12 @@ class Solution2 {
         if (level == n / 2)
             return;
 
-        for (int i = level; i < n - 1 - level; i++) {
+        for (int i = level, ci = n - 1 - level, cLevel = ci; i < cLevel; i++, ci--) {
             int temp = matrix[level][i];
-            matrix[level][i] = matrix[n - 1 - i][level];
-            matrix[n - 1 - i][level] = matrix[n - 1 - level][n - 1 - i];
-            matrix[n - 1 - level][n - 1 - i] = matrix[i][n - 1 - level];
-            matrix[i][n - 1 - level] = temp;
+            matrix[level][i] = matrix[ci][level];
+            matrix[ci][level] = matrix[cLevel][ci];
+            matrix[cLevel][ci] = matrix[i][cLevel];
+            matrix[i][cLevel] = temp;
         }
 
         doRotate(matrix, level + 1);
