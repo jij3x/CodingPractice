@@ -1,56 +1,41 @@
 public class Solution {
-	public void setZeroes(int[][] matrix) {
-		int xLength = matrix[0].length;
-		int yLength = matrix.length;
+    public void setZeroes(int[][] matrix) {
+        boolean set1stRow = false, set1stCol = false;
+        for (int y = 0; y < matrix.length; y++)
+            if (matrix[y][0] == 0)
+                set1stCol = true;
+        for (int x = 0; x < matrix[0].length; x++)
+            if (matrix[0][x] == 0)
+                set1stRow = true;
 
-		boolean clearX = false;
-		boolean clearY = false;
+        for (int y = 1; y < matrix.length; y++) {
+            for (int x = 1; x < matrix[0].length; x++) {
+                if (matrix[y][x] == 0) {
+                    matrix[y][0] = 0;
+                    matrix[0][x] = 0;
+                }
+            }
+        }
 
-		for (int i = 0; i < xLength; i++) {
-			if (matrix[0][i] == 0)
-				clearX = true;
-		}
+        for (int y = 1; y < matrix.length; y++) {
+            if (matrix[y][0] == 0) {
+                for (int x = 1; x < matrix[0].length; x++)
+                    matrix[y][x] = 0;
+            }
+        }
 
-		for (int i = 0; i < yLength; i++) {
-			if (matrix[i][0] == 0)
-				clearY = true;
-		}
+        for (int x = 1; x < matrix[0].length; x++)
+            if (matrix[0][x] == 0) {
+                for (int y = 1; y < matrix.length; y++)
+                    matrix[y][x] = 0;
+            }
 
-		for (int i = 1; i < yLength; i++) {
-			for (int j = 1; j < xLength; j++) {
-				if (matrix[i][j] == 0) {
-					matrix[i][0] = 0;
-					matrix[0][j] = 0;
-				}
-			}
-		}
+        if (set1stRow)
+            for (int x = 0; x < matrix[0].length; x++)
+                matrix[0][x] = 0;
 
-		for (int i = 1; i < xLength; i++) {
-			if (matrix[0][i] == 0) {
-				for (int j = 1; j < yLength; j++) {
-					matrix[j][i] = 0;
-				}
-			}
-		}
-
-		for (int i = 1; i < yLength; i++) {
-			if (matrix[i][0] == 0) {
-				for (int j = 1; j < xLength; j++) {
-					matrix[i][j] = 0;
-				}
-			}
-		}
-
-		if (clearX) {
-			for (int i = 0; i < xLength; i++) {
-				matrix[0][i] = 0;
-			}
-		}
-
-		if (clearY) {
-			for (int i = 0; i < yLength; i++) {
-				matrix[i][0] = 0;
-			}
-		}
-	}
+        if (set1stCol)
+            for (int y = 0; y < matrix.length; y++)
+                matrix[y][0] = 0;
+    }
 }
