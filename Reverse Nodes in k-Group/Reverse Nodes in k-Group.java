@@ -10,53 +10,54 @@
  * }
  */
 public class Solution {
-	public ListNode reverseKGroup(ListNode head, int k) {
-		ListNode start = new ListNode(0);
-		start.next = head;
+    public ListNode reverseKGroup(ListNode head, int k) {
+        int len = 0;
+        for (ListNode p = head; p != null; p = p.next)
+            len++;
 
-		int length = 0;
-		for (ListNode pivot = head; pivot != null; length++)
-			pivot = pivot.next;
-
-		ListNode prev = start;
-		for (int i = 0; i < length / k; i++) {
-			for (int j = 1; j < k; j++) {
-				ListNode next = head.next;
-				head.next = next.next;
-				next.next = prev.next;
-				prev.next = next;
-			}
-			prev = head;
-			head = head.next;
-		}
-
-		return start.next;
-	}
+        ListNode start = new ListNode(0), prev = start;
+        start.next = head;
+        for (int i = 0; i < len / k; i++) {
+            for (int j = 1; j < k; j++) {
+                ListNode next = head.next;
+                head.next = next.next;
+                next.next = prev.next;
+                prev.next = next;
+            }
+            prev = head;
+            head = head.next;
+        }
+        return start.next;
+    }
 }
 
 class Solution2 {
-	public ListNode reverseKGroup(ListNode head, int k) {
-		ListNode start = new ListNode(0), prev = start, pivot = start;
-		start.next = head;
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode start = new ListNode(0), nextHead = head, prev = start;
+        start.next = head;
+        while (nextHead != null) {
+            ListNode segTail = nextHead, segHead = nextHead;
+            nextHead = nextHead.next;
+            int i = 1;
+            while (i < k && nextHead != null) {
+                i++;
+                segHead = segHead.next;
+                nextHead = nextHead.next;
+            }
 
-		done: while (true) {
-			pivot = prev;
-			for (int count = 0; count < k; count++) {
-				pivot = pivot.next;
-				if (pivot == null)
-					break done;
-			}
-
-			ListNode curr = prev.next;
-			for (int i = 1; i < k; i++) {
-				ListNode next = curr.next;
-				curr.next = next.next;
-				next.next = prev.next;
-				prev.next = next;
-			}
-			prev = curr;
-		}
-
-		return start.next;
-	}
+            if (i == k) {
+                segHead.next = null;
+                for (ListNode p = null, c = segTail, t = null; c != null;) {
+                    t = c.next;
+                    c.next = p;
+                    p = c;
+                    c = t;
+                }
+                prev.next = segHead;
+                segTail.next = nextHead;
+                prev = segTail;
+            }
+        }
+        return start.next;
+    }
 }
