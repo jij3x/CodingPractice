@@ -66,10 +66,7 @@ class Solution2 {
                         memo.put(toDrop, memo.get(toDrop) - 1);
                         missing++;
                     }
-                    continue;
-                }
-
-                if (--missing == 0) {
+                } else if (--missing == 0) {
                     result.add(left);
                     String toDrop = S.substring(left, left + w);
                     memo.put(toDrop, memo.get(toDrop) - 1);
