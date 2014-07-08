@@ -3,7 +3,7 @@
  * m = L.length
  * l = L[0].length()
  * 
- * O((n-m)*m)
+ * O((n-m*l)*m*l)
  */
 public class Solution {
     public List<Integer> findSubstring(String S, String[] L) {
@@ -47,14 +47,13 @@ class Solution2 {
             HashMap<String, Integer> memo = new HashMap<String, Integer>();
             for (int j = i, left = j, missing = L.length; j + w <= S.length(); j += w) {
                 String curr = S.substring(j, j + w);
-
                 if (!dict.containsKey(curr)) {
+                    left = j + w;
                     missing = L.length;
                     memo.clear();
                     continue;
                 }
 
-                left = missing == L.length ? j : left;
                 memo.put(curr, memo.containsKey(curr) ? memo.get(curr) + 1 : 1);
                 if (memo.get(curr) > dict.get(curr)) {
                     for (; left <= j; left += w) {
@@ -73,8 +72,8 @@ class Solution2 {
                 if (--missing == 0) {
                     result.add(left);
                     String toDrop = S.substring(left, left + w);
-                    left += w;
                     memo.put(toDrop, memo.get(toDrop) - 1);
+                    left += w;
                     missing++;
                 }
             }
