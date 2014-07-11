@@ -8,41 +8,41 @@
  * }
  */
 public class Solution {
-	public ArrayList<Integer> postorderTraversal(TreeNode root) {
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		Stack<TreeNode> parentStack = new Stack<TreeNode>();
-		TreeNode curr = root, prev = null;
-		while (!parentStack.isEmpty() || curr != null) {
-			if (curr != null) {
-				parentStack.push(curr);
-				curr = curr.left;
-			} else {
-				if (parentStack.peek().right != null && parentStack.peek().right != prev) {
-					curr = parentStack.peek().right;
-				} else {
-					prev = parentStack.pop();
-					result.add(prev.val);
-				}
-			}
-		}
-		return result;
-	}
+    public List<Integer> postorderTraversal(TreeNode root) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        TreeNode node = root, lastVisited = null;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        while (!stack.isEmpty() || node != null) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            } else {
+                if (stack.peek().right != null && stack.peek().right != lastVisited) {
+                    node = stack.peek().right;
+                } else {
+                    lastVisited = stack.pop();
+                    result.add(lastVisited.val);
+                }
+            }
+        }
+        return result;
+    }
 }
 
 class Solution2 {
-	public ArrayList<Integer> postorderTraversal(TreeNode root) {
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		doPostorderTraversal(root, result);
+    public List<Integer> postorderTraversal(TreeNode root) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        doPostorderTraversal(root, result);
 
-		return result;
-	}
+        return result;
+    }
 
-	private void doPostorderTraversal(TreeNode root, ArrayList<Integer> result) {
-		if (root == null)
-			return;
+    private void doPostorderTraversal(TreeNode root, ArrayList<Integer> result) {
+        if (root == null)
+            return;
 
-		doPostorderTraversal(root.left, result);
-		doPostorderTraversal(root.right, result);
-		result.add(root.val);
-	}
+        doPostorderTraversal(root.left, result);
+        doPostorderTraversal(root.right, result);
+        result.add(root.val);
+    }
 }
