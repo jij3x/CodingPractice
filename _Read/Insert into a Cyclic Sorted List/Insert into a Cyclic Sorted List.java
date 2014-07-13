@@ -1,5 +1,5 @@
 public class Solution {
-    void insert(ListNode node, int x) {
+    public void insert(ListNode node, int x) {
         if (node == null) {
             node = new ListNode(x);
             node.next = node;
