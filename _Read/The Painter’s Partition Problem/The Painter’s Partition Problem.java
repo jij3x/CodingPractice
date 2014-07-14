@@ -3,7 +3,7 @@ public class Solution {
         return partition(A, 0, A.length - 1, k);
     }
 
-    private int sum(int[] A, int start, int end) {
+    private int getSum(int[] A, int start, int end) {
         int result = 0;
         for (int i = start; i <= end; i++)
             result += A[i];
@@ -12,11 +12,11 @@ public class Solution {
 
     private int partition(int[] A, int start, int end, int k) {
         if (k == 1)
-            return sum(A, start, end);
+            return getSum(A, start, end);
 
         int best = Integer.MAX_VALUE;
         for (int i = start; i <= end - k - 1; i++)
-            best = Math.min(best, Math.max(sum(A, start, i), partition(A, i + 1, end, k - 1)));
+            best = Math.min(best, Math.max(getSum(A, start, i), partition(A, i + 1, end, k - 1)));
         return best;
     }
 
@@ -39,5 +39,39 @@ public class Solution {
             }
         }
         return memo[0][k - 1];
+    }
+
+    private int getMax(int[] A, int start, int end) {
+        int max = A[start];
+        for (int i = start + 1; i <= end; i++)
+            max = Math.max(max, A[i]);
+        return max;
+    }
+
+    private int getPartitions(int[] A, int max) {
+        int p = 0;
+        for (int i = 0, sum = 0; i < A.length; i++) {
+            sum += A[i];
+            if (sum > max) {
+                p++;
+                sum = A[i];
+            }
+        }
+        return p + 1;
+    }
+
+    public int binaryFindMax(int[] A, int k) {
+        int low = getMax(A, 0, A.length - 1);
+        int high = getSum(A, 0, A.length - 1);
+
+        while (low < high) {
+            int middle = low + (high - low) / 2;
+            int p = getPartitions(A, middle);
+            if (p > k)
+                low = middle + 1;
+            else
+                high = middle;
+        }
+        return high;
     }
 }
