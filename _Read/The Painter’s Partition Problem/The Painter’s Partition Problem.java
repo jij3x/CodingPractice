@@ -1,4 +1,7 @@
 public class Solution {
+    /*
+     * DFS brute force
+     */
     public int findMax(int[] A, int k) {
         return partition(A, 0, A.length - 1, k);
     }
@@ -20,6 +23,9 @@ public class Solution {
         return best;
     }
 
+    /*
+     * DP
+     */
     public int dpFindMax(int[] A, int k) {
         long[] sum = new long[A.length + 1];
         for (int i = 1; i <= A.length; i++)
@@ -41,6 +47,9 @@ public class Solution {
         return memo[0][k - 1];
     }
 
+    /*
+     * Binary Search
+     */
     private int getMax(int[] A, int start, int end) {
         int max = A[start];
         for (int i = start + 1; i <= end; i++)
