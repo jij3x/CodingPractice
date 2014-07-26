@@ -1,4 +1,4 @@
-DP solution:
+DP solution: (Kadane's algorithm)
 
 maintain two variables during the one round scan - "max", and, "sum"
     max for max sum of sub-array
