@@ -13,6 +13,7 @@ public class Solution {
         return result;
     }
 
+    // return the max work load among k workers
     private int partition(int[] A, int start, int end, int k) {
         if (k == 1)
             return getSum(A, start, end);
