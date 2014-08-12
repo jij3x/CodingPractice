@@ -1,0 +1,2 @@
+Replace all occurrence of the given pattern to ¡®X¡¯.
+For example, given that the pattern=¡±abc¡±, replace ¡°abcdeffdfegabcabc¡± with ¡°XdeffdfegX¡±. Note that multiple occurrences of abc¡¯s that are contiguous will be replaced with only one ¡®X¡¯.
