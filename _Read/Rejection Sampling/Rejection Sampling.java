@@ -12,8 +12,26 @@ public class Solution {
         return (rand - 1) % 10 + 1;
     }
 
-    public int optRand10() {
-        
-        return 0;
+    public int rand10_opt() {
+        int a, b, i;
+        while (true) {
+            a = rand7();
+            b = rand7();
+            i = a * b;
+            if (i <= 40)
+                return (i - 1) % 10 + 1;
+
+            a = i - 40;
+            b = rand7();
+            i = a * b;
+            if (i <= 60)
+                return (i - 1) % 10 + 1;
+
+            a = i - 60;
+            b = rand7();
+            i = a * b;
+            if (i < 20)
+                return (i - 1) % 10 + 1;
+        }
     }
 }
