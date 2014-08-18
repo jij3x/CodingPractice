@@ -10,6 +10,10 @@ Expected number of calls to rand7() in unoptimized method:
                          
          = (80/49) / (1-9/49)^2
          = 2.45
+
+             ∞
+             ∑ k * (9/49)^(k-1) = 1 / (1-9/49)^2
+             k=1
          
              S = 1 + 2*(9/49) + 3*(9/49)^2 + 4*(9/49)^3 + ...
              S * (9/49) = (9/49) + 2*(9/49)^2 + 3*(9/49)^3 + ...
@@ -21,8 +25,8 @@ Expected number of calls to rand7() in unoptimized method:
                  ∑ x^k =  1 / (1-x)
                  k=1
                  
-                     S = 1 + x + x^2 + x^3 + ...
-                     S * x  = x + x^2 + x^3 + x^4 + ...
-                     S - S * x = 1
-                     S = 1 / (1-x)
+                 S = 1 + x + x^2 + x^3 + ...
+                 S * x  = x + x^2 + x^3 + x^4 + ...
+                 S - S * x = 1
+                 S = 1 / (1-x)
          
