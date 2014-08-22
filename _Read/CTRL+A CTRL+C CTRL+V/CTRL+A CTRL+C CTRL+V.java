@@ -17,4 +17,34 @@ public class Solution {
         memo[n] = max;
         return memo[n];
     }
+
+    public List<String> printCombo(int n) {
+        List<String> combo = new ArrayList<String>();
+        if (n <= 3) {
+            for (int i = n; i > 0; i--)
+                combo.add("A");
+            return combo;
+        }
+
+        int max = n, times = 0;
+        for (int i = 4; n - i > 1; i++) {
+            List<String> subCombo = printCombo(n - i);
+            if (subCombo.size() * (i - 2) > max) {
+                max = subCombo.size() * (i - 2);
+                combo = subCombo;
+                times = i - 2;
+            }
+        }
+
+        if (times > 0) {
+            combo.add("CTRL+A");
+            combo.add("CTRL+C");
+            for (int i = times; i > 0; i--)
+                combo.add("CTRL+V");
+        } else {
+            for (int i = n; i > 0; i--)
+                combo.add("A");
+        }
+        return combo;
+    }
 }
