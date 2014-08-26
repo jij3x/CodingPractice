@@ -1,59 +1,36 @@
 public class Solution {
-    private int treeMax, treeMin, maxNodes;
-    private TreeNode largestBSTSubtree;
+    private int subtreeMax, subtreeMin, maxSize;
+    private TreeNode largestSBST;
 
-    public TreeNode findLargestBSTSubtree(TreeNode root) {
-        if (root == null)
-            return null;
-
-        largestBSTSubtree = null;
-        findBSTSubtree(root);
-        return largestBSTSubtree;
+    public TreeNode findLargestSBST(TreeNode root) {
+        maxSize = 0;
+        largestSBST = null;
+        findSBST(root);
+        return largestSBST;
     }
 
-    private int findBSTSubtree(TreeNode root) {
-        treeMax = Integer.MIN_VALUE;
-        treeMin = Integer.MAX_VALUE;
+    private int findSBST(TreeNode root) {
+        if (root == null)
+            return 0;
 
-        int leftCnt = 0;
-        int rightCnt = 0;
-        if (root.left == null && root.right == null) {
-            treeMax = root.val;
-            treeMin = root.val;
-            return 1;
-        } else if (root.left == null) {
-            rightCnt = findBSTSubtree(root.right);
-            if (rightCnt == -1 || treeMin <= root.val)
-                return -1;
+        int leftSize = findSBST(root.left);
+        if (leftSize == -1 || (root.left != null && subtreeMax >= root.val))
+            return -1;
+        int leftMin = leftSize == 0 ? root.val : subtreeMin;
 
-            treeMin = root.val;
-            if (rightCnt + 1 > maxNodes) {
-                maxNodes = rightCnt + 1;
-                largestBSTSubtree = root;
-            }
-        } else if (root.right == null) {
-            leftCnt = findBSTSubtree(root.left);
-            if (leftCnt == -1 || treeMax >= root.val)
-                return -1;
+        int rightSize = findSBST(root.right);
+        if (rightSize == -1 || (root.right != null && subtreeMin <= root.val))
+            return -1;
+        if (rightSize == 0)
+            subtreeMax = root.val;
+        subtreeMin = leftMin;
 
-            treeMax = root.val;
-            if (leftCnt + 1 > maxNodes) {
-                maxNodes = leftCnt + 1;
-                largestBSTSubtree = root;
-            }
-        } else {
-            leftCnt = findBSTSubtree(root.left);
-            if (leftCnt == -1 || treeMax >= root.val)
-                return -1;
-            int leftMin = treeMin;
-
-            treeMax = Integer.MIN_VALUE;
-            treeMin = Integer.MAX_VALUE;
-            rightCnt = findBSTSubtree(root.right);
-            if (rightCnt == -1 || treeMin <= root.val)
-                return -1;
-            treeMin = leftMin;
+        int size = leftSize + 1 + rightSize;
+        if (size > maxSize) {
+            maxSize = size;
+            largestSBST = root;
         }
-        return leftCnt + rightCnt + 1;
+
+        return size;
     }
 }
