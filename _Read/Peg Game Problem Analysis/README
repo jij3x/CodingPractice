@@ -13,18 +13,26 @@ The image below shows an example of a game with five rows of five columns. Notic
      
 ‘x’ indicates a peg, ‘.’ indicates empty space.
 
+
 Input
+
 You should first read an integer N, the number of test cases. Each of the next N lines will then contain a single test case. Each test case will start with integers R and C, the number of rows and columns (R will be odd). Next, an integer K will specify the target column. Finally, an integer M will be followed by M pairs of integer ri and ci, giving the locations of the missing pegs.
 
+
 Constraints
+
 1 = N = 100
-3 = R,C = 100
+3 = R, C = 100
 
 The top and bottom rows will not have any missing pegs.
 Other parameters will all be valid, given R and C
 
+
 Output
+
 For each test case, you should output an integer, the location to drop the ball into, followed by the probability that the ball will end in columns K, formatted with exactly six digits after the decimal point (round the last digit, don’t truncate).
 
+
 Notes
+
 The input will be designed such that minor rounding errors will not impact the output (i.e. there will be no ties or near — up to 1E-9 — ties, and the direction of rounding for the output will not be impacted by small errors).
