@@ -80,10 +80,8 @@ class Solution3 {
 
             visited[i] = true;
             for (List<Integer> subResult : doPermute(num, visited)) {
-                ArrayList<Integer> row = new ArrayList<Integer>();
-                row.add(num[i]);
-                row.addAll(subResult);
-                result.add(row);
+                subResult.add(0, num[i]);
+                result.add(subResult);
             }
             visited[i] = false;
         }
