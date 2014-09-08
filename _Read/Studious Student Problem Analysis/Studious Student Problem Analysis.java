@@ -8,11 +8,9 @@ class WordComparator implements Comparator<String> {
 public class Solution {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int m = in.nextInt();
-        in.nextLine();
+        int m = Integer.parseInt(in.nextLine());
         for (int i = 0; i < m; i++) {
-            String line = in.nextLine();
-            LinkedList<String> words = new LinkedList<String>(Arrays.asList(line.split("\\s+")));
+            LinkedList<String> words = new LinkedList<String>(Arrays.asList(in.nextLine().split("\\s+")));
             words.remove(0);
             Collections.sort(words, new WordComparator());
 
