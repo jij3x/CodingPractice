@@ -54,22 +54,22 @@ class Solution2 {
 }
 
 class Solution3 {
-    public ArrayList<ArrayList<Integer>> permute(int[] num) {
+    public List<List<Integer>> permute(int[] num) {
         boolean[] visited = new boolean[num.length];
         return doPermute(num, visited);
     }
 
-    private ArrayList<ArrayList<Integer>> doPermute(int[] num, boolean[] visited) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-
-        boolean allVisited = true;
-        for (boolean v : visited) {
-            if (!v) {
-                allVisited = false;
-                break;
-            }
+    private boolean allVisited(boolean[] visited) {
+        for (boolean e : visited) {
+            if (!e)
+                return false;
         }
-        if (allVisited) {
+        return true;
+    }
+
+    private List<List<Integer>> doPermute(int[] num, boolean[] visited) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+        if (allVisited(visited)) {
             result.add(new ArrayList<Integer>());
             return result;
         }
@@ -79,9 +79,11 @@ class Solution3 {
                 continue;
 
             visited[i] = true;
-            for (ArrayList<Integer> r : doPermute(num, visited)) {
-                r.add(0, num[i]);
-                result.add(r);
+            for (List<Integer> subResult : doPermute(num, visited)) {
+                ArrayList<Integer> row = new ArrayList<Integer>();
+                row.add(num[i]);
+                row.addAll(subResult);
+                result.add(row);
             }
             visited[i] = false;
         }
