@@ -11,3 +11,17 @@ Constraints
 1 <= M <= 9
 1 <= all word lengths <= 10
 
+Example input
+5
+6 facebook hacker cup for studious students
+5 k duz q rc lvraw
+5 mybea zdr yubx xe dyroiy
+5 jibw ji jp bw jibw
+5 uiuy hopji li j dcyi
+
+Example output
+cupfacebookforhackerstudentsstudious
+duzklvrawqrc
+dyroiymybeaxeyubxzdr
+bwjibwjibwjijp
+dcyihopjijliuiuy
