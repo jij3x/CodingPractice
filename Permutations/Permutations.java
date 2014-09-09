@@ -1,17 +1,16 @@
 public class Solution {
-    public ArrayList<ArrayList<Integer>> permute(int[] num) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+    public List<List<Integer>> permute(int[] num) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
         doPermute(num, 0, result);
         return result;
     }
 
-    private void doPermute(int[] num, int start, ArrayList<ArrayList<Integer>> result) {
+    private void doPermute(int[] num, int start, List<List<Integer>> result) {
         if (start == num.length - 1) {
-            ArrayList<Integer> list = new ArrayList<Integer>();
-            for (int i : num)
-                list.add(i);
-            result.add(list);
-            return;
+            ArrayList<Integer> subResult = new ArrayList<Integer>();
+            for (int e : num)
+                subResult.add(e);
+            result.add(subResult);
         }
 
         for (int i = start; i < num.length; i++) {
