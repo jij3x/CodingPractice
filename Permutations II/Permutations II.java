@@ -28,3 +28,37 @@ public class Solution {
         }
     }
 }
+
+public class Solution {
+    public List<List<Integer>> permuteUnique(int[] num) {
+        Arrays.sort(num);
+        return dfs(num, new boolean[num.length]);
+    }
+
+    private List<List<Integer>> dfs(int[] num, boolean[] visited) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+        if (allVisited(visited))
+            result.add(new ArrayList<Integer>());
+
+        for (int i = 0; i < visited.length; i++) {
+            if (visited[i] || (i > 0 && !visited[i - 1] && num[i - 1] == num[i]))
+                continue;
+
+            visited[i] = true;
+            for (List<Integer> row : dfs(num, visited)) {
+                row.add(0, num[i]);
+                result.add(row);
+            }
+            visited[i] = false;
+        }
+        return result;
+    }
+
+    private boolean allVisited(boolean[] visited) {
+        for (boolean e : visited) {
+            if (!e)
+                return false;
+        }
+        return true;
+    }
+}
