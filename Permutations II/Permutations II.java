@@ -1,16 +1,15 @@
 public class Solution {
-    public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
+    public List<List<Integer>> permuteUnique(int[] num) {
         Arrays.sort(num);
 
         boolean[] visited = new boolean[num.length];
         ArrayList<Integer> path = new ArrayList<Integer>();
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
         doPermuteUnique(num, visited, path, result);
         return result;
     }
 
-    private void doPermuteUnique(int[] num, boolean[] visited, ArrayList<Integer> path,
-            ArrayList<ArrayList<Integer>> result) {
+    private void doPermuteUnique(int[] num, boolean[] visited, ArrayList<Integer> path, ArrayList<List<Integer>> result) {
         if (path.size() == num.length)
             result.add(new ArrayList<Integer>(path));
 
