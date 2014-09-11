@@ -25,7 +25,6 @@ public class Solution {
                 visited.get(curr).neighbors.add(visited.get(n));
             }
         }
-
         return visited.get(node);
     }
 }
