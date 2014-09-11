@@ -2,24 +2,21 @@ public class Solution {
     public int threeSumClosest(int[] num, int target) {
         int closest = num[0] + num[1] + num[2];
         Arrays.sort(num);
-
+        
         for (int i = 0; i < num.length - 2; i++) {
-            int start = i + 1, end = num.length - 1;
-            while (start < end) {
+            for (int start = i + 1, end = num.length - 1; start < end;) {
                 int sum = num[i] + num[start] + num[end];
-                if (sum == target)
-                    return target;
-
-                if (Math.abs(target - sum) < Math.abs(target - closest))
+                if (Math.abs(sum - target) < Math.abs(closest - target))
                     closest = sum;
 
-                if (sum > target)
-                    end--;
-                else
+                if (sum == target)
+                    return target;
+                else if (sum < target)
                     start++;
+                else
+                    end--;
             }
         }
-
         return closest;
     }
 }
