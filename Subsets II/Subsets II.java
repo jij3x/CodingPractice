@@ -1,22 +1,22 @@
 public class Solution {
-    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] S) {
-        Arrays.sort(S);
-        return doSubset(S, 0);
+    public List<List<Integer>> subsetsWithDup(int[] num) {
+        Arrays.sort(num);
+        return dfs(num, 0);
     }
 
-    private ArrayList<ArrayList<Integer>> doSubset(int[] S, int start) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+    private List<List<Integer>> dfs(int[] num, int start) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
         result.add(new ArrayList<Integer>());
-        if (start == S.length)
+        if (start == num.length)
             return result;
 
-        for (int i = start; i < S.length; i++) {
-            for (ArrayList<Integer> r : doSubset(S, i + 1)) {
-                r.add(0, S[i]);
-                result.add(r);
+        for (int i = start; i < num.length; i++) {
+            for (List<Integer> row : dfs(num, i + 1)) {
+                row.add(0, num[i]);
+                result.add(row);
             }
 
-            while (i < S.length - 1 && S[i] == S[i + 1])
+            while (i < num.length - 1 && num[i] == num[i + 1])
                 i++;
         }
         return result;
