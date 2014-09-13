@@ -4,7 +4,7 @@ public class Solution {
     }
 
     private List<List<Integer>> doCombSum(int[] num, int target, int start) {
-        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
 
         for (int i = start; i < num.length; i++) {
             if (num[i] == target) {
@@ -22,24 +22,22 @@ public class Solution {
 }
 
 class Solution2 {
-    public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> path = new ArrayList<Integer>();
-        subCombinationSum(candidates, target, 0, path, result);
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        Arrays.sort(candidates);
+        doCombSum(candidates, target, 0, new ArrayList<Integer>(), result);
         return result;
     }
 
-    private void subCombinationSum(int[] candidates, int target, int idx, ArrayList<Integer> path,
-            ArrayList<ArrayList<Integer>> result) {
-        for (int i = idx; i < candidates.length; i++) {
-            if (candidates[i] == target) {
+    private void doCombSum(int[] num, int target, int start, List<Integer> path, List<List<Integer>> result) {
+        for (int i = start; i < num.length; i++) {
+            if (num[i] == target) {
                 ArrayList<Integer> r = new ArrayList<Integer>(path);
-                r.add(candidates[i]);
-                Collections.sort(r);
+                r.add(num[i]);
                 result.add(r);
-            } else if (candidates[i] < target) {
-                path.add(candidates[i]);
-                subCombinationSum(candidates, target - candidates[i], i, path, result);
+            } else if (num[i] < target) {
+                path.add(num[i]);
+                doCombSum(num, target - num[i], i, path, result);
                 path.remove(path.size() - 1);
             }
         }
