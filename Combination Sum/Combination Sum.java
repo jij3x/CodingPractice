@@ -1,23 +1,22 @@
 public class Solution {
-    public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
-        return subCombinationSum(candidates, target, 0);
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        return doCombSum(candidates, target, 0);
     }
 
-    private ArrayList<ArrayList<Integer>> subCombinationSum(int[] candidates, int target, int idx) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+    private List<List<Integer>> doCombSum(int[] num, int target, int start) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
 
-        for (int i = idx; i < candidates.length; i++) {
-            if (candidates[i] == target) {
-                result.add(new ArrayList<Integer>(Arrays.asList(candidates[i])));
-            } else if (candidates[i] < target) {
-                for (ArrayList<Integer> r : subCombinationSum(candidates, target - candidates[i], i)) {
-                    r.add(candidates[i]);
-                    Collections.sort(r);
-                    result.add(r);
+        for (int i = start; i < num.length; i++) {
+            if (num[i] == target) {
+                result.add(new ArrayList<Integer>(Arrays.asList(num[i])));
+            } else if (num[i] < target) {
+                for (List<Integer> row : doCombSum(num, target - num[i], i)) {
+                    row.add(num[i]);
+                    Collections.sort(row);
+                    result.add(row);
                 }
             }
         }
-
         return result;
     }
 }
