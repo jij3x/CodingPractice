@@ -1,27 +1,24 @@
 public class Solution {
-    public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
+    public List<List<Integer>> combinationSum2(int[] num, int target) {
         Arrays.sort(num);
-        return subCombinationSum2(num, target, 0);
+        return doCombSum(num, target, 0);
     }
 
-    private ArrayList<ArrayList<Integer>> subCombinationSum2(int[] num, int target, int idx) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-
-        for (int i = idx; i < num.length; i++) {
+    private List<List<Integer>> doCombSum(int[] num, int target, int start) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        for (int i = start; i < num.length; i++) {
             if (num[i] == target) {
-                result.add(new ArrayList<Integer>(Arrays.asList(num[i])));
+                result.add(new LinkedList<Integer>(Arrays.asList(num[i])));
             } else if (num[i] < target) {
-                for (ArrayList<Integer> r : subCombinationSum2(num, target - num[i], i + 1)) {
-                    r.add(num[i]);
-                    Collections.sort(r);
-                    result.add(r);
+                for (List<Integer> row : doCombSum(num, target - num[i], i + 1)) {
+                    row.add(0, num[i]);
+                    result.add(row);
                 }
             }
 
-            while (i + 1 < num.length && num[i] == num[i + 1])
+            while (i < num.length - 1 && num[i] == num[i + 1])
                 i++;
         }
-
         return result;
     }
 }
