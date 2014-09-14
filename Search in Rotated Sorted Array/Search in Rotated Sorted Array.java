@@ -1,7 +1,7 @@
 public class Solution {
     public int search(int[] A, int target) {
         for (int start = 0, end = A.length - 1, mid = 0; start <= end;) {
-            mid = start + (end - start) / 2;
+            mid = (start + end) / 2;
             if (A[mid] == target)
                 return mid;
 
@@ -24,7 +24,7 @@ public class Solution {
 class Solution2 {
     public int search(int[] A, int target) {
         for (int start = 0, end = A.length - 1, mid = 0; start <= end;) {
-            mid = start + (end - start) / 2;
+            mid = (start + end) / 2;
             if (A[mid] == target)
                 return mid;
 
