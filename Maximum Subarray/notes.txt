@@ -6,3 +6,4 @@ maintain two variables during the one round scan - "max", and, "sum"
         during table scan, window will be adjusted base on previous window sum:
             if previous window sum < 0, new winodw will start with A[i]
             else expand window to incorperate A[i] (sum += A[i])
+            
