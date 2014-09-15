@@ -5,22 +5,17 @@ public class Solution {
         for (int i = 0; i < T.length(); i++)
             toFind[T.charAt(i)]++;
 
-        int minLength = S.length() + 1, start = 0, end = -1;
-        for (int i = 0, j = 0, missing = T.length(); i < S.length(); i++) {
-            if (++found[S.charAt(i)] <= toFind[S.charAt(i)])
+        int min = S.length(), start = 0, end = -1;
+        for (int r = 0, l = 0, missing = T.length(); r < S.length(); r++) {
+            if (++found[S.charAt(r)] <= toFind[S.charAt(r)])
                 missing--;
 
-            if (missing == 0) {
-                while (missing == 0) {
-                    if (--found[S.charAt(j)] < toFind[S.charAt(j++)])
-                        missing++;
-                }
+            while (missing == 0) {
+                if (r - l + 1 <= min)
+                    min = (end = r) - (start = l) + 1;
 
-                if (i + 1 - (j - 1) < minLength) {
-                    start = j - 1;
-                    end = i;
-                    minLength = i + 1 - (j - 1);
-                }
+                if (--found[S.charAt(l)] < toFind[S.charAt(l++)])
+                    missing++;
             }
         }
 
