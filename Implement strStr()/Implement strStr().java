@@ -1,14 +1,14 @@
 public class Solution {
     public String strStr(String haystack, String needle) {
         for (int i = 0; i <= haystack.length() - needle.length(); i++) {
-            boolean found = true;
+            boolean matched = true;
             for (int j = 0; j < needle.length(); j++) {
                 if (haystack.charAt(i + j) != needle.charAt(j)) {
-                    found = false;
+                    matched = false;
                     break;
                 }
             }
-            if (found)
+            if (matched)
                 return haystack.substring(i);
         }
         return null;
