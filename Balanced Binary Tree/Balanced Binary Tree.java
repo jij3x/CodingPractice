@@ -24,10 +24,8 @@ public class Solution {
             return false;
         int rightHeight = height;
 
-        if (Math.abs(leftHeight - rightHeight) > 1)
-            return false;
-
         height = Math.max(leftHeight, rightHeight) + 1;
-        return true;
+        return Math.abs(leftHeight - rightHeight) <= 1;
+
     }
 }
