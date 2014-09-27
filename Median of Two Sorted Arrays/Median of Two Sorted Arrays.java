@@ -19,7 +19,7 @@ public class Solution {
         if (k == 1)
             return Math.min(A[as], B[bs]);
 
-        int m = Math.max(1, (int) ((double) al / (al + bl) * k));
+        int m = Math.max(1, k * al / (al + bl));
         int n = k - m;
         if (A[as + m - 1] >= B[bs + n - 1] && (n == bl || A[as + m - 1] <= B[bs + n]))
             return A[as + m - 1];
