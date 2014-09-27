@@ -159,28 +159,28 @@ class Solution3 {
  * Simplest way
  */
 class Solution4 {
-    public double findMedianSortedArrays(int A[], int B[]) {
-        double higherMedian = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2 + 1);
+    public double findMedianSortedArrays(int[] A, int[] B) {
+        double higherM = findKth(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2 + 1);
         if ((A.length + B.length) % 2 == 1)
-            return higherMedian;
+            return higherM;
 
-        double lowerMedian = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2);
-        return (lowerMedian + higherMedian) / 2.0;
+        double lowerM = findKth(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2);
+        return (lowerM + higherM) / 2.0;
     }
 
-    private int findKthSmallest(int A[], int as, int al, int B[], int bs, int bl, int k) {
-        if (al <= 0)
+    private double findKth(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
+        if (al == 0)
             return B[bs + k - 1];
-        if (bl <= 0)
+        if (bl == 0)
             return A[as + k - 1];
         if (k == 1)
             return Math.min(A[as], B[bs]);
 
-        int n = al < bl ? Math.min(k / 2, al) : k - Math.min(k / 2, bl);
-        int m = k - n;
-        if (A[as + n - 1] <= B[bs + m - 1])
-            return findKthSmallest(A, as + n, al - n, B, bs, bl, k - n);
+        int m = Math.max(1, k * al / (al + bl));
+        int n = k - m;
+        if (A[as + m - 1] <= B[bs + n - 1])
+            return findKth(A, as + m, al - m, B, bs, n, k - m);
 
-        return findKthSmallest(A, as, al, B, bs + m, bl - m, k - m);
+        return findKth(A, as, m, B, bs + n, bl - n, k - n);
     }
 }
