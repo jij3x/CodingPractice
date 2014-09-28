@@ -1,3 +1,4 @@
+// O(log(k))
 public class Solution {
     public int findKthSmallest(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
         if (al == 0)
