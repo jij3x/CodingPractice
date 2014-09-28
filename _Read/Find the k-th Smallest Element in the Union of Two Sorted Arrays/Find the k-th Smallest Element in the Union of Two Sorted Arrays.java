@@ -27,16 +27,16 @@ class Solution2 {
         if (k == 1)
             return Math.min(A[as], B[bs]);
 
-        int a = Math.max(1, k * al / (al + bl));
-        int b = k - a;
-        if (A[as + a - 1] >= B[bs + b - 1] && (b == bl || A[as + a - 1] <= B[bs + b]))
-            return A[as + a - 1];
-        if (B[bs + b - 1] >= A[as + a - 1] && (a == al || B[bs + b - 1] <= A[as + a]))
-            return B[bs + b - 1];
+        int m = Math.max(1, k * al / (al + bl));
+        int n = k - m;
+        if (A[as + m - 1] >= B[bs + n - 1] && (n == bl || A[as + m - 1] <= B[bs + n]))
+            return A[as + m - 1];
+        if (B[bs + n - 1] >= A[as + m - 1] && (m == al || B[bs + n - 1] <= A[as + m]))
+            return B[bs + n - 1];
 
-        if (A[as + a - 1] < B[bs + b - 1])
-            return findKthSmallest(A, as + a, al - a, B, bs, b - 1, k - a);
+        if (A[as + m - 1] < B[bs + n - 1])
+            return findKthSmallest(A, as + m, al - m, B, bs, n - 1, k - m);
 
-        return findKthSmallest(A, as, a - 1, B, bs + b, bl - b, k - b);
+        return findKthSmallest(A, as, m - 1, B, bs + n, bl - n, k - n);
     }
 }
