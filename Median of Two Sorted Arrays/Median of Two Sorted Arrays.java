@@ -156,7 +156,7 @@ class Solution3 {
 }
 
 /*
- * Simplest way
+ * Simplest way, O(log(k))
  */
 class Solution4 {
     public double findMedianSortedArrays(int[] A, int[] B) {
@@ -176,7 +176,7 @@ class Solution4 {
         if (k == 1)
             return Math.min(A[as], B[bs]);
 
-        int m = Math.max(1, k * al / (al + bl));
+        int m = al < bl ? Math.min(al, k / 2) : k - Math.min(bl, k / 2);
         int n = k - m;
         if (A[as + m - 1] <= B[bs + n - 1])
             return findKth(A, as + m, al - m, B, bs, n, k - m);
