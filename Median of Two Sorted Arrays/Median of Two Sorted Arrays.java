@@ -27,77 +27,9 @@ public class Solution {
 }
 
 /*
- * O(log(k))
- */
-class Solution2 {
-    public double findMedianSortedArrays(int[] A, int[] B) {
-        double higherM = findKth(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2 + 1);
-        if ((A.length + B.length) % 2 == 1)
-            return higherM;
-
-        double lowerM = findKth(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2);
-        return (lowerM + higherM) / 2.0;
-    }
-
-    private double findKth(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
-        if (al == 0)
-            return B[bs + k - 1];
-        if (bl == 0)
-            return A[as + k - 1];
-        if (k == 1)
-            return Math.min(A[as], B[bs]);
-
-        int m = al < bl ? Math.min(al, k / 2) : k - Math.min(bl, k / 2);
-        int n = k - m;
-        
-        if (A[as + m - 1] <= B[bs + n - 1])
-            return findKth(A, as + m, al - m, B, bs, n, k - m);
-
-        return findKth(A, as, m, B, bs + n, bl - n, k - n);
-    }
-}
-
-/*
- * O(log(m+n)) 
- */
-class Solution3 {
-    public double findMedianSortedArrays(int A[], int B[]) {
-        double higherMedian = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2 + 1);
-        if ((A.length + B.length) % 2 == 1)
-            return higherMedian;
-
-        double lowerMedian = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2);
-        return (lowerMedian + higherMedian) / 2.0;
-    }
-
-    private int findKthSmallest(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
-        if (al <= 0)
-            return B[bs + k - 1];
-        if (bl <= 0)
-            return A[as + k - 1];
-        if (k == 1)
-            return Math.min(A[as], B[bs]);
-
-        int m = Math.max(1, k * al / (al + bl));
-        int n = k - m;
-        if (A[as + m - 1] >= B[bs + n - 1] && (n == bl || A[as + m - 1] <= B[bs + n]))
-            return A[as + m - 1];
-        if (B[bs + n - 1] >= A[as + m - 1] && (m == al || B[bs + n - 1] <= A[as + m]))
-            return B[bs + n - 1];
-
-        if (A[as + m - 1] < B[bs + n - 1])
-            // exclude A[as+m-1] and below portion, also, exclude B[bs+n-1] and above portion
-            return findKthSmallest(A, as + m, al - m, B, bs, n - 1, k - m);
-
-        // exclude B[bs+n-1] and below portion, also, exclude A[as+m-1] and above portion
-        return findKthSmallest(A, as, m - 1, B, bs + n, bl - n, k - n);
-    }
-}
-
-/*
  * find lower/higher medians together
  */
-class Solution4 {
+class Solution2 {
     public double findMedianSortedArrays(int A[], int B[]) {
         Result result = findKthSmallest(A, 0, A.length, B, 0, B.length, (A.length + B.length) / 2 + 1);
         int[] A1 = result.arrayNo == 0 ? A : B;
@@ -151,7 +83,7 @@ class Solution4 {
 /*
  * The alternative way to achieve O(log(m+n)). Idea is from MIT's 6.046J/18.410J hand out.
  */
-class Solution5 {
+class Solution3 {
     double findMedianSortedArrays(int A[], int B[]) {
         double[] result = new double[1];
 
