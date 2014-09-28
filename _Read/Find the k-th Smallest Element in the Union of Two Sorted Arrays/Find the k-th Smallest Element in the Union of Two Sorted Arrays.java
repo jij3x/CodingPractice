@@ -1,4 +1,6 @@
-// O(log(k))
+/*
+ * O(log(k))
+ */
 public class Solution {
     public int findKthSmallest(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
         if (al == 0)
@@ -18,7 +20,29 @@ public class Solution {
     }
 }
 
+/*
+ * O(log(k))
+ */
 class Solution2 {
+    public int findKthSmallest(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
+        if (al > bl)
+            return findKthSmallest(B, bs, bl, A, as, al, k);
+        if (al == 0)
+            return B[bs + k - 1];
+        if (k == 1)
+            return Math.min(A[as], B[bs]);
+
+        int m = Math.min(al, k / 2);
+        int n = k - m;
+
+        if (A[as + m - 1] <= B[bs + n - 1])
+            return findKthSmallest(A, as + m, al - m, B, bs, n, k - m);
+
+        return findKthSmallest(A, as, m, B, bs + n, bl - n, k - n);
+    }
+}
+
+class Solution3 {
     public int findKthSmallest(int[] A, int as, int al, int[] B, int bs, int bl, int k) {
         if (al == 0)
             return B[bs + k - 1];
