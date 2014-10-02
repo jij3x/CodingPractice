@@ -31,21 +31,21 @@ class Solution2 {
         if (nRows == 1)
             return s;
 
-        StringBuilder[] buffer = new StringBuilder[nRows];
-        for (int i = 0; i < buffer.length; i++)
-            buffer[i] = new StringBuilder("");
+        StringBuilder[] buff = new StringBuilder[nRows];
+        for (int i = 0; i < nRows; i++)
+            buff[i] = new StringBuilder();
 
         for (int i = 0; i < s.length(); i++) {
-            int x = i % (nRows + (nRows - 2));
-            if (x / nRows == 0)
-                buffer[x].append(s.charAt(i));
-            else
-                buffer[nRows - 2 - x % nRows].append(s.charAt(i));
+            int row = i % (nRows * 2 - 2);
+            if (row >= nRows)
+                row = nRows - (row - nRows + 2);
+
+            buff[row].append(s.charAt(i));
         }
 
-        for (int i = 1; i < buffer.length; i++)
-            buffer[0].append(buffer[i]);
-        return buffer[0].toString();
+        for (int i = 1; i < nRows; i++)
+            buff[0].append(buff[i]);
+        return buff[0].toString();
     }
 }
 
