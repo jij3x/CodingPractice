@@ -12,16 +12,15 @@ public class Solution {
         if (root == null)
             return true;
 
-        return isSymmetricSame(root.left, root.right);
+        return isSymmeticSame(root.left, root.right);
     }
 
-    private boolean isSymmetricSame(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null)
+    private boolean isSymmeticSame(TreeNode n1, TreeNode n2) {
+        if (n1 == null && n2 == null)
             return true;
+        if (n1 == null || n2 == null || n1.val != n2.val)
+            return false;
 
-        if (root1 != null && root2 != null && root1.val == root2.val)
-            return isSymmetricSame(root1.right, root2.left) && isSymmetricSame(root1.left, root2.right);
-
-        return false;
+        return isSymmeticSame(n1.left, n2.right) && isSymmeticSame(n1.right, n2.left);
     }
 }
