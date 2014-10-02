@@ -3,28 +3,26 @@ public class Solution {
         if (nRows == 1)
             return s;
 
-        StringBuilder[] strSet = new StringBuilder[nRows];
-        for (int i = 0; i < strSet.length; i++)
-            strSet[i] = new StringBuilder();
+        StringBuilder[] buff = new StringBuilder[nRows];
+        for (int i = 0; i < nRows; i++)
+            buff[i] = new StringBuilder();
 
-        boolean down = true;
-        int row = 0;
-        for (int i = 0; i < s.length(); i++) {
-            strSet[row].append(s.charAt(i));
-            row += down ? 1 : -1;
+        for (int i = 0, row = 0, step = 1; i < s.length(); i++) {
+            buff[row].append(s.charAt(i));
+            row += step;
             if (row == nRows) {
+                step = -1;
                 row = nRows - 2;
-                down = false;
-            } else if (row == -1) {
-                row = 1;
-                down = true;
             }
-
+            if (row == -1) {
+                step = 1;
+                row = 1;
+            }
         }
 
         for (int i = 1; i < nRows; i++)
-            strSet[0].append(strSet[i]);
-        return strSet[0].toString();
+            buff[0].append(buff[i]);
+        return buff[0].toString();
     }
 }
 
