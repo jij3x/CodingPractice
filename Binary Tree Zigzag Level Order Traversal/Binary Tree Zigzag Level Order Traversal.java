@@ -8,34 +8,34 @@
  * }
  */
 public class Solution {
-    public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
         if (root == null)
             return result;
 
-        Stack<TreeNode> stack1 = new Stack<TreeNode>(), stack2 = new Stack<TreeNode>();
-        Stack<TreeNode> curr = stack1, next = stack2;
-        curr.push(root);
+        Stack<TreeNode> stk1 = new Stack<TreeNode>(), stk2 = new Stack<TreeNode>();
+        Stack<TreeNode> currStk = stk1, nextStk = stk2;
+        currStk.push(root);
         ArrayList<Integer> row = new ArrayList<Integer>();
-        while (!curr.isEmpty()) {
-            TreeNode n = curr.pop();
-            row.add(n.val);
-            
-            if (curr == stack1) {
-                if (n.left != null)
-                    next.push(n.left);
-                if (n.right != null)
-                    next.push(n.right);
+        while (!currStk.isEmpty()) {
+            TreeNode curr = currStk.pop();
+            row.add(curr.val);
+
+            if (currStk == stk2) {
+                if (curr.right != null)
+                    nextStk.push(curr.right);
+                if (curr.left != null)
+                    nextStk.push(curr.left);
             } else {
-                if (n.right != null)
-                    next.push(n.right);
-                if (n.left != null)
-                    next.push(n.left);
+                if (curr.left != null)
+                    nextStk.push(curr.left);
+                if (curr.right != null)
+                    nextStk.push(curr.right);
             }
 
-            if (curr.isEmpty()) {
-                curr = curr == stack1 ? stack2 : stack1;
-                next = next == stack1 ? stack2 : stack1;
+            if (currStk.isEmpty()) {
+                currStk = currStk == stk1 ? stk2 : stk1;
+                nextStk = nextStk == stk1 ? stk2 : stk1;
                 result.add(row);
                 row = new ArrayList<Integer>();
             }
