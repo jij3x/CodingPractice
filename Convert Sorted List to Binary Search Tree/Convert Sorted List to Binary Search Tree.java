@@ -16,26 +16,26 @@
  * }
  */
 public class Solution {
-    private ListNode currentNode;
+    private ListNode curr;
 
     public TreeNode sortedListToBST(ListNode head) {
-        this.currentNode = head;
-        int length = 0;
-        for (; head != null; head = head.next)
-            length++;
+        int len = 0;
+        for (ListNode p = head; p != null; p = p.next)
+            len++;
 
-        return doSortedListToBST(length);
+        this.curr = head;
+        return convert(head, len);
     }
 
-    private TreeNode doSortedListToBST(int length) {
-        if (length <= 0)
+    private TreeNode convert(ListNode head, int len) {
+        if (len == 0)
             return null;
 
-        TreeNode left = doSortedListToBST(length / 2);
-        TreeNode root = new TreeNode(this.currentNode.val);
+        TreeNode left = convert(head, len / 2);
+        TreeNode root = new TreeNode(this.curr.val);
         root.left = left;
-        this.currentNode = this.currentNode.next;
-        root.right = doSortedListToBST(length - length / 2 - 1);
+        this.curr = this.curr.next;
+        root.right = convert(this.curr, len - len / 2 - 1);
         return root;
     }
 }
