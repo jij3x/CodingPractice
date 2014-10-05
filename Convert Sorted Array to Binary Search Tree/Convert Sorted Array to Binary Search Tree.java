@@ -9,17 +9,17 @@
  */
 public class Solution {
     public TreeNode sortedArrayToBST(int[] num) {
-        return doSortedArrayToBST(num, 0, num.length - 1);
+        return toConvert(num, 0, num.length - 1);
     }
 
-    private TreeNode doSortedArrayToBST(int[] num, int start, int end) {
+    private TreeNode toConvert(int[] num, int start, int end) {
         if (start > end)
             return null;
 
-        int mid = start + (end - start) / 2;
+        int mid = (start + end) / 2;
         TreeNode root = new TreeNode(num[mid]);
-        root.left = doSortedArrayToBST(num, start, mid - 1);
-        root.right = doSortedArrayToBST(num, mid + 1, end);
+        root.left = toConvert(num, start, mid - 1);
+        root.right = toConvert(num, mid + 1, end);
         return root;
     }
 }
