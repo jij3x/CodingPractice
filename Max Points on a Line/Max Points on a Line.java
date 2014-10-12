@@ -85,3 +85,32 @@ class Solution2 {
         return finalMax;
     }
 }
+
+class Solution3 {
+    public int maxPoints(Point[] points) {
+        int max = 0;
+        for (int i = 0; i < points.length; i++) {
+            int localMax = 0, same = 1, perp = 1;
+            HashMap<Double, Integer> memo = new HashMap<Double, Integer>();
+            for (int j = i + 1; j < points.length; j++) {
+                if (points[i].y == points[j].y && points[i].x == points[j].x) {
+                    same++;
+                } else if (points[i].y == points[j].y) {
+                    perp++;
+                } else {
+                    double slope = (double) (points[i].x - points[j].x) / (double) (points[i].y - points[j].y);
+                    slope = slope == -0.0 ? 0.0 : slope;
+                    int cnt = memo.containsKey(slope) ? memo.get(slope) + 1 : 1;
+                    memo.put(slope, cnt);
+                }
+            }
+
+            for (Integer cnt : memo.values()) {
+                localMax = Math.max(localMax, cnt);
+            }
+            localMax = Math.max(localMax + same, perp);
+            max = Math.max(max, localMax);
+        }
+        return max;
+    }
+}
