@@ -1,0 +1,21 @@
+Imagine a map with an Amazon Fulfillment Center (Warehouse) located at the origin. We also have a set of customer locations denoted by x miles East/West, and y miles North/South of the Warehouse. As we work on Amazon PrimeAir, find the top k customer locations that are closest to the Warehouse, so we can test the flight capabilities of our autonomous drones.
+
+
+Example Input and Output:
+
+    input: {locations: [ {1,2}, {2,2}, {2,1} ], k: 2} output: [{1,2}, {2,1}] (The order the points are returned in does not matter.)
+    input: {locations: [ {1,2}, {2,2}, {2,1}], k: 1} output: [{1,2}] or [{2,1}] (Either result is acceptable since they are equidistant to the {0,0}, the origin.)
+    input: {locations: [ {9,0}, {1,2}, {5,6}, {2,2}, {1000,200}, {2,1} ], k: 3} output: [{1,2}, {2,2}, {2,1}] 
+
+You can assume the Location structure/class has the following format:
+
+class Location {
+    int x;
+    int y;
+}
+
+You can assume the function's signature has the following structure:
+
+Location[] findClosestCustomerLocations(Location[] customerLocations, int k);
+
+Your solution will be evaluated on correctness, runtime complexity (big-O), and adherence to coding best practices. Make sure to document your assumptions and the Big-O runtime and space complexity of the solution you implement. For this problem, the runtime complexity of your solution must be strictly less than O(n^2). A solution that returns the correct answer but has an O(n^2) runtime complexity will be considered incorrect. Using a sort function and sorting the list of points will also be considered incorrect. 

@@ -1,0 +1,4 @@
+Designe a bot detection rule engine - An IP can be recorgnized as a bot if:
+* 1000 hits in last 30 mins
+* no purchase in last 30 mins
+* 

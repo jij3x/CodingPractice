@@ -1,0 +1,4 @@
+Given a number 'n', find all multiplication ways to have the product 'n'.
+
+For example, given 12, the result will be
+    [1,12], [2,6], [2,2,3], [4,3]

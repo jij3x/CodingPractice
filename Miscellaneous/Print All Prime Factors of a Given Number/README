@@ -1,0 +1,1 @@
+Given a number n, write an efficient function to print all prime factors of n. For example, if the input number is 12, then output should be ¡°2 2 3¡å. And if the input number is 315, then output should be ¡°3 3 5 7¡å.

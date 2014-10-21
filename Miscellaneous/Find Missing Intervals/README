@@ -1,0 +1,6 @@
+Giving an sorted array (contains numbers between 0 and 99), find all missing intervals.
+
+Note: no duplicate number exists in giving array.
+
+Input: [0, 1, 3, 50, 75]
+Output: [2, 4-49, 51-74, 76-99]

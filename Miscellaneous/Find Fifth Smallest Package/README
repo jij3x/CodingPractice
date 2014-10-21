@@ -1,0 +1,22 @@
+Packages for customers at an Amazon Fulfillment Center (Warehouse) are assigned unique integer identifiers (package IDs). The package IDs are stored in a balanced binary search tree. Find the package with the 5th smallest package ID.
+
+
+Example Input and Output:
+
+    input: head of balanced BST containing [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] output: 5
+    input: head of balanced BST containing [10, 11, 31, 51, 71, 72] output: 71
+    input: head of balanced BST containing [1, 2, 3] output: -1 
+
+You can assume the node structure/class has the following format:
+
+class PackageNode {
+    PackageNode leftPackage;
+    PackageNode rightPackage;
+    int packageId;
+}
+
+You can assume the function's signature has the following structure:
+
+int findFifthSmallestPackage(PackageNode rootPackageNode);
+
+Your solution will be evaluated on correctness, runtime complexity (big-O), and adherence to coding best practices. Make sure to document your assumptions and the Big-O runtime and space complexity of the solution you implement. For this problem, the runtime complexity of your solution must be strictly less than O(n) for the average case. A solution that returns the correct answer but has an O(n) runtime complexity for the average case will be considered incorrect. 

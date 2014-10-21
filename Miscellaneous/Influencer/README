@@ -1,0 +1,1 @@
+Consider an N * N array of 1's and 0's. The X axis represents "influences" meaning that X influences Y. So, for example, if $array[3,7] is 1 that means that 3 influences 7. An "influencer" is someone who influences every other person, but is not influenced by any other member. Given such an array, write a function to determine whether or not an "influencer" exists in the array.

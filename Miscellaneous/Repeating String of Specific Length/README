@@ -1,0 +1,3 @@
+Identify all the 'n' (n will be input) letter-long sequences that occur more than once in any given input string.  Write a program that prints out all such sequences to the standard output stream, sorted in alphabetical order.
+
+This question can be twisted and asked as: "Find repeating sequences of specified length in given DNA chromosome sequence."

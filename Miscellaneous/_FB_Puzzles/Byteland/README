@@ -1,0 +1,51 @@
+Byteland consists of N cities numbered 1..N. There are M roads connecting some pairs of cities. There are two army divisions, A and B, which protect the kingdom. Each city is either protected by army division A or by army division B.
+
+You are the ruler of an enemy kingdom and have devised a plan to destroy Byteland. Your plan is to destroy all the roads in Byteland disrupting all communication. If you attack any road, the armies from both the cities that the road connects comes for its defense. You realize that your attack will fail if there are soldiers from both armies A and B defending any road.
+
+So you decide that before carrying out this plan, you will attack some of the cities and defeat the army located in the city to make your plan possible. However, this is considerably more difficult. You have estimated that defeating the army located in city i will take up ci amount of resources. Your aim now is to decide which cities to attack so that your cost is minimum and no road should be protected from both armies A and B.
+
+Input:
+
+The first line contains the number of test cases T. T test cases follow. The first line of each test case contains N and M. The next N lines describe the cities in Byteland. The ith line contains a letter 'A' or 'B' signifying the army division located in city i and the cost ci of defeating that army. The next M lines descibe the roads in the city. The ith line contains xi and yi, the numbers of the cities connected by a road.
+
+Output:
+
+Output T lines, one corresponding to each test case containing the cheapest cost of accomplishing your goal.
+
+Sample Input:
+3
+3 3
+A 1
+A 1
+B 1
+1 2
+1 3
+2 3
+3 3
+A 1
+A 1
+B 10
+1 2
+1 3
+2 3
+6 4
+A 10
+A 10
+A 10
+B 10
+B 10
+B 10
+1 2
+2 3
+4 5
+5 6
+
+Sample Output:
+1
+2
+0
+
+Explanation:
+
+In the first example, the city 3 should be attacked which costs 1 unit. In the second example, it is cheaper to attack cities 1 and 2 rather than attack city 3. In the third example, there is no road defended by both armies and so there is no need to attack any city.
+

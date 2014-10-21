@@ -1,0 +1,1 @@
+A locker's passcode contains 4 digits. Giving a digits string, find shortest substring that contains all possible passcodes [0000..9999].
