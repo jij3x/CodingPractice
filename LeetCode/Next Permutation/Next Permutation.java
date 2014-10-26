@@ -1,23 +1,18 @@
 public class Solution {
     public void nextPermutation(int[] num) {
         int maxIdx = num.length - 1;
-        while (maxIdx > 0) {
-            if (num[maxIdx] > num[maxIdx - 1])
-                break;
+        while (maxIdx > 0 && num[maxIdx] <= num[maxIdx - 1]) {
             maxIdx--;
         }
 
-        if (maxIdx != 0) {
-            int i = maxIdx;
-            while (i < num.length - 1) {
-                if (num[i] > num[maxIdx - 1] && num[i + 1] <= num[maxIdx - 1])
-                    break;
-                i++;
+        if (maxIdx > 0) {
+            int k = maxIdx, tgt = num[maxIdx - 1];
+            while (k < num.length - 1 && !(num[k] > tgt && num[k + 1] <= tgt)) {
+                k++;
             }
-
-            int temp = num[i];
-            num[i] = num[maxIdx - 1];
-            num[maxIdx - 1] = temp;
+            int temp = num[maxIdx - 1];
+            num[maxIdx - 1] = num[k];
+            num[k] = temp;
         }
 
         for (int i = maxIdx, j = num.length - 1; i < j; i++, j--) {
