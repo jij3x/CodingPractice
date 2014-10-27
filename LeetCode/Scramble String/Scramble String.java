@@ -35,41 +35,24 @@ public class Solution {
 // Backtracking only
 class Solution2 {
     public boolean isScramble(String s1, String s2) {
-        return bt(s1, 0, s2, 0, s1.length());
-    }
-
-    private boolean bt(String s1, int s1s, String s2, int s2s, int length) {
-        if (isIdentical(s1, s1s, s2, s2s, length))
+        if (s1.equals(s2))
             return true;
-        if (!sameCharSet(s1, s1s, s2, s2s, length))
-            return false;
 
-        for (int i = 1, j = length - 1; i < length; i++, j--) {
-            if ((bt(s1, s1s, s2, s2s, i) && bt(s1, s1s + i, s2, s2s + i, j))
-                    || (bt(s1, s1s, s2, s2s + j, i) && bt(s1, s1s + i, s2, s2s, j)))
+        char[] c1 = s1.toCharArray();
+        char[] c2 = s2.toCharArray();
+        Arrays.sort(c1);
+        Arrays.sort(c2);
+        for (int i = 0; i < c1.length; i++) {
+            if (c1[i] != c2[i])
+                return false;
+        }
+
+        for (int i = 1, j = s1.length() - 1; i < s1.length(); i++, j--) {
+            if ((isScramble(s1.substring(0, i), s2.substring(0, i)) && isScramble(s1.substring(i), s2.substring(i)))
+                    || (isScramble(s1.substring(0, i), s2.substring(j)) && isScramble(s1.substring(i), s2.substring(0, j))))
                 return true;
         }
         return false;
-    }
-
-    private boolean isIdentical(String s1, int s1s, String s2, int s2s, int length) {
-        for (int i = s1s, j = s2s; i < s1s + length; i++, j++) {
-            if (s1.charAt(i) != s2.charAt(j))
-                return false;
-        }
-        return true;
-    }
-
-    private boolean sameCharSet(String s1, int s1s, String s2, int s2s, int length) {
-        char[] charSet1 = s1.substring(s1s, s1s + length).toCharArray();
-        char[] charSet2 = s2.substring(s2s, s2s + length).toCharArray();
-        Arrays.sort(charSet1);
-        Arrays.sort(charSet2);
-        for (int i = 0; i < length; i++) {
-            if (charSet1[i] != charSet2[i])
-                return false;
-        }
-        return true;
     }
 }
 
