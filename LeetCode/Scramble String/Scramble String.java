@@ -8,17 +8,15 @@ public class Solution {
         if (memo[s1s][s2s][length - 1] != 0)
             return memo[s1s][s2s][length - 1] == 1 ? true : false;
 
-        boolean identical = true;
+        memo[s1s][s2s][length - 1] = 1;
         for (int i = s1s, j = s2s; i < s1s + length; i++, j++) {
             if (s1.charAt(i) != s2.charAt(j)) {
-                identical = false;
+                memo[s1s][s2s][length - 1] = -1;
                 break;
             }
         }
-        if (identical) {
-            memo[s1s][s2s][length - 1] = 1;
+        if (memo[s1s][s2s][length - 1] == 1)
             return true;
-        }
 
         for (int i = 1, j = length - 1; i < length; i++, j--) {
             if ((dp(s1, s1s, s2, s2s, i, memo) && dp(s1, s1s + i, s2, s2s + i, j, memo))
@@ -27,7 +25,6 @@ public class Solution {
                 return true;
             }
         }
-        memo[s1s][s2s][length - 1] = -1;
         return false;
     }
 }
