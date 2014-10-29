@@ -1,22 +1,21 @@
 public class Solution {
     public boolean wordBreak(String s, Set<String> dict) {
         byte[] memo = new byte[s.length()];
-        return dpWordBreak(s, dict, 0, memo);
+        return dpWordBreak(s, 0, dict, memo);
     }
 
-    private boolean dpWordBreak(String s, Set<String> dict, int start, byte[] memo) {
-        if (start >= s.length())
+    public boolean dpWordBreak(String s, int start, Set<String> dict, byte[] memo) {
+        if (start == s.length())
             return true;
         if (memo[start] != 0)
             return memo[start] == 1 ? true : false;
 
         for (int i = start; i < s.length(); i++) {
-            if (dict.contains(s.substring(start, i + 1)) && dpWordBreak(s, dict, i + 1, memo)) {
+            if (dict.contains(s.substring(start, i + 1)) && dpWordBreak(s, i + 1, dict, memo)) {
                 memo[start] = 1;
                 return true;
             }
         }
-
         memo[start] = -1;
         return false;
     }
