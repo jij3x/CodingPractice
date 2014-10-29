@@ -55,14 +55,14 @@ class Solution2 {
 
 class Solution3 {
     public boolean isScramble(String s1, String s2) {
-        boolean memo[][][] = new boolean[s1.length()][s2.length()][s1.length()];
+        boolean[][][] memo = new boolean[s1.length()][s1.length()][s1.length()];
         for (int i = s1.length() - 1; i >= 0; i--) {
-            for (int j = s2.length() - 1; j >= 0; j--) {
+            for (int j = s1.length() - 1; j >= 0; j--) {
                 memo[i][j][0] = s1.charAt(i) == s2.charAt(j);
-                for (int len = 2; len <= Math.min(s1.length() - i, s2.length() - j); len++) {
-                    for (int m = 1, n = len - 1; m < len; m++, n--) {
+                for (int len = 2; len <= Math.min(s1.length() - i, s1.length() - j); len++) {
+                    for (int m = 1, n = len - m; m < len; m++, n--) {
                         if ((memo[i][j][m - 1] && memo[i + m][j + m][n - 1])
-                                || (memo[i][j + m][n - 1] && memo[i + n][j][m - 1])) {
+                                || (memo[i][j + n][m - 1] && memo[i + m][j][n - 1])) {
                             memo[i][j][len - 1] = true;
                             break;
                         }
