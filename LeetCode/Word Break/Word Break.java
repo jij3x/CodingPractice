@@ -21,18 +21,18 @@ public class Solution {
     }
 }
 
-class Solution2 {
+public class Solution {
     public boolean wordBreak(String s, Set<String> dict) {
         boolean[] memo = new boolean[s.length() + 1];
-        memo[0] = true;
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = i - 1; j >= 0; j--) {
-                if (memo[j] && dict.contains(s.substring(j, i))) {
+        memo[s.length()] = true;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (dict.contains(s.substring(i, j + 1)) && memo[j + 1]) {
                     memo[i] = true;
                     break;
                 }
             }
         }
-        return memo[s.length()];
+        return memo[0];
     }
 }
