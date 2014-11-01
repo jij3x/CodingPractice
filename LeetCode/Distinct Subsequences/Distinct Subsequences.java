@@ -12,6 +12,7 @@ public class Solution {
     }
 }
 
+// Stack will overflow if given String is very long.
 class Solution2 {
     public int numDistinct(String S, String T) {
         int[][] memo = new int[S.length()][T.length()];
@@ -25,10 +26,9 @@ class Solution2 {
             return 1;
         if (i == S.length())
             return 0;
-        if (memo[i][j] != -1)
-            return memo[i][j];
 
-        memo[i][j] = dp(S, i + 1, T, j, memo) + (S.charAt(i) == T.charAt(j) ? dp(S, i + 1, T, j + 1, memo) : 0);
+        if (memo[i][j] == -1)
+            memo[i][j] = (S.charAt(i) == T.charAt(j) ? dp(S, i + 1, T, j + 1, memo) : 0) + dp(S, i + 1, T, j, memo);
         return memo[i][j];
     }
 }
