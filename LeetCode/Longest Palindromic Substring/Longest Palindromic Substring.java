@@ -31,7 +31,7 @@ class Solution2 {
         int maxLen = 0, maxPos = 0;
         for (int i = 0; i < s.length(); i++) {
             for (int j = i; j >= 0; j--) {
-                if (s.charAt(i) == s.charAt(j) && (i - j <= 1 || memo[j + 1][i - 1])) {
+                if (s.charAt(i) == s.charAt(j) && (j + 1 >= i - 1 || memo[j + 1][i - 1])) {
                     memo[j][i] = true;
                     if (i - j + 1 > maxLen) {
                         maxLen = i - j + 1;
