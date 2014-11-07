@@ -46,8 +46,7 @@ class Solution3 {
             return result;
         }
 
-        List<String> subResult = generateParenthesis(n - 1);
-        for (String r : subResult) {
+        for (String r : generateParenthesis(n - 1)) {
             result.add("()" + r);
 
             Stack<String> stack = new Stack<String>();
