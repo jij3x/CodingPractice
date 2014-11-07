@@ -23,24 +23,17 @@ class Solution2 {
 
     private List<String> dfs(int left, int right) {
         List<String> result = new LinkedList<String>();
-        if (right == 0) {
+        if (right == 0)
             result.add("");
-            return result;
-        }
 
-        if (left == right) {
+        if (left > 0) {
             for (String s : dfs(left - 1, right))
                 result.add("(" + s);
-            return result;
         }
-
-        for (String s : dfs(left, right - 1))
-            result.add(")" + s);
-
-        if (left > 0)
-            for (String s : dfs(left - 1, right))
-                result.add("(" + s);
-
+        if (right > left) {
+            for (String s : dfs(left, right - 1))
+                result.add(")" + s);
+        }
         return result;
     }
 }
