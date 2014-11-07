@@ -1,20 +1,18 @@
 public class Solution {
     public List<String> generateParenthesis(int n) {
-        List<String> result = new LinkedList<String>();
-        dfs("", n, n, result);
+        ArrayList<String> result = new ArrayList<String>();
+        dfs(n, n, "", result);
         return result;
     }
 
-    private void dfs(String past, int left, int right, List<String> result) {
-        if (right == 0) {
+    private void dfs(int left, int right, String past, ArrayList<String> result) {
+        if (right == 0)
             result.add(past);
-            return;
-        }
 
         if (left > 0)
-            dfs(past + "(", left - 1, right, result);
+            dfs(left - 1, right, past + "(", result);
         if (right > left)
-            dfs(past + ")", left, right - 1, result);
+            dfs(left, right - 1, past + ")", result);
     }
 }
 
