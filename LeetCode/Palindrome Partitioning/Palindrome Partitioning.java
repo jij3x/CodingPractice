@@ -1,6 +1,6 @@
 public class Solution {
-    public ArrayList<ArrayList<String>> partition(String s) {
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<List<String>>();
         if (s.isEmpty()) {
             result.add(new ArrayList<String>());
             return result;
@@ -8,14 +8,10 @@ public class Solution {
 
         for (int i = 1; i <= s.length(); i++) {
             String head = s.substring(0, i);
-            StringBuilder buffer = new StringBuilder(head);
-            String reversed = buffer.reverse().toString();
-            if (head.equals(reversed)) {
-                for (ArrayList<String> r : partition(s.substring(i, s.length()))) {
-                    ArrayList<String> newPartition = new ArrayList<String>();
-                    newPartition.add(head);
-                    newPartition.addAll(r);
-                    result.add(newPartition);
+            if (head.equals((new StringBuilder(head)).reverse().toString())) {
+                for (List<String> list : partition(s.substring(i))) {
+                    list.add(0, s.substring(0, i));
+                    result.add(list);
                 }
             }
         }
