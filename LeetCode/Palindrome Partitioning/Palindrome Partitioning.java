@@ -20,36 +20,27 @@ public class Solution {
 }
 
 class Solution2 {
-    public ArrayList<ArrayList<String>> partition(String s) {
+    public List<List<String>> partition(String s) {
         boolean[][] memo = new boolean[s.length()][s.length()];
-        memo[s.length() - 1][s.length() - 1] = true;
-        for (int i = 0; i < s.length() - 1; i++) {
-            memo[i][i] = true;
-            memo[i][i + 1] = s.charAt(i) == s.charAt(i + 1);
-        }
-        for (int i = 2; i < s.length(); i++) {
-            for (int j = i - 2; j >= 0; j--) {
-                memo[j][i] = (s.charAt(j) == s.charAt(i)) && memo[j + 1][i - 1];
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i; j >= 0; j--) {
+                if (s.charAt(i) == s.charAt(j) && (j + 1 >= i - 1 || memo[j + 1][i - 1]))
+                    memo[j][i] = true;
             }
         }
-
-        return doPartition(s, 0, memo);
+        return dfs(s, 0, memo);
     }
 
-    private ArrayList<ArrayList<String>> doPartition(String s, int start, boolean[][] memo) {
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-        if (start == s.length()) {
+    private List<List<String>> dfs(String s, int start, boolean[][] memo) {
+        List<List<String>> result = new ArrayList<List<String>>();
+        if (start == s.length())
             result.add(new ArrayList<String>());
-            return result;
-        }
 
         for (int i = start; i < s.length(); i++) {
             if (memo[start][i]) {
-                for (ArrayList<String> r : doPartition(s, i + 1, memo)) {
-                    ArrayList<String> row = new ArrayList<String>();
-                    row.add(s.substring(start, i + 1));
-                    row.addAll(r);
-                    result.add(row);
+                for (List<String> list : dfs(s, i + 1, memo)) {
+                    list.add(0, s.substring(start, i + 1));
+                    result.add(list);
                 }
             }
         }
