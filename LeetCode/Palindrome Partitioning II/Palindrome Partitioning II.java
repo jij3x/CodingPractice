@@ -33,20 +33,18 @@ public class Solution {
 
 class Solution2 {
     public int minCut(String s) {
-        boolean[][] palTbl = new boolean[s.length()][s.length()];
-        int[] minPal = new int[s.length() + 1];
-
+        boolean[][] plndTbl = new boolean[s.length()][s.length()];
+        int[] minTbl = new int[s.length() + 1];
         for (int i = 0; i < s.length(); i++) {
-            minPal[i + 1] = i + 1;
+            minTbl[i + 1] = i + 1;
             for (int j = i; j >= 0; j--) {
-                if (s.charAt(j) == s.charAt(i) && (i - j <= 1 || palTbl[j + 1][i - 1])) {
-                    palTbl[j][i] = true;
-                    minPal[i + 1] = Math.min(minPal[i + 1], minPal[j] + 1);
+                if (s.charAt(i) == s.charAt(j) && (j + 1 > i - 1 || plndTbl[j + 1][i - 1])) {
+                    plndTbl[j][i] = true;
+                    minTbl[i + 1] = Math.min(minTbl[i + 1], minTbl[j] + 1);
                 }
             }
         }
-
-        return minPal[s.length()] - 1;
+        return minTbl[s.length()] - 1;
     }
 }
 
