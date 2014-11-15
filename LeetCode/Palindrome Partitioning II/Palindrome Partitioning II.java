@@ -1,32 +1,28 @@
 public class Solution {
     public int minCut(String s) {
-        boolean[][] palTbl = new boolean[s.length()][s.length()];
+        boolean[][] plndTbl = new boolean[s.length()][s.length()];
         for (int i = 0; i < s.length(); i++) {
             for (int j = i; j >= 0; j--) {
-                if (s.charAt(j) == s.charAt(i) && (i - j <= 1 || palTbl[j + 1][i - 1]))
-                    palTbl[j][i] = true;
+                if (s.charAt(i) == s.charAt(j) && (j + 1 > i - 1 || plndTbl[j + 1][i - 1]))
+                    plndTbl[j][i] = true;
             }
         }
 
         int[] memo = new int[s.length()];
-        Arrays.fill(memo, -1);
-        return dpMinPatitions(s, 0, palTbl, memo) - 1;
+        return dpMinCut(s, 0, plndTbl, memo) - 1;
     }
 
-    private int dpMinPatitions(String s, int start, boolean[][] palTbl, int[] memo) {
+    private int dpMinCut(String s, int start, boolean[][] plndTbl, int[] memo) {
         if (start == s.length())
-            return 0;
+            return 1;
 
-        if (memo[start] != -1)
-            return memo[start];
-
-        int min = s.length() - start;
-        for (int i = start; i < s.length(); i++) {
-            if (palTbl[start][i])
-                min = Math.min(min, dpMinPatitions(s, i + 1, palTbl, memo));
+        if (memo[start] == 0) {
+            memo[start] = s.length() - start;
+            for (int i = start; i < s.length(); i++) {
+                if (plndTbl[start][i])
+                    memo[start] = Math.min(memo[start], dpMinCut(s, i + 1, plndTbl, memo) + 1);
+            }
         }
-
-        memo[start] = min + 1;
         return memo[start];
     }
 }
