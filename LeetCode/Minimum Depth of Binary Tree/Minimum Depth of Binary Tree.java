@@ -8,6 +8,21 @@
  * }
  */
 public class Solution {
+    public int minDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        if (root.left == null && root.right == null)
+            return 1;
+        if (root.left == null)
+            return minDepth(root.right) + 1;
+        if (root.right == null)
+            return minDepth(root.left) + 1;
+
+        return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+    }
+}
+
+class Solution2 {
     private int min;
 
     public int minDepth(TreeNode root) {
@@ -19,15 +34,12 @@ public class Solution {
         return min;
     }
 
-    private void dfs(TreeNode root, int depth) {
-        if (root.left == null && root.right == null) {
-            min = Math.min(min, depth);
-            return;
-        }
-
+    private void dfs(TreeNode root, int level) {
         if (root.left != null)
-            dfs(root.left, depth + 1);
+            dfs(root.left, level + 1);
         if (root.right != null)
-            dfs(root.right, depth + 1);
+            dfs(root.right, level + 1);
+        if (root.left == null && root.right == null)
+            min = Math.min(min, level);
     }
 }
