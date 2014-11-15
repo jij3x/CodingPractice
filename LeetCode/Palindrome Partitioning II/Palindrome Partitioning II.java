@@ -46,37 +46,36 @@ class Solution2 {
 
 class Solution3 {
     public int minCut(String s) {
-        boolean[][] palTbl = new boolean[s.length()][s.length()];
+        boolean[][] plndTbl = new boolean[s.length()][s.length()];
         for (int i = 0; i < s.length(); i++) {
             for (int j = i; j >= 0; j--) {
-                if (j == i || (s.charAt(j) == s.charAt(i) && (j == i - 1 || palTbl[j + 1][i - 1])))
-                    palTbl[j][i] = true;
+                if (s.charAt(i) == s.charAt(j) && (j + 1 > i - 1 || plndTbl[j + 1][i - 1]))
+                    plndTbl[j][i] = true;
             }
         }
 
         Queue<Integer> que = new LinkedList<Integer>();
         boolean[] visited = new boolean[s.length() + 1];
+        int currLvl = 1, nextLvl = 0, dist = 0;
         que.add(0);
         visited[0] = true;
-        int currLvlCnt = 1, nextLvlCnt = 0, level = 0;
-        while (currLvlCnt > 0) {
-            int ps = que.poll();
-            currLvlCnt--;
-            if (ps == s.length())
-                return level - 1;
+        while (!que.isEmpty()) {
+            int start = que.poll();
+            if (start == s.length())
+                return dist - 1;
 
-            for (int i = ps; i < s.length(); i++) {
-                if (palTbl[ps][i] && !visited[i + 1]) {
-                    que.add(i + 1);
+            for (int i = start; i < s.length(); i++) {
+                if (plndTbl[start][i] && !visited[i + 1]) {
                     visited[i + 1] = true;
-                    nextLvlCnt++;
+                    que.add(i + 1);
+                    nextLvl++;
                 }
             }
 
-            if (currLvlCnt == 0) {
-                currLvlCnt = nextLvlCnt;
-                nextLvlCnt = 0;
-                level++;
+            if (--currLvl == 0) {
+                currLvl = nextLvl;
+                nextLvl = 0;
+                dist++;
             }
         }
         return 0;
