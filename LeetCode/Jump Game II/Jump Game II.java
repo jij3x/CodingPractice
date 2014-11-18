@@ -1,14 +1,13 @@
 public class Solution {
     public int jump(int[] A) {
-        int last = 0, max = 0, hops = 0;
-        for (int i = 0; i < A.length; i++) {
-            if (i > last) {
-                last = max;
+        int hops = 0;
+        for (int i = 0, currEnd = 0, nextEnd = 0; i < A.length; i++) {
+            if (i > currEnd) {
+                currEnd = nextEnd;
                 hops++;
             }
-            max = Math.max(max, i + A[i]);
+            nextEnd = Math.max(nextEnd, i + A[i]);
         }
-
         return hops;
     }
 }
