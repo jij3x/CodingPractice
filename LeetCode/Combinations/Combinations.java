@@ -22,17 +22,16 @@ public class Solution {
 }
 
 class Solution2 {
-    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+    public List<List<Integer>> combine(int n, int k) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
         if (k == 0) {
             result.add(new ArrayList<Integer>());
-            return result;
-        }
-
-        for (int i = n; i >= k; i--) {
-            for (ArrayList<Integer> r : combine(i - 1, k - 1)) {
-                r.add(i);
-                result.add(r);
+        } else {
+            for (int i = n; i >= k; i--) {
+                for (List<Integer> r : combine(i - 1, k - 1)) {
+                    r.add(i);
+                    result.add(r);
+                }
             }
         }
         return result;
