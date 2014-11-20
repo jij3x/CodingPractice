@@ -1,22 +1,19 @@
 public class Solution {
-    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> path = new ArrayList<Integer>();
-
-        doCombine(n, k, path, result);
+    public List<List<Integer>> combine(int n, int k) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+        doCombine(n, k, new LinkedList<Integer>(), result);
         return result;
     }
 
-    private void doCombine(int n, int k, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> result) {
+    private void doCombine(int n, int k, List<Integer> path, List<List<Integer>> result) {
         if (k == 0) {
             result.add(new ArrayList<Integer>(path));
-            return;
-        }
-
-        for (int i = n; i >= k; i--) {
-            path.add(0, i);
-            doCombine(i - 1, k - 1, path, result);
-            path.remove(0);
+        } else {
+            for (int i = n; i >= k; i--) {
+                path.add(0, i);
+                doCombine(i - 1, k - 1, path, result);
+                path.remove(0);
+            }
         }
     }
 }
