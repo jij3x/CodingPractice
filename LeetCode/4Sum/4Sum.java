@@ -55,12 +55,11 @@ class Solution2 {
 
         HashSet<ArrayList<Integer>> resultSet = new HashSet<ArrayList<Integer>>();
         for (Integer key : lookupTbl.keySet()) {
-            int tgtKey = target - key;
-            if (!lookupTbl.containsKey(tgtKey))
+            if (!lookupTbl.containsKey(target - key))
                 continue;
 
             for (Pair pair1 : lookupTbl.get(key)) {
-                for (Pair pair2 : lookupTbl.get(tgtKey)) {
+                for (Pair pair2 : lookupTbl.get(target - key)) {
                     if (pair1.a == pair2.a || pair1.a == pair2.b || pair1.b == pair2.a || pair1.b == pair2.b)
                         continue;
                     Integer[] r = { num[pair1.a], num[pair1.b], num[pair2.a], num[pair2.b] };
