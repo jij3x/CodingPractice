@@ -26,9 +26,8 @@ public class Solution {
 class Solution2 {
     public String getPermutation(int n, int k) {
         int[] fTbl = new int[n + 1];
-        fTbl[0] = fTbl[1] = 1;
-        for (int i = 2; i <= n; i++)
-            fTbl[i] = fTbl[i - 1] * i;
+        for (int i = 0; i <= n; i++)
+            fTbl[i] = i < 2 ? 1 : fTbl[i - 1] * i;
 
         return dfs(n, k, new boolean[n], fTbl);
     }
