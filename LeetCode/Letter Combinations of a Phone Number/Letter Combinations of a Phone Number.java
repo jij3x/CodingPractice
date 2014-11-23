@@ -1,20 +1,20 @@
 public class Solution {
-    private final String[] charTbl = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+    private final String[] pad = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
 
-    public ArrayList<String> letterCombinations(String digits) {
-        return doCombination(digits, 0);
+    public List<String> letterCombinations(String digits) {
+        return dfs(digits, 0);
     }
 
-    private ArrayList<String> doCombination(String digits, int start) {
+    private List<String> dfs(String digits, int start) {
         ArrayList<String> result = new ArrayList<String>();
         if (start == digits.length()) {
             result.add("");
             return result;
         }
 
-        for (int i = 0; i < charTbl[digits.charAt(start) - '0'].length(); i++) {
-            for (String s : doCombination(digits, start + 1))
-                result.add(charTbl[digits.charAt(start) - '0'].charAt(i) + s);
+        for (int i = 0, num = digits.charAt(start) - '0'; i < pad[num].length(); i++) {
+            for (String r : dfs(digits, start + 1))
+                result.add(pad[num].charAt(i) + r);
         }
         return result;
     }
