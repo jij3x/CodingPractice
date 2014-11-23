@@ -21,19 +21,17 @@ public class Solution {
 }
 
 class Solution2 {
-    private final String[] keypad = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
-
-    public ArrayList<String> letterCombinations(String digits) {
+    public List<String> letterCombinations(String digits) {
+        final String[] pad = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
         ArrayList<String> result = new ArrayList<String>();
-        if (digits.length() == 0) {
+        if (digits.isEmpty()) {
             result.add("");
             return result;
         }
 
-        String letters = keypad[(int) digits.charAt(0) - '0'];
-        for (int i = 0; i < letters.length(); i++) {
-            for (String s : letterCombinations(digits.substring(1)))
-                result.add(letters.charAt(i) + s);
+        for (int i = 0, num = digits.charAt(0) - '0'; i < pad[num].length(); i++) {
+            for (String r : letterCombinations(digits.substring(1)))
+                result.add(pad[num].charAt(i) + r);
         }
         return result;
     }
