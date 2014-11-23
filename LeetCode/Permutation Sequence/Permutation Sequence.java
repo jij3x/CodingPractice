@@ -28,25 +28,21 @@ class Solution2 {
         int[] fTbl = new int[n + 1];
         fTbl[0] = fTbl[1] = 1;
         for (int i = 2; i <= n; i++)
-            fTbl[i] = i * fTbl[i - 1];
+            fTbl[i] = fTbl[i - 1] * i;
 
-        boolean[] visited = new boolean[n + 1];
-        return doGetPerm(n, k, fTbl, visited);
+        return dfs(n, k, new boolean[n], fTbl);
     }
 
-    private String doGetPerm(int n, int k, int[] fTbl, boolean[] visited) {
+    private String dfs(int n, int k, boolean[] visited, int[] fTbl) {
         if (n == 0)
             return "";
 
-        int seg = (k - 1) / fTbl[n - 1] + 1;
-        String num = "";
-        for (int i = 1; i < visited.length; i++) {
-            if (!visited[i] && --seg == 0) {
-                num = Integer.toString(i);
+        for (int i = 0, seg = (k - 1) / fTbl[n - 1]; i < visited.length; i++) {
+            if (!visited[i] && --seg < 0) {
                 visited[i] = true;
-                break;
+                return Integer.toString(1 + i) + dfs(n - 1, (k - 1) % fTbl[n - 1] + 1, visited, fTbl);
             }
         }
-        return num + doGetPerm(n - 1, (k - 1) % fTbl[n - 1] + 1, fTbl, visited);
+        return "";
     }
 }
