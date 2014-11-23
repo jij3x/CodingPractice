@@ -1,23 +1,19 @@
 public class Solution {
     public String getPermutation(int n, int k) {
         int[] fTbl = new int[n + 1];
-        fTbl[0] = fTbl[1] = 1;
-        for (int i = 2; i <= n; i++)
-            fTbl[i] = i * fTbl[i - 1];
+        for (int i = 0; i <= n; i++)
+            fTbl[i] = i < 2 ? 1 : fTbl[i - 1] * i;
 
-        boolean[] visited = new boolean[n + 1];
+        boolean[] visited = new boolean[n];
         int result = 0;
-        while (n > 0) {
-            int seg = (k - 1) / fTbl[n - 1] + 1;
-            for (int i = 1; i < visited.length; i++) {
-                if (!visited[i] && --seg == 0) {
+        for (; n > 0; k = (k - 1) % fTbl[n - 1] + 1, n--) {
+            for (int i = 0, seg = (k - 1) / fTbl[n - 1]; i < visited.length; i++) {
+                if (!visited[i] && --seg < 0) {
                     visited[i] = true;
-                    result = result * 10 + i;
+                    result = result * 10 + i + 1;
                     break;
                 }
             }
-            k = (k - 1) % fTbl[n - 1] + 1;
-            n--;
         }
         return Integer.toString(result);
     }
