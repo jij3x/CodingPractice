@@ -9,10 +9,8 @@ public class Solution {
     private int dpMinDist(String word1, int s1, String word2, int s2, int[][] memo) {
         if (s1 == word1.length() || s2 == word2.length())
             return Math.max(word1.length() - s1, word2.length() - s2);
-
         if (word1.charAt(s1) == word2.charAt(s2))
             return dpMinDist(word1, s1 + 1, word2, s2 + 1, memo);
-
         if (memo[s1][s2] != -1)
             return memo[s1][s2];
 
