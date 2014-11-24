@@ -17,8 +17,7 @@ public class Solution {
         int insDist = 1 + dpMinDist(word1, s1, word2, s2 + 1, memo);
         int delDist = 1 + dpMinDist(word1, s1 + 1, word2, s2, memo);
         int rpDist = 1 + dpMinDist(word1, s1 + 1, word2, s2 + 1, memo);
-        memo[s1][s2] = Math.min(insDist, Math.min(delDist, rpDist));
-        return memo[s1][s2];
+        return memo[s1][s2] = Math.min(insDist, Math.min(delDist, rpDist));
     }
 }
 
