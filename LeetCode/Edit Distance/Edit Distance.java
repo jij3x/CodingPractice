@@ -44,8 +44,7 @@ class Solution2 {
 class Solution3 {
     public int minDistance(String word1, String word2) {
         int[][] repo = new int[2][word2.length() + 1];
-        int[] prev = repo[0];
-        int[] curr = repo[1];
+        int[] prev = repo[0], curr = repo[1];
 
         for (int j = 0; j <= word2.length(); j++)
             prev[j] = word2.length() - j;
@@ -58,7 +57,6 @@ class Solution3 {
                 else
                     curr[j] = Math.min(prev[j], Math.min(curr[j + 1], prev[j + 1])) + 1;
             }
-
             prev = prev == repo[0] ? repo[1] : repo[0];
             curr = curr == repo[0] ? repo[1] : repo[0];
         }
