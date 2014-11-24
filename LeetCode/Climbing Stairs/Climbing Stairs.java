@@ -1,12 +1,12 @@
 public class Solution {
     public int climbStairs(int n) {
-        int prev = 1, prevPrev = 1, result = 1;
-        for (int i = 2; i <= n; i++) {
-            result = prev + prevPrev;
+        int prev = 1;
+        for (int i = 2, prevPrev = 1; i <= n; i++) {
+            int result = prev + prevPrev;
             prevPrev = prev;
             prev = result;
         }
-        return result;
+        return prev;
     }
 }
 
