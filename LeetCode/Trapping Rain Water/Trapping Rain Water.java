@@ -6,7 +6,7 @@ public class Solution {
         int[] leftPeak = new int[A.length], rightPeak = new int[A.length];
         leftPeak[0] = A[0];
         rightPeak[A.length - 1] = A[A.length - 1];
-        for (int i = 1, j = A.length - 2; i < A.length; i++, j--) {
+        for (int i = 1, j = A.length - 2; i < A.length - 1; i++, j--) {
             leftPeak[i] = Math.max(leftPeak[i - 1], A[i]);
             rightPeak[j] = Math.max(rightPeak[j + 1], A[j]);
         }
