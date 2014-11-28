@@ -17,25 +17,21 @@ public class Solution {
 
 class Solution2 {
     public int numDecodings(String s) {
-        if (s.isEmpty())
-            return 0;
-
         int[] memo = new int[s.length() + 1];
         Arrays.fill(memo, -1);
         memo[s.length()] = 1;
-        return doDecode(s, 0, memo);
+        return s.isEmpty() ? 0 : dpNumDecodings(s, 0, memo);
     }
 
-    private int doDecode(String s, int start, int[] memo) {
+    private int dpNumDecodings(String s, int start, int[] memo) {
         if (memo[start] != -1)
             return memo[start];
         if (s.charAt(start) == '0')
             return 0;
 
-        memo[start] = doDecode(s, start + 1, memo);
-        if (start < s.length() - 1 && Integer.parseInt(s.substring(start, start + 2)) < 27)
-            memo[start] += doDecode(s, start + 2, memo);
-
+        memo[start] = dpNumDecodings(s, start + 1, memo);
+        if (start < s.length() - 1 && Integer.parseInt(s.substring(start, start + 2)) <= 26)
+            memo[start] += dpNumDecodings(s, start + 2, memo);
         return memo[start];
     }
 }
