@@ -3,13 +3,13 @@ public class Solution {
         if (s.isEmpty())
             return 0;
 
-        int[] memo = new int[s.length() + 2];
+        int memo[] = new int[s.length() + 1];
         memo[s.length()] = 1;
         memo[s.length() - 1] = s.charAt(s.length() - 1) == '0' ? 0 : 1;
 
         for (int i = s.length() - 2; i >= 0; i--) {
             if (s.charAt(i) != '0')
-                memo[i] += memo[i + 1] + (Integer.parseInt(s.substring(i, i + 2)) < 27 ? memo[i + 2] : 0);
+                memo[i] = memo[i + 1] + (Integer.parseInt(s.substring(i, i + 2)) <= 26 ? memo[i + 2] : 0);
         }
         return memo[0];
     }
