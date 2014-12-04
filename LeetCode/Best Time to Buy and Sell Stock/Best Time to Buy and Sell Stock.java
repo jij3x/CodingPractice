@@ -4,9 +4,9 @@ public class Solution {
             return 0;
 
         int maxDiff = 0;
-        for (int i = 1, lowest = prices[0]; i < prices.length; i++) {
-            lowest = Math.min(lowest, prices[i]);
-            maxDiff = Math.max(maxDiff, prices[i] - lowest);
+        for (int lowestSoFar = prices[0], i = 1; i < prices.length; i++) {
+            maxDiff = Math.max(maxDiff, prices[i] - lowestSoFar);
+            lowestSoFar = Math.min(lowestSoFar, prices[i]);
         }
         return maxDiff;
     }
