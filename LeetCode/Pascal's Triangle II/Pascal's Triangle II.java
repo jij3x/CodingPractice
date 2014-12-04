@@ -5,11 +5,9 @@ public class Solution {
         for (int i = 1; i <= rowIndex; i++) {
             curr = new ArrayList<Integer>();
             curr.add(1);
-            for (int j = 1; j < i; j++) {
+            for (int j = 1; j < i; j++)
                 curr.add(prev.get(j - 1) + prev.get(j));
-            }
             curr.add(1);
-
             prev = curr;
         }
         return prev;
