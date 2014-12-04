@@ -1,6 +1,0 @@
-Need generate two max profit tables first:
-    one is for transactions happen before (and include) ith
-    another is for transactions happen before (and include) ith
-
-Final result is the max of leftMax[i] + rightMax[i+1].
-Also, one transaction max profit is also possible: leftMax[last] (or rigthMax[first]) needs to be taken into account.
