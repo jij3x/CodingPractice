@@ -1,1 +1,0 @@
-Accumate the positive differece between each price... from left to right.
