@@ -5,24 +5,15 @@ public class Solution {
 
         boolean[][] memo = new boolean[s1.length() + 1][s2.length() + 1];
         memo[s1.length()][s2.length()] = true;
-        for (int y = s1.length() - 1; y >= 0; y--) {
-            if (s1.charAt(y) == s3.charAt(s2.length() + y))
-                memo[y][s2.length()] = true;
-            else
-                break;
-        }
-        for (int x = s2.length() - 1; x >= 0; x--) {
-            if (s2.charAt(x) == s3.charAt(s1.length() + x))
-                memo[s1.length()][x] = true;
-            else
-                break;
-        }
+        for (int i = s1.length() - 1; i >= 0; i--)
+            memo[i][s2.length()] = s1.charAt(i) == s3.charAt(s2.length() + i) && memo[i + 1][s2.length()];
+        for (int i = s2.length() - 1; i >= 0; i--)
+            memo[s1.length()][i] = s2.charAt(i) == s3.charAt(s1.length() + i) && memo[s1.length()][i + 1];
 
-        for (int y = s1.length() - 1; y >= 0; y--) {
-            for (int x = s2.length() - 1; x >= 0; x--) {
-                memo[y][x] = (s1.charAt(y) == s3.charAt(y + x) && memo[y + 1][x])
-                        || (s2.charAt(x) == s3.charAt(x + y) && memo[y][x + 1]);
-            }
+        for (int i = s1.length() - 1; i >= 0; i--) {
+            for (int j = s2.length() - 1; j >= 0; j--)
+                memo[i][j] = (s1.charAt(i) == s3.charAt(i + j) && memo[i + 1][j])
+                        || (s2.charAt(j) == s3.charAt(i + j) && memo[i][j + 1]);
         }
         return memo[0][0];
     }
