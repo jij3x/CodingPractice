@@ -32,3 +32,20 @@ class Solution2 {
         return memo[i][j];
     }
 }
+
+class Solution3 {
+    public int numDistinct(String S, String T) {
+        int[] prev = new int[T.length() + 1], curr = new int[T.length() + 1];
+        prev[prev.length - 1] = curr[curr.length - 1] = 1;
+
+        for (int i = S.length() - 1; i >= 0; i--) {
+            for (int j = T.length() - 1; j >= 0; j--)
+                curr[j] = prev[j] + (S.charAt(i) == T.charAt(j) ? prev[j + 1] : 0);
+
+            int[] temp = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev[0];
+    }
+}
