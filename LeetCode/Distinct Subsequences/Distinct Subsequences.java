@@ -1,12 +1,11 @@
 public class Solution {
     public int numDistinct(String S, String T) {
-        int[][] memo = new int[S.length() + 1][T.length() + 1];
-        for (int i = 0; i <= S.length(); i++)
-            memo[i][T.length()] = 1;
+        int[][] memo = new int[T.length() + 1][S.length() + 1];
+        Arrays.fill(memo[T.length()], 1);
 
-        for (int y = S.length() - 1; y >= 0; y--) {
-            for (int x = T.length() - 1; x >= 0; x--)
-                memo[y][x] = memo[y + 1][x] + (S.charAt(y) == T.charAt(x) ? memo[y + 1][x + 1] : 0);
+        for (int x = S.length() - 1; x >= 0; x--) {
+            for (int y = T.length() - 1; y >= 0; y--)
+                memo[y][x] = memo[y][x + 1] + (S.charAt(x) == T.charAt(y) ? memo[y + 1][x + 1] : 0);
         }
         return memo[0][0];
     }
