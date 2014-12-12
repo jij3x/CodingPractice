@@ -12,19 +12,18 @@ public class Solution {
 
 class Solution2 {
     public int uniquePaths(int m, int n) {
-        int[][] memo = new int[m + 1][n + 1];
-        return dpUniquePaths(m, n, 1, 1, memo);
+        int[][] memo = new int[m][n];
+        return dp(0, 0, memo);
     }
 
-    private int dpUniquePaths(int m, int n, int y, int x, int[][] memo) {
-        if (y == m && x == n)
+    private int dp(int y, int x, int[][] memo) {
+        if (y == memo.length - 1 && x == memo[0].length - 1)
             return 1;
-        if (y > m || x > n)
+        if (y == memo.length || x == memo[0].length)
             return 0;
-        if (memo[y][x] != 0)
-            return memo[y][x];
 
-        memo[y][x] = dpUniquePaths(m, n, y, x + 1, memo) + dpUniquePaths(m, n, y + 1, x, memo);
+        if (memo[y][x] == 0)
+            memo[y][x] = dp(y + 1, x, memo) + dp(y, x + 1, memo);
         return memo[y][x];
     }
 }
