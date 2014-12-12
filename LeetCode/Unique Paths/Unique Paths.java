@@ -2,7 +2,6 @@ public class Solution {
     public int uniquePaths(int m, int n) {
         int[][] memo = new int[m + 1][n + 1];
         memo[m][n - 1] = 1;
-
         for (int y = m - 1; y >= 0; y--) {
             for (int x = n - 1; x >= 0; x--)
                 memo[y][x] = memo[y][x + 1] + memo[y + 1][x];
