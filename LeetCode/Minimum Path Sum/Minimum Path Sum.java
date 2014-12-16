@@ -15,29 +15,20 @@ public class Solution {
 
 class Solution2 {
     public int minPathSum(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        int[][] memo = new int[m][n];
+        int[][] memo = new int[grid.length][grid[0].length];
         for (int[] row : memo)
             Arrays.fill(row, -1);
-        memo[m - 1][n - 1] = grid[m - 1][n - 1];
-
-        return dpMinPathSum(grid, 0, 0, memo);
+        return dp(0, 0, grid, memo);
     }
 
-    private int dpMinPathSum(int[][] grid, int y, int x, int[][] memo) {
-        if (memo[y][x] != -1)
-            return memo[y][x];
+    private int dp(int y, int x, int[][] grid, int[][] memo) {
+        if (y == grid.length - 1 && x == grid[0].length - 1)
+            return grid[grid.length - 1][grid[0].length - 1];
+        else if (y == grid.length || x == grid[0].length)
+            return Integer.MAX_VALUE;
 
-        int m = grid.length;
-        int n = grid[0].length;
-        if (y == m - 1)
-            memo[y][x] = grid[y][x] + dpMinPathSum(grid, y, x + 1, memo);
-        else if (x == n - 1)
-            memo[y][x] = grid[y][x] + dpMinPathSum(grid, y + 1, x, memo);
-        else
-            memo[y][x] = grid[y][x] + Math.min(dpMinPathSum(grid, y, x + 1, memo), dpMinPathSum(grid, y + 1, x, memo));
-
+        if (memo[y][x] == -1)
+            memo[y][x] = Math.min(dp(y, x + 1, grid, memo), dp(y + 1, x, grid, memo)) + grid[y][x];
         return memo[y][x];
     }
 }
