@@ -1,1 +1,0 @@
-regular binary search... need to think carefully which pointer to return in case of not found... should be head.
