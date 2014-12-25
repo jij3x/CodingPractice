@@ -9,10 +9,9 @@ public class Solution {
             max = Math.max(max, num[i]);
         }
 
-        int bktSize = (int) Math.ceil((double) (max - min + 1) / num.length);
-        int[] bkts = new int[(int) Math.ceil((double) (max - min + 1) / bktSize) * 2];
+        int[] bkts = new int[num.length * 2];
         Arrays.fill(bkts, -1);
-        for (int i = 0; i < num.length; i++) {
+        for (int i = 0, bktSize = (int) Math.ceil((double) (max - min + 1) / num.length); i < num.length; i++) {
             int n = (num[i] - min) / bktSize * 2;
             bkts[n] = bkts[n] == -1 ? num[i] : Math.min(bkts[n], num[i]);
             bkts[n + 1] = bkts[n + 1] == -1 ? num[i] : Math.max(bkts[n + 1], num[i]);
