@@ -1,6 +1,6 @@
 public class Solution {
     public int removeDuplicates(int[] A) {
-        if (A.length < 2)
+        if (A.length <= 2)
             return A.length;
 
         int len = 2;
