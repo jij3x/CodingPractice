@@ -1,22 +1,21 @@
 public class Solution {
     public int divide(int dividend, int divisor) {
         long a = Math.abs((long) dividend);
-        long b = Math.abs((long) divisor), bbk = b;
+        long b = Math.abs((long) divisor), bb = b;
 
-        int result = 0, factor = 1;
-        while (a >= bbk) {
-            if (a < b) {
-                b >>= 1;
-                factor >>= 1;
-            } else if (a >= b << 1) {
-                b <<= 1;
-                factor <<= 1;
-            } else {
-                result += factor;
+        long c = 0, f = 1;
+        while (a >= bb) {
+            if (b <= a) {
                 a -= b;
+                c += f;
+                b <<= 1;
+                f <<= 1;
+            } else {
+                b >>= 1;
+                f >>= 1;
             }
         }
-
-        return (dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0) ? result : -result;
+        c = (dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0) ? c : 0 - c;
+        return (int) Math.min(c, Integer.MAX_VALUE);
     }
 }
