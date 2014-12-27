@@ -1,1 +1,0 @@
-Need one pointer - pivot. compare pivot and pivot.next, if identical remove pivot.next, else advance pivot.
