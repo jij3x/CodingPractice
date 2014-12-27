@@ -11,11 +11,11 @@
  */
 public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-        for (ListNode pivot = head; pivot != null && pivot.next != null;) {
-            if (pivot.val == pivot.next.val)
-                pivot.next = pivot.next.next;
+        for (ListNode p = head; p != null && p.next != null;) {
+            if (p.val == p.next.val)
+                p.next = p.next.next;
             else
-                pivot = pivot.next;
+                p = p.next;
         }
         return head;
     }
