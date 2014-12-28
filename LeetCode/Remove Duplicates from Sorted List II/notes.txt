@@ -1,6 +1,0 @@
-Need a safe guard in front, since head could be removed.
-maintain two pointers: prev and pivot (prev.next initially point to pivot).
-for each iteration, pivot will go all the way to the end of duplicates, if no duplicate, pivot won't move
-    after pivot settled, check to see if pivot moved (see if prev still points to it)
-    if moved, pivot advance, prev point to pivot.
-    if not moved, both pivot and prev advance.
