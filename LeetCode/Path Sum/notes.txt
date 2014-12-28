@@ -1,2 +1,0 @@
-DFS - add up value during the process
-sum up only on leaf node.
