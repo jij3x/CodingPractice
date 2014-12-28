@@ -1,13 +1,12 @@
 public class Solution {
     public void merge(int A[], int m, int B[], int n) {
-        int cursor = m + n - 1;
-        while (cursor >= 0) {
+        for (int total = m + n; total > 0; total--) {
             if (m > 0 && n > 0)
-                A[cursor--] = A[m - 1] > B[n - 1] ? A[--m] : B[--n];
+                A[total - 1] = A[m - 1] > B[n - 1] ? A[--m] : B[--n];
             else if (m > 0)
-                break;
+                return;
             else
-                A[cursor--] = B[--n];
+                A[total - 1] = B[--n];
         }
     }
 }
