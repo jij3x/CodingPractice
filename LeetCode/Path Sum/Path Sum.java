@@ -11,15 +11,15 @@ public class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {
         if (root == null)
             return false;
-        return doHasPathSum(root, 0, sum);
+        return doHasPathSum(root, sum);
     }
 
-    private boolean doHasPathSum(TreeNode root, int sum, int target) {
+    private boolean doHasPathSum(TreeNode root, int sum) {
         if (root.left == null && root.right == null)
-            return sum + root.val == target;
+            return root.val == sum;
 
-        boolean leftHas = root.left == null ? false : doHasPathSum(root.left, sum + root.val, target);
-        boolean rightHas = root.right == null ? false : doHasPathSum(root.right, sum + root.val, target);
+        boolean leftHas = root.left == null ? false : doHasPathSum(root.left, sum - root.val);
+        boolean rightHas = root.right == null ? false : doHasPathSum(root.right, sum - root.val);
         return leftHas || rightHas;
     }
 }
