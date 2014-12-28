@@ -13,18 +13,18 @@ public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         ListNode start = new ListNode(0), tail = start;
 
-        while (head != null) {
-            if (head.next == null || head.val != head.next.val) {
-                tail.next = head;
-                tail = tail.next;
-            } else {
+        while (head != null && head.next != null) {
+            if (head.val == head.next.val) {
                 while (head.next != null && head.val == head.next.val)
-                    head.next = head.next.next;
+                    head = head.next;
+            } else {
+                tail.next = head;
+                tail = head;
             }
             head = head.next;
         }
 
-        tail.next = null;
+        tail.next = head;
         return start.next;
     }
 }
