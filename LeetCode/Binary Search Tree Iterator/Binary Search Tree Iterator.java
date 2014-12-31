@@ -48,10 +48,10 @@ public class BSTIterator {
  * while (i.hasNext()) v[f()] = i.next();
  */
 
-public class BSTIterator {
+class BSTIterator2 {
     private Stack<TreeNode> stack;
 
-    public BSTIterator(TreeNode root) {
+    public BSTIterator2(TreeNode root) {
         stack = new Stack<TreeNode>();
         while (root != null) {
             stack.push(root);
