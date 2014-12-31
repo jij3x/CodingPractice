@@ -31,30 +31,26 @@ class Solution2 {
     public boolean isValidBST(TreeNode root) {
         if (root == null)
             return true;
-
-        int[] boundary = new int[2];
-        return doIsValidBST(root, boundary);
+        return validateBST(root, new int[2]);
     }
 
-    private boolean doIsValidBST(TreeNode root, int[] boundary) {
-        int smallest = root.val, largest = root.val;
+    private boolean validateBST(TreeNode root, int[] boundary) {
+        int min = root.val, max = min;
 
         if (root.left != null) {
-            if (!doIsValidBST(root.left, boundary) || boundary[1] >= root.val)
+            if (!validateBST(root.left, boundary) || root.val <= boundary[1])
                 return false;
-
-            smallest = boundary[0];
+            min = boundary[0];
         }
 
         if (root.right != null) {
-            if (!doIsValidBST(root.right, boundary) || boundary[0] <= root.val)
+            if (!validateBST(root.right, boundary) || root.val >= boundary[0])
                 return false;
-
-            largest = boundary[1];
+            max = boundary[1];
         }
 
-        boundary[0] = smallest;
-        boundary[1] = largest;
+        boundary[0] = min;
+        boundary[1] = max;
         return true;
     }
 }
