@@ -12,21 +12,18 @@ public class Solution {
 
     public boolean isValidBST(TreeNode root) {
         prev = null;
-        return doIsValidBST(root);
+        return dfs(root);
     }
 
-    private boolean doIsValidBST(TreeNode root) {
+    private boolean dfs(TreeNode root) {
         if (root == null)
             return true;
 
-        if (!doIsValidBST(root.left))
-            return false;
-
-        if (prev != null && prev.val >= root.val)
+        if (!dfs(root.left) || (prev != null && prev.val >= root.val))
             return false;
         prev = root;
 
-        return doIsValidBST(root.right);
+        return dfs(root.right);
     }
 }
 
