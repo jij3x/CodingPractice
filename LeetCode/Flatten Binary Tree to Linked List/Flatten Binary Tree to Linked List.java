@@ -37,20 +37,17 @@ public class Solution {
 
 class Solution2 {
     public void flatten(TreeNode root) {
-        if (root == null)
-            return;
+        for (TreeNode curr = root; curr != null; curr = curr.right) {
+            if (curr.left != null) {
+                TreeNode rightMost = curr.left;
+                while (rightMost.right != null)
+                    rightMost = rightMost.right;
 
-        if (root.left != null) {
-            TreeNode tail = root.left;
-            while (tail.right != null)
-                tail = tail.right;
-
-            tail.right = root.right;
-            root.right = root.left;
-            root.left = null;
+                rightMost.right = curr.right;
+                curr.right = curr.left;
+                curr.left = null;
+            }
         }
-
-        flatten(root.right);
     }
 }
 
