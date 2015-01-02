@@ -69,8 +69,8 @@ class Solution3 {
         postOrderTraversal(root.right);
         postOrderTraversal(root.left);
 
-        root.right = prev;
         root.left = null;
+        root.right = prev;
         prev = root;
     }
 }
