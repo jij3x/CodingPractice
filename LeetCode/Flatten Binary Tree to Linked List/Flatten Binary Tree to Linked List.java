@@ -16,11 +16,11 @@ public class Solution {
     }
 
     private TreeNode dfsFlatten(TreeNode root) {
-        if (root.left == null && root.right == null)
+        if (root.left == null && root.right == null) {
             return root;
-        if (root.left == null)
+        } else if (root.left == null) {
             return dfsFlatten(root.right);
-        if (root.right == null) {
+        } else if (root.right == null) {
             root.right = root.left;
             root.left = null;
             return dfsFlatten(root.right);
