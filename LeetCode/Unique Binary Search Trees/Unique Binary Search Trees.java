@@ -4,8 +4,8 @@ public class Solution {
             return 1;
 
         int total = 0;
-        for (int i = 0; i < n; i++)
-            total += numTrees(i) * numTrees(n - 1 - i);
+        for (int i = 1; i <= n; i++)
+            total += numTrees(i - 1) * numTrees(n - i);
         return total;
     }
 }
