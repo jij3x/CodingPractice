@@ -53,7 +53,7 @@ class Solution2 {
         if (root == null)
             return;
 
-        if (result.size() <= level)
+        if (result.size() == level)
             result.add(new ArrayList<Integer>());
 
         result.get(level).add(root.val);
