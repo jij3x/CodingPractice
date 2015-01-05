@@ -1,2 +1,0 @@
-option one: do queue switch during BFS, and reverse the result before output.
-option two: use DFS, pass level# during recursion
