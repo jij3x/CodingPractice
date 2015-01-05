@@ -72,3 +72,23 @@ class Solution2 {
         return result;
     }
 }
+
+class Solution3 {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+        dfs(root, 1, result);
+        return result;
+    }
+
+    private void dfs(TreeNode root, int level, List<List<Integer>> result) {
+        if (root == null)
+            return;
+
+        if (result.size() < level)
+            result.add(new ArrayList<Integer>());
+
+        result.get(level - 1).add(root.val);
+        dfs(root.left, level + 1, result);
+        dfs(root.right, level + 1, result);
+    }
+}
