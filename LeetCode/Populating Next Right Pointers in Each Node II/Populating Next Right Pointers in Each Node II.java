@@ -28,36 +28,20 @@ public class Solution {
 
 class Solution2 {
     public void connect(TreeLinkNode root) {
-        if (root == null)
-            return;
-
-        TreeLinkNode currentLevelPivot = root;
-        TreeLinkNode nextLevelHead = null;
-        TreeLinkNode nextLevelTail = null;
-        while (currentLevelPivot != null) {
-            if (nextLevelHead == null && (currentLevelPivot.left != null || currentLevelPivot.right != null))
-                nextLevelHead = currentLevelPivot.left == null ? currentLevelPivot.right : currentLevelPivot.left;
-
-            if (currentLevelPivot.left != null) {
-                if (nextLevelTail != null)
-                    nextLevelTail.next = currentLevelPivot.left;
-
-                nextLevelTail = currentLevelPivot.left;
+        for (TreeLinkNode curr = root, nextLvlHead = new TreeLinkNode(0), nextLvlTail = nextLvlHead; curr != null;) {
+            if (curr.left != null) {
+                nextLvlTail.next = curr.left;
+                nextLvlTail = nextLvlTail.next;
+            }
+            if (curr.right != null) {
+                nextLvlTail.next = curr.right;
+                nextLvlTail = nextLvlTail.next;
             }
 
-            if (currentLevelPivot.right != null) {
-                if (nextLevelTail != null)
-                    nextLevelTail.next = currentLevelPivot.right;
-
-                nextLevelTail = currentLevelPivot.right;
-            }
-
-            if (currentLevelPivot.next == null) {
-                currentLevelPivot = nextLevelHead;
-                nextLevelHead = null;
-                nextLevelTail = null;
-            } else {
-                currentLevelPivot = currentLevelPivot.next;
+            curr = curr.next;
+            if (curr == null) {
+                curr = nextLvlHead.next;
+                nextLvlHead = nextLvlTail = new TreeLinkNode(0);
             }
         }
     }
