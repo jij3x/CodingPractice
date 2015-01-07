@@ -11,10 +11,10 @@ public class Solution {
         if (root == null || (root.left == null && root.right == null))
             return;
 
-        TreeLinkNode cur = root.next;
-        while (cur != null && cur.left == null && cur.right == null)
-            cur = cur.next;
-        TreeLinkNode close = cur == null ? null : (cur.left == null ? cur.right : cur.left);
+        TreeLinkNode curr = root.next;
+        while (curr != null && curr.left == null && curr.right == null)
+            curr = curr.next;
+        TreeLinkNode close = curr == null ? null : (curr.left == null ? curr.right : curr.left);
         TreeLinkNode open = root.right == null ? root.left : root.right;
         open.next = close;
 
