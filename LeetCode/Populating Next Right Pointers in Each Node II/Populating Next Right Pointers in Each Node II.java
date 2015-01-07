@@ -38,8 +38,7 @@ class Solution2 {
                 nextLvlTail = nextLvlTail.next;
             }
 
-            curr = curr.next;
-            if (curr == null) {
+            if ((curr = curr.next) == null) {
                 curr = nextLvlHead.next;
                 nextLvlHead = nextLvlTail = new TreeLinkNode(0);
             }
