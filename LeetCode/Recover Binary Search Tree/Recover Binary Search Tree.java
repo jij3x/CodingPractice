@@ -8,14 +8,14 @@
  * }
  */
 public class Solution {
-    private TreeNode prev, node1, node2;
+    private TreeNode prev, errNode1, errNode2;
 
     public void recoverTree(TreeNode root) {
-        prev = node1 = node2 = null;
+        prev = errNode1 = errNode2 = null;
         inOrderTraversal(root);
-        int temp = node1.val;
-        node1.val = node2.val;
-        node2.val = temp;
+        int temp = errNode1.val;
+        errNode1.val = errNode2.val;
+        errNode2.val = temp;
     }
 
     private void inOrderTraversal(TreeNode root) {
@@ -24,9 +24,9 @@ public class Solution {
 
         inOrderTraversal(root.left);
 
-        if (prev != null && root.val < prev.val) {
-            node1 = node1 == null ? prev : node1;
-            node2 = root;
+        if (prev != null && prev.val >= root.val) {
+            errNode1 = errNode1 == null ? prev : errNode1;
+            errNode2 = root;
         }
         prev = root;
 
