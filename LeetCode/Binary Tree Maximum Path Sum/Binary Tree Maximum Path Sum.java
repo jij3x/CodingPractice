@@ -11,18 +11,18 @@ public class Solution {
     private int max;
 
     public int maxPathSum(TreeNode root) {
-        max = root == null ? 0 : root.val;
-        dfsMaxPathSum(root);
+        max = root.val;
+        dfs(root);
         return max;
     }
 
-    private int dfsMaxPathSum(TreeNode root) {
+    private int dfs(TreeNode root) {
         if (root == null)
             return 0;
 
-        int lMax = dfsMaxPathSum(root.left);
-        int rMax = dfsMaxPathSum(root.right);
-        max = Math.max(Math.max(max, lMax + root.val + rMax), Math.max(root.val + lMax, root.val + rMax));
+        int lMax = dfs(root.left);
+        int rMax = dfs(root.right);
+        max = Math.max(Math.max(max, lMax + rMax + root.val), Math.max(lMax + root.val, rMax + root.val));
         max = Math.max(max, root.val);
         return Math.max(root.val, Math.max(root.val + lMax, root.val + rMax));
     }
