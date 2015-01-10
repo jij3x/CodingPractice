@@ -20,10 +20,9 @@ public class Solution {
         if (root == null)
             return 0;
 
-        int lMax = dfs(root.left);
-        int rMax = dfs(root.right);
-        max = Math.max(Math.max(max, lMax + rMax + root.val), Math.max(lMax + root.val, rMax + root.val));
-        max = Math.max(max, root.val);
-        return Math.max(root.val, Math.max(root.val + lMax, root.val + rMax));
+        int lMax = Math.max(0, dfs(root.left));
+        int rMax = Math.max(0, dfs(root.right));
+        max = Math.max(max, root.val + lMax + rMax);
+        return root.val + Math.max(lMax, rMax);
     }
 }
