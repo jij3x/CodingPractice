@@ -1,36 +1,33 @@
 public class Solution {
-    public ArrayList<String[]> solveNQueens(int n) {
+    public List<String[]> solveNQueens(int n) {
         ArrayList<String[]> result = new ArrayList<String[]>();
-        int[] board = new int[n];
-        solve(board, 0, result);
+        doSolveQueens(0, new int[n], result);
         return result;
     }
 
-    private void solve(int[] board, int row, ArrayList<String[]> result) {
-        if (row == board.length) {
+    private void doSolveQueens(int level, int[] board, ArrayList<String[]> result) {
+        if (level == board.length) {
             String[] subResult = new String[board.length];
-            char[] template = new char[board.length];
-            Arrays.fill(template, '.');
             for (int i = 0; i < board.length; i++) {
-                template[board[i]] = 'Q';
-                subResult[i] = new String(template);
-                template[board[i]] = '.';
+                char[] row = new char[board.length];
+                Arrays.fill(row, '.');
+                row[board[i]] = 'Q';
+                subResult[i] = new String(row);
             }
             result.add(subResult);
+            return;
         }
 
         for (int i = 0; i < board.length; i++) {
             boolean valid = true;
-            for (int j = row - 1; j >= 0; j--) {
-                if (board[j] == i || board[j] == i - (row - j) || board[j] == i + (row - j)) {
+            for (int j = level - 1; j >= 0; j--) {
+                if (board[j] == i || board[j] == i - (level - j) || board[j] == i + (level - j))
                     valid = false;
-                    break;
-                }
             }
 
             if (valid) {
-                board[row] = i;
-                solve(board, row + 1, result);
+                board[level] = i;
+                doSolveQueens(level + 1, board, result);
             }
         }
     }
