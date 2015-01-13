@@ -1,33 +1,28 @@
 public class Solution {
     private int total;
 
-    public int totalNQueens(int n) {
+    public int totalNQueens(Integer n) {
         total = 0;
-        int[] board = new int[n];
-        nQueens(board, 0);
+        doTotal(0, new int[n]);
         return total;
     }
 
-    private void nQueens(int[] board, int level) {
+    private void doTotal(int level, int[] board) {
         if (level == board.length) {
             total++;
             return;
         }
 
-        for (int i = 0; i < board.length; i++) {
-            boolean qualified = true;
+        nextPos: for (int i = 0; i < board.length; i++) {
+            board[level] = i;
             for (int j = level - 1; j >= 0; j--) {
-                if (board[j] == i || board[j] == i + (level - j) || board[j] == i - (level - j)) {
-                    qualified = false;
-                    break;
-                }
+                if (board[j] == i || board[j] == i - (level - j) || board[j] == i + (level - j))
+                    continue nextPos;
             }
-            if (qualified) {
-                board[level] = i;
-                nQueens(board, level + 1);
-            }
+            doTotal(level + 1, board);
         }
     }
+
 }
 
 class Solution2 {
