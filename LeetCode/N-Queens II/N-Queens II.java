@@ -22,7 +22,6 @@ public class Solution {
             doTotal(level + 1, board);
         }
     }
-
 }
 
 class Solution2 {
