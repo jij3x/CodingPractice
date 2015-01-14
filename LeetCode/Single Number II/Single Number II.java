@@ -1,11 +1,10 @@
 public class Solution {
     public int singleNumber(int[] A) {
         int highBits = 0, lowBits = 0;
-        for (int i = 0, flip = 0, carry = 0; i < A.length; i++) {
-            flip = ~(highBits & A[i]);
-            carry = lowBits & A[i];
-
-            lowBits = (lowBits ^ A[i]) & flip;
+        for (int a : A) {
+            int flip = ~(highBits & a);
+            int carry = lowBits & a;
+            lowBits = (lowBits ^ a) & flip;
             highBits = (highBits ^ carry) & flip;
         }
         return highBits | lowBits;
