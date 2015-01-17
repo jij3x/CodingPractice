@@ -1,4 +1,0 @@
-Need BFS, as there will be stack overflow when the input is a big matrix.
-Add all 'O' to queue from four edges, after search done flip those unvisited 'O' to 'X'
-'visited' table can be avoided. 'visited' flag can mark on source matrix itself as '$', or so. After search, replace
-all 'O' to 'X', and all '$' to 'O'.
