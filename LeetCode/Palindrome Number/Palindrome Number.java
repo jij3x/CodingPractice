@@ -1,5 +1,16 @@
 public class Solution {
     public boolean isPalindrome(int x) {
+        int y = x, z = 0;
+        while (x != 0) {
+            z = z * 10 + x % 10;
+            x /= 10;
+        }
+        return y >= 0 && y == z;
+    }
+}
+
+class Solution2 {
+    public boolean isPalindrome(int x) {
         if (x < 0)
             return false;
 
