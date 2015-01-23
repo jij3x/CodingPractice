@@ -7,11 +7,11 @@ public class Solution {
         while (x / divisor > 9)
             divisor *= 10;
 
-        while (divisor > 1) {
+        while (divisor >= 10) {
             if (x / divisor != x % 10)
                 return false;
 
-            x = x % divisor / 10;
+            x = (x % divisor) / 10;
             divisor /= 100;
         }
         return true;
