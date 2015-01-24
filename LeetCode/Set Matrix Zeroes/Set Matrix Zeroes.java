@@ -1,9 +1,9 @@
 public class Solution {
     public void setZeroes(int[][] matrix) {
-        boolean clear1stRow = false, clear1stCol = false;
+        boolean clear1stRow = false, clear1stColumn = false;
         for (int y = 0; y < matrix.length; y++) {
             if (matrix[y][0] == 0)
-                clear1stCol = true;
+                clear1stColumn = true;
         }
         for (int x = 0; x < matrix[0].length; x++) {
             if (matrix[0][x] == 0)
@@ -20,14 +20,8 @@ public class Solution {
         }
 
         for (int y = 1; y < matrix.length; y++) {
-            if (matrix[y][0] == 0) {
-                for (int x = 1; x < matrix[0].length; x++)
-                    matrix[y][x] = 0;
-            }
-        }
-        for (int x = 1; x < matrix[0].length; x++) {
-            if (matrix[0][x] == 0) {
-                for (int y = 1; y < matrix.length; y++)
+            for (int x = 1; x < matrix[0].length; x++) {
+                if (matrix[y][0] == 0 || matrix[0][x] == 0)
                     matrix[y][x] = 0;
             }
         }
@@ -36,7 +30,7 @@ public class Solution {
             for (int x = 0; x < matrix[0].length; x++)
                 matrix[0][x] = 0;
         }
-        if (clear1stCol) {
+        if (clear1stColumn) {
             for (int y = 0; y < matrix.length; y++)
                 matrix[y][0] = 0;
         }
