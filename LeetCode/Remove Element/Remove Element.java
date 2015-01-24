@@ -8,3 +8,14 @@ public class Solution {
         return len;
     }
 }
+
+class Solution2 {
+    public int removeElement(int[] A, int elem) {
+        int len = A.length;
+        for (int i = A.length - 1; i >= 0; i--) {
+            if (A[i] == elem)
+                A[i] = A[--len];
+        }
+        return len;
+    }
+}
