@@ -1,10 +1,10 @@
 public class Solution {
     public int firstMissingPositive(int[] A) {
         for (int i = 0; i < A.length; i++) {
-            while (A[i] <= A.length && A[i] > 0 && A[i] != i + 1 && A[i] != A[A[i] - 1]) {
-                int t = A[i];
-                A[i] = A[t - 1];
-                A[t - 1] = t;
+            while (A[i] != i + 1 && A[i] >= 1 && A[i] <= A.length && A[i] != A[A[i] - 1]) {
+                int temp = A[i];
+                A[i] = A[temp - 1];
+                A[temp - 1] = temp;
             }
         }
 
