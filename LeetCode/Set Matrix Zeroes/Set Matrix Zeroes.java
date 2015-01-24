@@ -42,3 +42,26 @@ public class Solution {
         }
     }
 }
+
+class Solution2 {
+    public void setZeroes(int[][] matrix) {
+        boolean clearFirstColumn = false;
+        for (int y = 0; y < matrix.length; y++) {
+            if (matrix[y][0] == 0)
+                clearFirstColumn = true;
+            for (int x = 1; x < matrix[0].length; x++) {
+                if (matrix[y][x] == 0)
+                    matrix[y][0] = matrix[0][x] = 0;
+            }
+        }
+
+        for (int y = matrix.length - 1; y >= 0; y--) {
+            for (int x = 1; x < matrix[0].length; x++) {
+                if (matrix[y][0] == 0 || matrix[0][x] == 0)
+                    matrix[y][x] = 0;
+            }
+            if (clearFirstColumn)
+                matrix[y][0] = 0;
+        }
+    }
+}
