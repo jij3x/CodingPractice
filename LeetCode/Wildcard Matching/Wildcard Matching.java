@@ -80,57 +80,13 @@ class Solution2 {
 
 class Solution3 {
     public boolean isMatch(String s, String p) {
-        byte[][] memo = new byte[s.length() + 1][p.length() + 1];
-        memo[s.length()][p.length()] = 1;
-        for (int i = 0; i < s.length(); i++)
-            memo[i][p.length()] = -1;
+        if (p.isEmpty())
+            return s.isEmpty();
 
-        return dpIsMatch(s, 0, p, 0, memo);
-    }
+        if (p.charAt(0) == '*')
+            return isMatch(s, p.substring(1)) || (!s.isEmpty() && isMatch(s.substring(1), p));
 
-    private boolean dpIsMatch(String s, int ss, String p, int ps, byte[][] memo) {
-        if (memo[ss][ps] != 0)
-            return memo[ss][ps] == 1 ? true : false;
-
-        if (p.charAt(ps) != '*') {
-            if ((ss < s.length()) && (s.charAt(ss) == p.charAt(ps) || p.charAt(ps) == '?')
-                    && dpIsMatch(s, ss + 1, p, ps + 1, memo)) {
-                memo[ss][ps] = 1;
-                return true;
-            } else {
-                memo[ss][ps] = -1;
-                return false;
-            }
-        }
-
-        for (int i = ss; i <= s.length(); i++) {
-            if (dpIsMatch(s, i, p, ps + 1, memo)) {
-                memo[ss][ps] = 1;
-                return true;
-            }
-        }
-
-        memo[ss][ps] = -1;
-        return false;
-    }
-}
-
-class Solution4 {
-    public boolean isMatch(String s, String p) {
-        if (p.isEmpty() && s.isEmpty())
-            return true;
-        else if (p.isEmpty())
-            return false;
-
-        if (p.charAt(0) != '*')
-            return !s.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '?')
-                    && isMatch(s.substring(1), p.substring(1));
-
-        for (int i = 0; i <= s.length(); i++) {
-            if (isMatch(s.substring(i), p.substring(1)))
-                return true;
-        }
-
-        return false;
+        return !s.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '?')
+                && isMatch(s.substring(1), p.substring(1));
     }
 }
