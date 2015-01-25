@@ -52,7 +52,6 @@ class Solution2 {
      *    | F | F | F | F | F | F | T 
      */
     public boolean isMatch(String s, String p) {
-        // character counts in pattern should not exceed total characters in s
         for (int i = 0, c = 0; i < p.length(); i++) {
             if (p.charAt(i) != '*' && ++c > s.length())
                 return false;
@@ -60,18 +59,16 @@ class Solution2 {
 
         boolean[] memo = new boolean[s.length() + 1];
         memo[memo.length - 1] = true;
-
-        for (int i = p.length() - 1; i >= 0; i--) {
-            if (p.charAt(i) == '*') {
-                boolean matched = false;
-                for (int j = s.length(); j >= 0; j--) {
-                    memo[j] = memo[j] || matched;
-                    matched = memo[j];
+        for (int y = p.length() - 1; y >= 0; y--) {
+            if (p.charAt(y) == '*') {
+                for (int x = memo.length - 1, matched = 0; x >= 0; x--) {
+                    memo[x] = memo[x] || (matched == 1 ? true : false);
+                    matched = memo[x] ? 1 : 0;
                 }
             } else {
-                for (int j = 0; j < s.length(); j++)
-                    memo[j] = (p.charAt(i) == s.charAt(j) || p.charAt(i) == '?') ? memo[j + 1] : false;
-                memo[memo.length - 1] = false; // s:'', p:'?*'
+                for (int x = 0; x < s.length(); x++)
+                    memo[x] = memo[x + 1] && (p.charAt(y) == '?' || p.charAt(y) == s.charAt(x));
+                memo[memo.length - 1] = false;
             }
         }
         return memo[0];
