@@ -3,4 +3,4 @@
     merge and add merged interval,
     add all intervals on the right side of new interval
 
-watch out: the expectation is to have sorted output!
+The assumption is to have sorted output!
