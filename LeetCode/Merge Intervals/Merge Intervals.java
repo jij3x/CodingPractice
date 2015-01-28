@@ -10,24 +10,20 @@
 public class Solution {
     class myComparator implements Comparator<Interval> {
         @Override
-        public int compare(Interval i1, Interval i2) {
-            return i1.start == i2.start ? 0 : (i1.start > i2.start ? 1 : -1);
+        public int compare(Interval int1, Interval int2) {
+            return int1.start < int2.start ? -1 : (int1.start > int2.start ? 1 : 0);
         }
     }
 
     public List<Interval> merge(List<Interval> intervals) {
         Collections.sort(intervals, new myComparator());
         ArrayList<Interval> result = new ArrayList<Interval>();
-        for (Interval i : intervals) {
-            if (result.isEmpty()) {
-                result.add(i);
-                continue;
-            }
-            Interval last = result.get(result.size() - 1);
-            if (i.start <= last.end)
-                last.end = Math.max(i.end, last.end);
+        for (Interval curr : intervals) {
+            Interval last = result.isEmpty() ? null : result.get(result.size() - 1);
+            if (!result.isEmpty() && curr.start <= last.end)
+                last.end = Math.max(last.end, curr.end);
             else
-                result.add(new Interval(i.start, i.end));
+                result.add(curr);
         }
         return result;
     }
