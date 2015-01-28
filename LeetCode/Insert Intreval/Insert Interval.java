@@ -10,15 +10,15 @@
 public class Solution {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
         ArrayList<Interval> result = new ArrayList<Interval>();
-        for (Interval i : intervals) {
-            if (i.end < newInterval.start) {
-                result.add(i);
-            } else if (i.start > newInterval.end) {
+        for (Interval curr : intervals) {
+            if (curr.start > newInterval.end) {
                 result.add(newInterval);
-                newInterval = i;
+                newInterval = curr;
+            } else if (curr.end < newInterval.start) {
+                result.add(curr);
             } else {
-                newInterval.start = Math.min(newInterval.start, i.start);
-                newInterval.end = Math.max(newInterval.end, i.end);
+                newInterval.start = Math.min(newInterval.start, curr.start);
+                newInterval.end = Math.max(newInterval.end, curr.end);
             }
         }
         result.add(newInterval);
