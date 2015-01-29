@@ -1,18 +1,18 @@
 public class Solution {
     public int romanToInt(String s) {
-        int[] charMap = new int[256];
-        charMap['I'] = 1;
-        charMap['V'] = 5;
-        charMap['X'] = 10;
-        charMap['L'] = 50;
-        charMap['C'] = 100;
-        charMap['D'] = 500;
-        charMap['M'] = 1000;
+        int[] dict = new int[128];
+        dict['I'] = 1;
+        dict['V'] = 5;
+        dict['X'] = 10;
+        dict['L'] = 50;
+        dict['C'] = 100;
+        dict['D'] = 500;
+        dict['M'] = 1000;
 
-        int result = charMap[s.charAt(s.length() - 1)];
-        for (int i = s.length() - 2; i >= 0; i--)
-            result += (charMap[s.charAt(i)] < charMap[s.charAt(i + 1)] ? -1 : 1) * charMap[s.charAt(i)];
-
+        int result = dict[s.charAt(s.length() - 1)];
+        for (int i = s.length() - 2; i >= 0; i--) {
+            result += dict[s.charAt(i)] >= dict[s.charAt(i + 1)] ? dict[s.charAt(i)] : -dict[s.charAt(i)];
+        }
         return result;
     }
 }
