@@ -3,4 +3,5 @@ same as hand math
     Go through each pair of digits, NOTE: ith and jth pair shoul be in (i+j+1)th position of final product
     The position for final carry from each round is quite tricky!
     
-    Also, special case: 0*0
+    Also, special cases: 0*0, 10*0
+    
