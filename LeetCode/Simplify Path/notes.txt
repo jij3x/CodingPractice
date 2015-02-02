@@ -1,8 +1,0 @@
-maintain a stack
-
-once meet '/' find the directory name (by step further till meet '/' again, or, reach the end)
-    if directory is '..', pop one element from stack (discard)
-    if directory is '.', do nothing
-    if directory is something else, push it to stack
-
-special case: input path is empty... need to return '/'
