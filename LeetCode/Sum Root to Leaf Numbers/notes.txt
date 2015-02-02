@@ -1,1 +1,0 @@
-Different base case: rather than determine whether root is null, this time need to determine whether the root is leaf.
