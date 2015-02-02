@@ -1,18 +1,18 @@
 Maintain a stack for '(' positions, and a 'last' pointer for last INVALID parentheses' position.
 
-In case of '))((())'
-             ^ ^^^
-             L 12c
+In case of containing '))((())'
+                        ^ ^^^
+                        L 12c
 
-Valid parentheses length is from top element '1' in stack to 'c'.
-    '2' will be popped first, when 'c' become current
-    we don't need 'last' pointer to calculate valid () length
+Valid parentheses length is from stack bottom ('1') to 'c' -
+    when 'c' become current, '2' will be popped first
+    we don't use 'last' pointer to calculate valid () length in this caes
 
 
 In case of concatenation '))()()'
                            ^  ^^
                            L  1c
 
-    We need 'last' point to calculate valid parentheses length in this case
+    We need 'last' point to calculate valid parentheses length
     this case happens when stack is empty
     'last' pointer will move only when stack is empty and ')' still coming along
