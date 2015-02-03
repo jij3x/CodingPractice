@@ -4,10 +4,8 @@ public class Solution {
         while (i >= 0 && s.charAt(i) == ' ')
             i--;
 
-        while (i >= 0) {
-            if (s.charAt(i--) != ' ')
-                length++;
-            else
+        for (; i >= 0; i--, length++) {
+            if (s.charAt(i) == ' ')
                 break;
         }
         return length;
