@@ -6,3 +6,4 @@ Need utilities:
     String.toLowerCase()
     Character.isLetter()
     Character.isDigit()
+    Character.isLetterOrDigit()
