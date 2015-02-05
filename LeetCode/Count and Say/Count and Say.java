@@ -11,7 +11,6 @@ public class Solution {
             }
             result = r;
         }
-
         return result.toString();
     }
 }
