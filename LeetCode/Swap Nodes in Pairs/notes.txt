@@ -1,1 +1,0 @@
-Iterative - have a safe guard in front, while (prev.next!=null && prev.next.next!=null) {...}
