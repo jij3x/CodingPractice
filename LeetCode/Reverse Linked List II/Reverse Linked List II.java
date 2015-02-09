@@ -24,7 +24,6 @@ public class Solution {
             next.next = prev.next;
             prev.next = next;
         }
-
         return start.next;
     }
 }
