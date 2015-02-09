@@ -8,9 +8,7 @@ public class Solution {
             sign = str.charAt(idx++) == '+' ? 1 : -1;
 
         while (idx < str.length() && Character.isDigit(str.charAt(idx))) {
-            int digit = str.charAt(idx++) - '0';
-
-            result = result * 10 + digit;
+            result = result * 10 + (str.charAt(idx++) - '0');
             if (result * sign >= Integer.MAX_VALUE)
                 return Integer.MAX_VALUE;
             if (result * sign <= Integer.MIN_VALUE)
