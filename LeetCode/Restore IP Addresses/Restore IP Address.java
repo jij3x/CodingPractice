@@ -1,31 +1,25 @@
 public class Solution {
-    public ArrayList<String> restoreIpAddresses(String s) {
-        ArrayList<String> result = new ArrayList<String>();
-        ArrayList<String> path = new ArrayList<String>();
-        doRestore(s, path, result, 0);
-        return result;
+    public List<String> restoreIpAddresses(String s) {
+        return dfs(s, 0, 0);
     }
 
-    private void doRestore(String s, ArrayList<String> path, ArrayList<String> result, int start) {
-        if (path.size() == 4) {
-            if (start == s.length()) {
-                StringBuilder ip = new StringBuilder("");
-                for (String seg : path)
-                    ip.append("." + seg);
-                result.add(ip.substring(1));
-            }
-            return;
+    private List<String> dfs(String s, int start, int level) {
+        ArrayList<String> result = new ArrayList<String>();
+        if (level == 4) {
+            if (start == s.length())
+                result.add("");
+            return result;
         }
 
-        for (int i = start; i < s.length(); i++) {
-            String seg = s.substring(start, i + 1);
-            if ((seg.charAt(0) == '0' && seg.length() > 1) || Integer.valueOf(seg) > 255)
+        for (int i = start; i < s.length() && i < start + 3; i++) {
+            int segment = Integer.parseInt(s.substring(start, i + 1));
+            if (segment > 255 || (i > start && s.charAt(start) == '0'))
                 break;
 
-            path.add(s.substring(start, i + 1));
-            doRestore(s, path, result, i + 1);
-            path.remove(path.size() - 1);
+            for (String row : dfs(s, i + 1, level + 1))
+                result.add(s.substring(start, i + 1) + (row.isEmpty() ? "" : ".") + row);
         }
+        return result;
     }
 }
 
