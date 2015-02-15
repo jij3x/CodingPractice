@@ -1,1 +1,0 @@
-Find out the length first, then do length/k times group reversing.
