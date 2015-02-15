@@ -5,13 +5,10 @@ public class Solution {
 
     private List<String> dfs(String s, int start, int level) {
         ArrayList<String> result = new ArrayList<String>();
-        if (level == 4) {
-            if (start == s.length())
-                result.add("");
-            return result;
-        }
+        if (level == 4 && start == s.length())
+            result.add("");
 
-        for (int i = start; i < s.length() && i < start + 3; i++) {
+        for (int i = start; i < s.length() && i < start + 3 && level < 4; i++) {
             int segment = Integer.parseInt(s.substring(start, i + 1));
             if (segment > 255 || (i > start && s.charAt(start) == '0'))
                 break;
