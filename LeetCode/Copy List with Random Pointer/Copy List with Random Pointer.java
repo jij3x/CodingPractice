@@ -8,27 +8,21 @@
  */
 public class Solution {
     public RandomListNode copyRandomList(RandomListNode head) {
-        RandomListNode pivot = head;
-        while (pivot != null) {
-            RandomListNode clone = new RandomListNode(pivot.label);
-            clone.next = pivot.next;
-            pivot.next = clone;
-            pivot = clone.next;
+        for (RandomListNode ptr = head; ptr != null; ptr = ptr.next.next) {
+            RandomListNode node = new RandomListNode(ptr.label);
+            node.next = ptr.next;
+            ptr.next = node;
         }
 
-        pivot = head;
-        while (pivot != null) {
-            pivot.next.random = pivot.random == null ? null : pivot.random.next;
-            pivot = pivot.next.next;
+        for (RandomListNode ptr = head; ptr != null; ptr = ptr.next.next) {
+            ptr.next.random = ptr.random == null ? null : ptr.random.next;
         }
 
         RandomListNode start = new RandomListNode(0);
-        pivot = start;
-        while (head != null) {
-            pivot.next = head.next;
-            pivot = pivot.next;
+        for (RandomListNode tail = start; head != null; head = head.next) {
+            tail.next = head.next;
+            tail = tail.next;
             head.next = head.next.next;
-            head = head.next;
         }
         return start.next;
     }
