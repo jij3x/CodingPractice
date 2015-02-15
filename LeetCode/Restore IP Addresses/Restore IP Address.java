@@ -8,7 +8,7 @@ public class Solution {
         if (level == 4 && start == s.length())
             result.add("");
 
-        for (int i = start; i < s.length() && i < start + 3 && level < 4; i++) {
+        for (int i = start; i < s.length() && level < 4; i++) {
             int segment = Integer.parseInt(s.substring(start, i + 1));
             if (segment > 255 || (i > start && s.charAt(start) == '0'))
                 break;
