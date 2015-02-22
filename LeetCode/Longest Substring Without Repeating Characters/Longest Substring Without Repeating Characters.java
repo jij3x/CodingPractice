@@ -19,3 +19,21 @@ public class Solution {
         return max;
     }
 }
+
+class Solution2 {
+    public int lengthOfLongestSubstring(String s) {
+        int charMap[] = new int[256];
+        int max = 0;
+        for (int start = 0, end = 0, dup = 0; end < s.length();) {
+            if (charMap[s.charAt(end++)]++ == 1) {
+                dup++;
+                while (dup > 0) {
+                    if (--charMap[s.charAt(start++)] == 1)
+                        dup--;
+                }
+            }
+            max = Math.max(max, end - start);
+        }
+        return max;
+    }
+}
