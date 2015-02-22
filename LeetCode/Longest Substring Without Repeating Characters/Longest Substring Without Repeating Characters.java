@@ -23,13 +23,11 @@ public class Solution {
 class Solution2 {
     public int lengthOfLongestSubstring(String s) {
         int max = 0, charMap[] = new int[256];
-        for (int start = 0, end = 0, dup = 0; end < s.length();) {
+        for (int start = 0, end = 0, dup = 0; end < s.length(); max = Math.max(max, end - start)) {
             if (charMap[s.charAt(end++)]++ == 1) {
-                for (dup = 1; dup > 0;) {
+                for (dup = 1; dup > 0;)
                     dup -= (--charMap[s.charAt(start++)] == 1) ? 1 : 0;
-                }
             }
-            max = Math.max(max, end - start);
         }
         return max;
     }
