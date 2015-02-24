@@ -37,40 +37,36 @@ public class Solution {
  */
 class Solution2 {
     public List<Integer> findSubstring(String S, String[] L) {
-        ArrayList<Integer> result = new ArrayList<Integer>();
+        List<Integer> result = new ArrayList<Integer>();
         HashMap<String, Integer> dict = new HashMap<String, Integer>();
         for (String s : L)
             dict.put(s, dict.containsKey(s) ? dict.get(s) + 1 : 1);
 
-        int w = L[0].length();
-        for (int i = 0; i < w; i++) {
+        for (int i = 0, wl = L[0].length(); i < wl; i++) {
             HashMap<String, Integer> memo = new HashMap<String, Integer>();
-            for (int j = i, left = j, missing = L.length; j + w <= S.length(); j += w) {
-                String curr = S.substring(j, j + w);
-                if (!dict.containsKey(curr)) {
-                    left = j + w;
+            for (int missing = L.length, right = i, left = right; right + wl <= S.length(); right += wl) {
+                String word = S.substring(right, right + wl);
+                if (!dict.containsKey(word)) {
+                    left = right + wl;
                     missing = L.length;
                     memo.clear();
                     continue;
                 }
 
-                memo.put(curr, memo.containsKey(curr) ? memo.get(curr) + 1 : 1);
-                if (memo.get(curr) > dict.get(curr)) {
-                    for (; left <= j; left += w) {
-                        String toDrop = S.substring(left, left + w);
-                        if (toDrop.equals(curr)) {
-                            memo.put(curr, memo.get(curr) - 1);
-                            left += w;
-                            break;
-                        }
+                memo.put(word, memo.containsKey(word) ? memo.get(word) + 1 : 1);
+                if (memo.get(word) > dict.get(word)) {
+                    for (; left <= right; missing++) {
+                        String toDrop = S.substring(left, left + wl);
                         memo.put(toDrop, memo.get(toDrop) - 1);
-                        missing++;
+                        left += wl;
+                        if (toDrop.equals(word))
+                            break;
                     }
                 } else if (--missing == 0) {
                     result.add(left);
-                    String toDrop = S.substring(left, left + w);
+                    String toDrop = S.substring(left, left + wl);
+                    left += wl;
                     memo.put(toDrop, memo.get(toDrop) - 1);
-                    left += w;
                     missing++;
                 }
             }
