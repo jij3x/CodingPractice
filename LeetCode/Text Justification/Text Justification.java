@@ -79,3 +79,31 @@ class Solution2 {
         return result;
     }
 }
+
+class Solution3 {
+    public List<String> fullJustify(String[] words, int L) {
+        ArrayList<String> result = new ArrayList<String>();
+        for (int start = 0, k = 0, lineLen = 0; start < words.length; start += k + 1) {
+            for (k = 0, lineLen = words[start].length(); start + k + 1 < words.length
+                    && k + 1 + lineLen + words[start + k + 1].length() <= L; k++) {
+                lineLen += words[start + k + 1].length();
+            }
+
+            StringBuilder line = new StringBuilder(words[start]);
+            for (int i = 1, sp = L - lineLen; i <= k; i++) {
+                int padding = (start + k == words.length - 1 ? 1 : (sp / (k - i + 1) + (sp % (k - i + 1) == 0 ? 0 : 1)));
+                sp -= padding;
+                for (int j = 0; j < padding; j++) {
+                    line.append(" ");
+                }
+                line.append(words[start + i]);
+            }
+
+            for (int i = line.length(); i < L; i++) {
+                line.append(" ");
+            }
+            result.add(line.toString());
+        }
+        return result;
+    }
+}
