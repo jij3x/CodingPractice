@@ -7,7 +7,7 @@ public class Solution {
 
         if (maxIdx > 0) {
             int k = maxIdx, tgt = num[maxIdx - 1];
-            while (k < num.length - 1 && !(num[k] > tgt && num[k + 1] <= tgt)) {
+            while (k < num.length - 1 && !(num[k + 1] <= tgt)) {
                 k++;
             }
             int temp = num[maxIdx - 1];
