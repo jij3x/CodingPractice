@@ -17,20 +17,6 @@ public class Solution {
 
 class Solution2 {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        int end = 0, gasLeft = 0;
-        for (int i = 0, min = 0; i < gas.length; i++) {
-            gasLeft += gas[i] - cost[i];
-            if (gasLeft < min) {
-                min = gasLeft;
-                end = i;
-            }
-        }
-        return gasLeft >= 0 ? (end + 1) % gas.length : -1;
-    }
-}
-
-class Solution3 {
-    public int canCompleteCircuit(int[] gas, int[] cost) {
         for (int prevStart = -1, cur = 0; cur > prevStart;) {
             prevStart = cur;
             for (int gasLeft = 0; gasLeft >= 0;) {
