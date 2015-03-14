@@ -26,3 +26,9 @@ public class Solution {
         dfs(root.right, depth + 1);
     }
 }
+
+class Solution2 {
+    public int maxDepth(TreeNode root) {
+        return root == null ? 0 : 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+}
