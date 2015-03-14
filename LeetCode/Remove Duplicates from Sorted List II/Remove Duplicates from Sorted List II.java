@@ -28,3 +28,19 @@ public class Solution {
         return start.next;
     }
 }
+
+class Solution2 {
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null)
+            return null;
+        ListNode p = head.next;
+        if (p == null || p.val != head.val) {
+            head.next = deleteDuplicates(p);
+            return head;
+        }
+        while (p != null && p.val == head.val) {
+            p = p.next;
+        }
+        return deleteDuplicates(p);
+    }
+}
