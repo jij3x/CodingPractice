@@ -1,8 +1,9 @@
 public class Solution {
     public boolean exist(char[][] board, String word) {
+        boolean[][] visited = new boolean[board.length][board[0].length];
         for (int y = 0; y < board.length; y++) {
             for (int x = 0; x < board[0].length; x++) {
-                if (dfs(board, y, x, word, 0, new boolean[board.length][board[0].length]))
+                if (dfs(board, y, x, word, 0, visited))
                     return true;
             }
         }
