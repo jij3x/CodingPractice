@@ -4,7 +4,7 @@ public class Solution {
         for (int i = 1; i < A.length; i++) {
             int end1 = maxEnd * A[i], end2 = minEnd * A[i];
             maxEnd = Math.max(Math.max(end1, end2), A[i]);
-            minEnd = Math.min(Math.min(end1,  end2), A[i]);
+            minEnd = Math.min(Math.min(end1, end2), A[i]);
 
             max = Math.max(max, maxEnd);
         }
