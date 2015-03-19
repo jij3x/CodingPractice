@@ -54,7 +54,7 @@ public class Solution {
                 dfs(prev, path, visited, result);
             }
         }
-        path.remove(word);
+        path.removeFirst();
     }
 }
 
