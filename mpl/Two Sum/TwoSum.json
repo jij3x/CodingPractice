@@ -1,0 +1,22 @@
+{
+  "interface": {
+    "functionName": "twoSum",
+    "paramList": [
+      {
+        "name": "numbers",
+        "type": ":array<:int>"
+      },
+      {
+        "name": "target",
+        "type": ":int"
+      }
+    ],
+    "return": {
+      "type": ":array<:int>"
+    }
+  },
+  "output": {
+    "from": "_RETURN_",
+    "specialSize": "2"
+  }
+}

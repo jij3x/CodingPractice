@@ -7,36 +7,40 @@ import java.io.Reader;
 import java.io.StreamTokenizer;
 
 class Mapper {
-    public int mapInt() throws IOException {
-        InputStream inputStream = new FileInputStream("intMapper.test");
-        Reader reader = new BufferedReader(new InputStreamReader(inputStream));
-        StreamTokenizer tokenizer = new StreamTokenizer(reader);
+    public int mapInt(String fileName) throws IOException {
+        {
+            InputStream inputStream = new FileInputStream(fileName);
+            Reader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StreamTokenizer tokenizer = new StreamTokenizer(reader);
 
-        // |Int
-        tokenizer.nextToken();
-        int $param = (int) tokenizer.nval;
-        // |Int
+            // |:int
+            tokenizer.nextToken();
+            int _PARAM_ = (int) tokenizer.nval;
+            // |:int
 
-        return $param;
+            return _PARAM_;
+        }
     }
 
-    public int[] mapIntArray() throws IOException {
-        InputStream inputStream = new FileInputStream("intArrayMapper.test");
-        Reader reader = new BufferedReader(new InputStreamReader(inputStream));
-        StreamTokenizer tokenizer = new StreamTokenizer(reader);
+    public int[] mapIntArray(String fileName) throws IOException {
+        {
+            InputStream inputStream = new FileInputStream(fileName);
+            Reader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StreamTokenizer tokenizer = new StreamTokenizer(reader);
 
-        // |IntArray
-        tokenizer.nextToken();
-        int $size = (int) tokenizer.nval;
-        Serializer ser = new Serializer();
-        ser.allocIntArray($size);
-        for (int j = 0; j < $size; j++) {
+            // |:intArray
             tokenizer.nextToken();
-            ser.intArrayAdd((int) tokenizer.nval);
-        }
-        int[] $param = ser.getIntArray();
-        // |IntArray
+            int _SIZE_ = (int) tokenizer.nval;
+            Serializer ser = new Serializer();
+            ser.allocIntArray(_SIZE_);
+            for (int j = 0; j < _SIZE_; j++) {
+                tokenizer.nextToken();
+                ser.intArrayAdd((int) tokenizer.nval);
+            }
+            int[] _PARAM_ = ser.getIntArray();
+            // |:intArray
 
-        return $param;
+            return _PARAM_;
+        }
     }
 }
