@@ -1,3 +1,5 @@
+package helloWorld;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,15 +31,18 @@ class Mapper {
             StreamTokenizer tokenizer = new StreamTokenizer(reader);
 
             // |:intArray
-            tokenizer.nextToken();
-            int _SIZE_ = (int) tokenizer.nval;
-            Serializer ser = new Serializer();
-            ser.allocIntArray(_SIZE_);
-            for (int j = 0; j < _SIZE_; j++) {
+            int[] _PARAM_;
+            {
                 tokenizer.nextToken();
-                ser.intArrayAdd((int) tokenizer.nval);
+                int _SIZE_ = (int) tokenizer.nval;
+                Serializer ser = new Serializer();
+                ser.allocIntArray(_SIZE_);
+                for (int j = 0; j < _SIZE_; j++) {
+                    tokenizer.nextToken();
+                    ser.intArrayAdd((int) tokenizer.nval);
+                }
+                _PARAM_ = ser.getIntArray();
             }
-            int[] _PARAM_ = ser.getIntArray();
             // |:intArray
 
             return _PARAM_;
