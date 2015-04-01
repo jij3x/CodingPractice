@@ -16,7 +16,7 @@
     }
   },
   "output": {
-    "from": "_RETURN_",
-    "specialSize": "2"
+    "from": "['return']",
+    "overrideSize": "2"
   }
 }
