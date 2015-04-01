@@ -31,8 +31,11 @@ with open(metadata_fname) as metadata_file:
     metadata = json.load(metadata_file)
 _function = metadata["interface"]["functionName"]
 _params = metadata["interface"]["paramList"]
-_return = metadata["interface"]["return"]
 _output = metadata["output"]
+for index, param in enumerate(_params):
+    _params[index]["variableName"] = "_PARAM_{}_".format(str(index))
+if "return" in metadata["interface"]:
+    metadata["interface"]["return"]["variableName"] = "_RETURN_"
 
 driver_src = ""
 driver_tail = ""
@@ -47,35 +50,39 @@ with open(drv_tml_fname) as driver_template:
             driver_tail += line
 
 
-def fetch_param_code(template_fname, param_type, index):
+def fetch_param_code(template_fname, param):
     param_code = ""
 
     with open(template_fname) as mapper_file:
-        regex = re.compile(r"(_[a-zA-Z0-9_]*)")
+        regex = re.compile(r"_PARAM_")
         saw_seperator = False
         for line in mapper_file:
-            if line.strip() == type_map[param_type]["seperator"]:
+            if line.strip() == type_map[param["type"]]["seperator"]:
                 if saw_seperator:
                     break
                 saw_seperator = True
             elif saw_seperator:
-                line = regex.sub("\g<1>" + str(index) + "_", line)
+                line = regex.sub(param["variableName"], line)
                 param_code += line
 
     return param_code
 
 
 for index, param in enumerate(_params):
-    driver_src += fetch_param_code(mapper_fname, param["type"], index) + "\n"
+    driver_src += fetch_param_code(mapper_fname, param) + "\n"
 
 inputs = ""
 for index, param in enumerate(_params):
-    inputs += (", " if index > 0 else "") + "_PARAM_{}".format(str(index))
-return_type = type_map[param["type"]]["returnType"]
-driver_src += " " * 12 + "{} _RETURN_ = (new Solution()).{}({});\n".format(return_type, _function, inputs)
+    inputs += (", " if index > 0 else "") + _params[index]["variableName"]
+return_param = ""
+if "return" in metadata["interface"]:
+    _return = metadata["interface"]["return"]
+    return_param = "{} {} = ".format(type_map[_return["type"]]["returnType"], _return["variableName"])
+driver_src += " " * 12 + "{}(new Solution()).{}({});\n".format(return_param, _function, inputs)
 
-inputs = _output["from"] + (", {}".format(_output["overrideSize"]) if "overrideSize" in _output else "")
-serializer = type_map[eval("metadata['interface']" + _output["from"])["type"]]["serializer"]
+inputs = eval("metadata['interface']" + _output["from"] + "['variableName']")
+inputs += ', "{}"'.format(_output["overrideSize"]) if "overrideSize" in _output else ""
+serializer = type_map[eval("metadata['interface']" + _output["from"] + "['type']")]["serializer"]
 driver_src += " " * 12 + "printWriter.println(Serializer.{}({}));\n".format(serializer, inputs)
 
 driver_src += driver_tail
