@@ -4,7 +4,7 @@ import re
 
 metadata_fname = sys.argv[1]
 mapper_fname = "Mapper.java"
-drv_tml_fname = "driver_template.java"
+drv_tml_fname = "drv_template.java"
 interface_fname = "Solution.java"
 
 type_map = {
