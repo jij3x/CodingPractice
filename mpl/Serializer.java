@@ -5,9 +5,11 @@ public class Serializer {
         return Integer.toString(n);
     }
 
-    public static String serializeIntArray(int[] array, int n) {
-        if (n == 0 || array == null || array.length == 0)
+    public static String serializeIntArray(int[] array, String ovrdSize) {
+        int n = ovrdSize.equals("none") ? (array == null ? 0 : array.length) : Math.max(0, Integer.parseInt(ovrdSize));
+        if (n == 0)
             return "[]";
+
         StringBuffer r = new StringBuffer("[");
         r.append(Integer.toString(array[0]));
         for (int i = 1; i < n; i++) {
@@ -17,9 +19,11 @@ public class Serializer {
         return r.toString();
     }
 
-    public static String serializeIntList(List<Integer> list, int n) {
-        if (n == 0 || list == null || list.size() == 0)
+    public static String serializeIntList(List<Integer> list, String ovrdSize) {
+        int n = ovrdSize.equals("none") ? (list == null ? 0 : list.size()) : Math.max(0, Integer.parseInt(ovrdSize));
+        if (n == 0)
             return "[]";
+
         StringBuffer r = new StringBuffer("[");
         r.append(Integer.toString(list.get(0)));
         for (int i = 1; i < n; i++) {
