@@ -73,7 +73,7 @@ result_ser_code += " " * 12 + "printWriter.println(Serializer.{}({}));\n".format
 # Inject the code into Driver template
 #
 with open(DRVTML_FNM) as driver_template:
-    driver_code = re.sub(r"[ \t]*" + PARAM_DS_POS + r".*?\n", param_deser_code, driver_template.read())
-    driver_code = re.sub(r"[ \t]*" + OUTPUT_S_POS + r".*?\n", result_ser_code, driver_code)
+    driver_code = re.sub(r"[ \t]*" + re.escape(PARAM_DS_POS) + r".*?\n", param_deser_code, driver_template.read())
+    driver_code = re.sub(r"[ \t]*" + re.escape(OUTPUT_S_POS) + r".*?\n", result_ser_code, driver_code)
 
 print(driver_code)
