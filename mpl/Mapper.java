@@ -34,10 +34,10 @@ class Mapper {
             int[] _PARAM_;
             {
                 tokenizer.nextToken();
-                int _SIZE_ = (int) tokenizer.nval;
+                int size = (int) tokenizer.nval;
                 Serializer ser = new Serializer();
-                ser.allocIntArray(_SIZE_);
-                for (int j = 0; j < _SIZE_; j++) {
+                ser.allocIntArray(size);
+                for (int j = 0; j < size; j++) {
                     tokenizer.nextToken();
                     ser.intArrayAdd((int) tokenizer.nval);
                 }
