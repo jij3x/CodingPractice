@@ -13,7 +13,8 @@ DRVTML_FNM = "drv_template.java"
 CODE_NAME = "codeName"
 RETURN_CN = "_RETURN_"
 PARAM_CN = "_PARAM_{}_"
-INJECT_POS = "// inject here"
+PARAM_DS_POS = "// param deserialization code inject here"
+OUTPUT_S_POS = "// result serialization code inject here"
 
 #
 # Read problem description, and compose metadata
@@ -26,28 +27,11 @@ _return = metadata[m.itf][m.rt]
 _output = metadata[m.out]
 for i, pm in enumerate(_params):
     _params[i][CODE_NAME] = PARAM_CN.format(str(i))
-if m.rt in metadata[m.itf]:
-    metadata[m.itf][m.rt][CODE_NAME] = RETURN_CN
-
-#
-# Go to inject position in Driver template
-#
-driver_code = ""
-driver_tail = ""
-with open(DRVTML_FNM) as driver_template:
-    is_tail = False
-    for line in driver_template:
-        if line.strip() == INJECT_POS:
-            is_tail = True
-        elif not is_tail:
-            driver_code += line
-        else:
-            driver_tail += line
+metadata[m.itf][m.rt][CODE_NAME] = RETURN_CN
 
 
 def fetch_param_deser_code(template_fname, param):
     param_code = ""
-
     with open(template_fname) as mapper_file:
         regex = re.compile(r"_PARAM_")
         saw_seperator = False
@@ -59,14 +43,14 @@ def fetch_param_deser_code(template_fname, param):
             elif saw_seperator:
                 line = regex.sub(param[CODE_NAME], line)
                 param_code += line
-
     return param_code
 
 #
-# Inject parameters deserialization code
+# Fetch parameters deserialization code
 #
+param_deser_code = ""
 for i, pm in enumerate(_params):
-    driver_code += fetch_param_deser_code(MAPPER_FNM, pm) + "\n"
+    param_deser_code += fetch_param_deser_code(MAPPER_FNM, pm) + "\n"
 
 #
 # Compose the code to call Solution
@@ -74,22 +58,22 @@ for i, pm in enumerate(_params):
 inputs = ""
 for i, pm in enumerate(_params):
     inputs += (", " if i > 0 else "") + _params[i][CODE_NAME]
-return_param = ""
-if m.rt in metadata[m.itf]:
-    _return = metadata[m.itf][m.rt]
-    return_param = "{} {} = ".format(tim[_return[m.tp]][t.k_java_t], _return[CODE_NAME])
-driver_code += " " * 12 + "{}(new Solution()).{}({});\n".format(return_param, _function, inputs)
+return_pm = "{} {} = ".format(tim[_return[m.tp]][t.k_java_t], _return[CODE_NAME]) if _return[m.tp] != t.t_void else ""
+result_ser_code = " " * 12 + "{}(new Solution()).{}({});\n".format(return_pm, _function, inputs)
 
 #
-# Serialize the output from solution
+# Compose the code to serialize the Solution return
 #
 inputs = eval("{}['{}']{}['{}']".format("metadata", m.itf, _output[m.sc], CODE_NAME))
 inputs += ', "{}"'.format(_output[m.osz] if m.osz in _output else m.non)
 serializer = tim[eval("{}['{}']{}['{}']".format("metadata", m.itf, _output[m.sc], m.tp))][t.k_ser]
-driver_code += " " * 12 + "printWriter.println(Serializer.{}({}));\n".format(serializer, inputs)
+result_ser_code += " " * 12 + "printWriter.println(Serializer.{}({}));\n".format(serializer, inputs)
 
 #
-# Driver.java is ready for returning
+# Inject the code into Driver template
 #
-driver_code += driver_tail
+with open(DRVTML_FNM) as driver_template:
+    driver_code = re.sub(r"[ \t]*" + PARAM_DS_POS + r".*?\n", param_deser_code, driver_template.read())
+    driver_code = re.sub(r"[ \t]*" + OUTPUT_S_POS + r".*?\n", result_ser_code, driver_code)
+
 print(driver_code)
