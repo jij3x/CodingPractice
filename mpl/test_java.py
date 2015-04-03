@@ -6,12 +6,14 @@ import filecmp
 test_dir = sys.argv[1]
 python = "python"
 
-#
-# Clean up the current directory
-#
-for file in os.listdir("."):
-    if file.endswith(".class") or file == "Driver.java" or file == "Solution.java" or file == "user.out":
-        os.remove(file)
+
+def clean_up_currdir():
+    for file in os.listdir("."):
+        if file.endswith(".class") or file == "Driver.java" or file == "Solution.java" or file == "user.out":
+            os.remove(file)
+
+
+clean_up_currdir()
 
 #
 # Find problem metadata
@@ -32,7 +34,6 @@ with open("Driver.java", "w") as driver:
 # Compose Solution.java
 #
 solution_fname = "{}/{}".format(test_dir, "Solution.java")
-solution_src = ""
 with open(solution_fname) as solution_file:
     solution_src = solution_file.read() + "\n"
 with open("sol_imports.java") as sol_imports:
@@ -46,21 +47,13 @@ with open("Solution.java", "w") as final_solution:
 subprocess.call(["javac", "Serializer.java"])
 subprocess.call(["javac", "Solution.java"])
 subprocess.call(["javac", "Driver.java"])
-with open("{}/{}".format(test_dir, "user.new.in")) as test_data:
-    subprocess.call(["java", "Driver"], stdin=test_data)
+with open("{}/{}".format(test_dir, "user.new.in")) as test_data, open("user.out", "w") as result:
+    subprocess.call(["java", "Driver"], stdin=test_data, stdout=result)
 
 #
 # Print out testing result
 #
 print(test_dir + " - ", end="")
-if filecmp.cmp("user.out", "{}/{}".format(test_dir, "user.new.out")):
-    print("passed")
-else:
-    print("failed!!")
+print("passed" if filecmp.cmp("user.out", "{}/{}".format(test_dir, "user.new.out")) else "failed!!!")
 
-#
-# Clean up the current directory
-#
-for file in os.listdir("."):
-    if file.endswith(".class") or file == "Driver.java" or file == "Solution.java" or file == "user.out":
-        os.remove(file)
+clean_up_currdir()

@@ -2,10 +2,10 @@ import sys
 import json
 import re
 
-import intfdesc as md
-import typemap as tm
+import intfdesc as m
+import typemap as t
 
-tim = tm.type_map
+tim = t.type_map
 
 MAPPER_FNM = "Mapper.java"
 DRVTML_FNM = "drv_template.java"
@@ -20,14 +20,14 @@ INJECT_POS = "// inject here"
 #
 with open(sys.argv[1]) as metadata_file:
     metadata = json.load(metadata_file)
-_function = metadata[md.itf][md.fnn]
-_params = metadata[md.itf][md.pl]
-_return = metadata[md.itf][md.rt]
-_output = metadata[md.out]
+_function = metadata[m.itf][m.fnn]
+_params = metadata[m.itf][m.pl]
+_return = metadata[m.itf][m.rt]
+_output = metadata[m.out]
 for i, pm in enumerate(_params):
     _params[i][CODE_NAME] = PARAM_CN.format(str(i))
-if md.rt in metadata[md.itf]:
-    metadata[md.itf][md.rt][CODE_NAME] = RETURN_CN
+if m.rt in metadata[m.itf]:
+    metadata[m.itf][m.rt][CODE_NAME] = RETURN_CN
 
 #
 # Go to inject position in Driver template
@@ -52,7 +52,7 @@ def fetch_param_deser_code(template_fname, param):
         regex = re.compile(r"_PARAM_")
         saw_seperator = False
         for line in mapper_file:
-            if line.strip() == tim[param[md.tp]][tm.k_sep]:
+            if line.strip() == tim[param[m.tp]][t.k_sep]:
                 if saw_seperator:
                     break
                 saw_seperator = True
@@ -75,17 +75,17 @@ inputs = ""
 for i, pm in enumerate(_params):
     inputs += (", " if i > 0 else "") + _params[i][CODE_NAME]
 return_param = ""
-if md.rt in metadata[md.itf]:
-    _return = metadata[md.itf][md.rt]
-    return_param = "{} {} = ".format(tim[_return[md.tp]][tm.k_java_t], _return[CODE_NAME])
+if m.rt in metadata[m.itf]:
+    _return = metadata[m.itf][m.rt]
+    return_param = "{} {} = ".format(tim[_return[m.tp]][t.k_java_t], _return[CODE_NAME])
 driver_code += " " * 12 + "{}(new Solution()).{}({});\n".format(return_param, _function, inputs)
 
 #
 # Serialize the output from solution
 #
-inputs = eval("{}['{}']{}['{}']".format("metadata", md.itf, _output[md.sc], CODE_NAME))
-inputs += ', "{}"'.format(_output[md.osz] if md.osz in _output else md.non)
-serializer = tim[eval("{}['{}']{}['{}']".format("metadata", md.itf, _output[md.sc], md.tp))][tm.k_ser]
+inputs = eval("{}['{}']{}['{}']".format("metadata", m.itf, _output[m.sc], CODE_NAME))
+inputs += ', "{}"'.format(_output[m.osz] if m.osz in _output else m.non)
+serializer = tim[eval("{}['{}']{}['{}']".format("metadata", m.itf, _output[m.sc], m.tp))][t.k_ser]
 driver_code += " " * 12 + "printWriter.println(Serializer.{}({}));\n".format(serializer, inputs)
 
 #
