@@ -1,22 +1,25 @@
 {
-  "interface": {
-    "functionName": "twoSum",
-    "paramList": [
-      {
-        "name": "numbers",
-        "type": ":array<:int>"
-      },
-      {
-        "name": "target",
-        "type": ":int"
-      }
+  "input":[
+    {
+      "name":"numbers",
+      "type":":array<:int>"
+    },
+    {
+      "name":"target",
+      "type":":int"
+    }
+  ],
+  "solution":{
+    "actionName":"twoSum",
+    "params":[
+      "input[0]",
+      "input[1]"
     ],
-    "return": {
-      "type": ":array<:int>"
+    "return":{
+      "type":":array<:int>"
     }
   },
-  "output": {
-    "from": "['return']",
-    "overrideSize": "2"
-  }
+  "output":[
+    "solution.return"
+  ]
 }
