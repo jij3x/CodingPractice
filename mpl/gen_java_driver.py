@@ -160,3 +160,13 @@ with open(DRVTML_FNM) as driver_template:
     driver_code = re.sub(r"[ \t]*" + re.escape(OUTPUT_S_POS) + r".*?\n", result_ser_code, driver_code)
 
 print(driver_code)
+
+
+
+
+
+
+>>> str = "inProcr[0].return"
+>>> print(re.sub(r"(\w+)", "[\"\g<1>\"]", str))
+>>> print(re.sub(r"\[\[\"(\w+)\"\]\]", "[\g<1>]", str))
+>>> print(re.sub(r"\.", "", str))
