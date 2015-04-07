@@ -1,38 +1,37 @@
 """
 {
-  "interface": {
-    "functionName": "toSolve",
-    "paramList": [
-      {
-        "name": "numbers",
-        "type": ":array<:int>"
-      },
-      {
-        "name": "target",
-        "type": ":int"
-      }
+  "input":[
+    {
+      "name":"numbers",
+      "type":":array<:int>"
+    },
+    {
+      "name":"target",
+      "type":":int"
+    }
+  ],
+  "solution":{
+    "actionName":"twoSum",
+    "params":[
+      "input[0]",
+      "input[1]"
     ],
-    "return": {
-      "type": ":array<:int>"
+    "return":{
+      "type":":array<:int>"
     }
   },
-  "output": {
-    "from": "['return']",
-    "cloneOf": "['paramList'][0]",
-    "overrideSize": "none"
-  }
-}
-"""
+  "output":[
+    "solution.return"
+  ]
+}"""
 
-itf = "interface"
-fnn = "functionName"
-pl = "paramList"
-nm = "name"
-tp = "type"
-rt = "return"
-out = "output"
-sc = "from"
-osz = "overrideSize"
-cln = "cloneOf"
-
-non = "none"
+INP = "input"
+NM = "name"
+TYP = "type"
+SOL = "solution"
+PAR = "params"
+FN = "actionName"
+RT = "return"
+OUT = "output"
+IPR = "inProcr"
+OPR = "outProcr"
