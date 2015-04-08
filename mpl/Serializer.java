@@ -34,6 +34,19 @@ public class Serializer {
         return r.toString();
     }
 
+    public static String serializeSLList(ListNode node) {
+        if (node == null)
+            return "{}";
+
+        StringBuffer r = new StringBuffer("{");
+        r.append(Integer.toString(node.val));
+        while ((node = node.next) != null) {
+            r.append(",").append(Integer.toString(node.val));
+        }
+        r.append("}");
+        return r.toString();
+    }
+
     public static int deserializeInt(StreamTokenizer tokenizer) throws IOException {
         tokenizer.nextToken();
         return (int) tokenizer.nval;
@@ -43,9 +56,9 @@ public class Serializer {
         tokenizer.nextToken();
         int size = (int) tokenizer.nval;
         int[] array = new int[size];
-        for (int j = 0; j < size; j++) {
+        for (int i = 0; i < size; i++) {
             tokenizer.nextToken();
-            array[j] = (int) tokenizer.nval;
+            array[i] = (int) tokenizer.nval;
         }
         return array;
     }
@@ -54,10 +67,24 @@ public class Serializer {
         tokenizer.nextToken();
         int size = (int) tokenizer.nval;
         List<Integer> vector = new ArrayList<Integer>();
-        for (int j = 0; j < size; j++) {
+        for (int i = 0; i < size; i++) {
             tokenizer.nextToken();
             vector.add((int) tokenizer.nval);
         }
         return vector;
+    }
+
+    public static ListNode deserializeSLList(StreamTokenizer tokenizer) throws IOException {
+        ListNode start = new ListNode(0), tail = start;
+
+        tokenizer.nextToken();
+        int size = (int) tokenizer.nval;
+        for (int i = 0; i < size; i++) {
+            tokenizer.nextToken();
+            ListNode node = new ListNode((int) tokenizer.nval);
+            tail.next = node;
+            tail = node;
+        }
+        return start.next;
     }
 }
