@@ -38,7 +38,9 @@
         "input[1]",
         "solution.return"
       ],
-      "return": ":text"
+      "return": {
+        "type": "text"
+      }
     }
   ],
   "output": "outProcr.return"
