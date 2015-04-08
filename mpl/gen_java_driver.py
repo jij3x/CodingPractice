@@ -7,7 +7,6 @@ import typemap as t
 
 tim = t.type_map
 
-MAPPER_FNM = "Mapper.java"
 DRVTML_FNM = "drv_template.java"
 
 CODE_NAME = "codeName"
@@ -15,7 +14,6 @@ SOL_RETURN_CN = "_RETURN_"
 IP_RETURN_CN = "_IP_RETURN_{}_"
 OP_RETURN_CN = "_OP_RETURN_{}_"
 PARAM_CN = "_PARAM_{}_"
-PARAM_RX = r"_PARAM_"
 PARAM_DS_POS = "// param deserialization code inject here"
 SOLVING_POS = "// solution invoking code inject here"
 OUTPUT_S_POS = "// result serialization code inject here"
@@ -42,13 +40,10 @@ if m.OPR in metadata:
 # Fetch inputs deserialization code
 #
 param_deser_code = ""
-with open(MAPPER_FNM) as mapper_file:
-    par_rx = re.compile(PARAM_RX)
-    mapper_src = mapper_file.read()
-    for arg in metadata[m.INP]:
-        seperator = re.escape((tim[arg[m.TYP]][t.P_SEP]))
-        sep_rx = r"[ \t]*{}[ \t]*\n(.*?)[ \t]*{}[ \t]*\n".format(seperator, seperator)
-        param_deser_code += par_rx.sub(arg[CODE_NAME], re.search(sep_rx, mapper_src, re.S).group(1) + "\n")
+for arg in metadata[m.INP]:
+    deser = tim[arg[m.TYP]][t.P_DES]
+    rtype = tim[arg[m.TYP]][t.P_JAVA_T]
+    param_deser_code += " " * 12 + "{} {} = Serializer.{}(tokenizer);\n".format(rtype, arg[CODE_NAME], deser)
 
 
 def eval_prop(s):
@@ -79,8 +74,8 @@ solving_code = " " * 12 + "{}(new Solution()).{}({});\n".format(return_par, meta
 # Compose the code to serialize the Solution return
 #
 result_ser_code = ""
-inputs = eval_prop(metadata[m.OUT][0])[CODE_NAME]
-serializer = tim[eval_prop(metadata[m.OUT][0])[m.TYP]][t.P_SER]
+inputs = eval_prop(metadata[m.OUT])[CODE_NAME]
+serializer = tim[eval_prop(metadata[m.OUT])[m.TYP]][t.P_SER]
 result_ser_code += " " * 12 + "printWriter.println(Serializer.{}({}));\n".format(serializer, inputs)
 
 #
