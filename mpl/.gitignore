@@ -1,3 +1,9 @@
+# MPL generates
+Driver.java
+Solution.java
+*.out
+*.in
+
 # Mac junk
 .DS_Store
 
