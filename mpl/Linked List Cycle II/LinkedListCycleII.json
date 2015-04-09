@@ -12,7 +12,7 @@
   ],
   "inProcr": [
     {
-      "action": "cyclizeIntSLList",
+      "actionName": "cyclizeIntSLList",
       "params": [
         "input[0]",
         "input[1]"
@@ -33,15 +33,15 @@
   },
   "outProcr": [
     {
-      "action": "findIntSLListCycleStart",
+      "actionName": "findIntSLListNodeIndex",
       "params": [
-        "input[1]",
+        "input[0]",
         "solution.return"
       ],
       "return": {
-        "type": "text"
+        "type": ":text"
       }
     }
   ],
-  "output": "outProcr.return"
+  "output": "outProcr[0].return"
 }

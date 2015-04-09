@@ -8,6 +8,14 @@ public class Serializer {
         return Integer.toString(n);
     }
 
+    public static String serializeString(String s) {
+        return "\"" + s + "\"";
+    }
+
+    public static String serializeText(String s) {
+        return s;
+    }
+
     public static String serializeIntArray(int[] array) {
         if (array == null || array.length == 0)
             return "[]";
@@ -50,6 +58,18 @@ public class Serializer {
     public static int deserializeInt(StreamTokenizer tokenizer) throws IOException {
         tokenizer.nextToken();
         return (int) tokenizer.nval;
+    }
+
+    public static String deserializeString(StreamTokenizer tokenizer) throws IOException {
+        tokenizer.nextToken();
+        String s = tokenizer.sval;
+        return s.substring(1, s.length() - 1);
+    }
+
+    public static String deserializeText(StreamTokenizer tokenizer) throws IOException {
+        tokenizer.nextToken();
+        String s = tokenizer.sval;
+        return s.substring(1, s.length() - 1);
     }
 
     public static int[] deserializeIntArray(StreamTokenizer tokenizer) throws IOException {

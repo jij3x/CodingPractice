@@ -17,7 +17,11 @@ public class Driver {
 
             // param deserialization code inject here
 
+            // input processing code inject here
+
             // solution invoking code inject here
+
+            // output processing code inject here
 
             // result serialization code inject here
 

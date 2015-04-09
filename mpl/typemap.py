@@ -1,9 +1,9 @@
 VOID = ":void"
 INT = ":int"
+TEXT = ":text"
 INT_ARR = ":array<:int>"
 INT_VEC = ":vector<:int>"
 INT_SLLIST = ":sllist<:int>"
-
 P_JAVA_T = "javaType"
 P_SER = "serializer"
 P_DES = "deserializer"
@@ -16,6 +16,11 @@ type_map = {
         P_JAVA_T: "int",
         P_SER: "serializeInt",
         P_DES: "deserializeInt"
+    },
+    TEXT: {
+        P_JAVA_T: "String",
+        P_SER: "serializeText",
+        P_DES: "deserializeText"
     },
     INT_ARR: {
         P_JAVA_T: "int[]",

@@ -44,9 +44,7 @@ with open("Solution.java", "w") as final_solution:
 #
 # Compile all java classes, and run solution
 #
-subprocess.call(["javac", "Serializer.java"])
-subprocess.call(["javac", "Solution.java"])
-subprocess.call(["javac", "Driver.java"])
+subprocess.call(["javac", "*.java"])
 with open("{}/{}".format(test_dir, "user.new.in")) as test_data, open("user.out", "w") as result:
     subprocess.call(["java", "Driver"], stdin=test_data, stdout=result)
 
