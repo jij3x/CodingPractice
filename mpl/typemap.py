@@ -2,6 +2,7 @@ VOID = ":void"
 INT = ":int"
 INT_ARR = ":array<:int>"
 INT_VEC = ":vector<:int>"
+INT_SLLIST = ":sllist<:int>"
 
 P_JAVA_T = "javaType"
 P_SER = "serializer"
@@ -25,5 +26,10 @@ type_map = {
         P_JAVA_T: "ArrayList<Integer>",
         P_SER: "serializeIntVector",
         P_DES: "deserializeIntVector"
+    },
+    INT_SLLIST: {
+        P_JAVA_T: "ListNode",
+        P_SER: "serializeIntSLList",
+        P_DES: "deserializeIntSLList"
     }
 }
