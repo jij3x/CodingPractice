@@ -36,7 +36,7 @@ with open("Driver.java", "w") as driver:
 solution_fname = "{}/{}".format(test_dir, "Solution.java")
 with open(solution_fname) as solution_file:
     solution_src = solution_file.read() + "\n"
-with open("sol_imports.java") as sol_imports:
+with open("java.solution.imports") as sol_imports:
     solution_src = sol_imports.read() + solution_src
 with open("Solution.java", "w") as final_solution:
     final_solution.write(solution_src)

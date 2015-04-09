@@ -12,7 +12,7 @@
   ],
   "inProcr": [
     {
-      "action": "makeCycle",
+      "action": "cyclizeIntSLList",
       "params": [
         "input[0]",
         "input[1]"
@@ -33,7 +33,7 @@
   },
   "outProcr": [
     {
-      "action": "cycleStartAt",
+      "action": "findIntSLListCycleStart",
       "params": [
         "input[1]",
         "solution.return"

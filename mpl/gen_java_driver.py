@@ -7,7 +7,7 @@ import typemap as t
 
 tim = t.type_map
 
-DRVTML_FNM = "drv_template.java"
+DRVTML_FNM = "java.driver.template"
 
 CODE_NAME = "codeName"
 SOL_RETURN_CN = "_RETURN_"
