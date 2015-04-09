@@ -1,6 +1,11 @@
 import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Serializer {
@@ -50,6 +55,46 @@ public class Serializer {
         r.append(Integer.toString(node.val));
         while ((node = node.next) != null) {
             r.append(",").append(Integer.toString(node.val));
+        }
+        r.append("}");
+        return r.toString();
+    }
+
+    public static String serializeIntUDGraph(UndirectedGraphNode graph) {
+        if (graph == null)
+            return "{}";
+
+        HashSet<UndirectedGraphNode> visited = new HashSet<UndirectedGraphNode>();
+        visited.add(graph);
+        LinkedList<UndirectedGraphNode> que = new LinkedList<UndirectedGraphNode>();
+        que.add(graph);
+        while (!que.isEmpty()) {
+            UndirectedGraphNode curr = que.poll();
+            for (UndirectedGraphNode neighbor : curr.neighbors) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    que.add(neighbor);
+                }
+            }
+        }
+
+        ArrayList<UndirectedGraphNode> nodes = new ArrayList<UndirectedGraphNode>();
+        for (UndirectedGraphNode node : visited)
+            nodes.add(node);
+        Collections.sort(nodes, new Comparator<UndirectedGraphNode>() {
+            public int compare(UndirectedGraphNode o1, UndirectedGraphNode o2) {
+                return o1.label - o2.label;
+            }
+        });
+
+        StringBuffer r = new StringBuffer("{");
+        for (int i = 0; i < nodes.size(); i++) {
+            if (i > 0)
+                r.append("#");
+
+            r.append(nodes.get(i).label);
+            for (UndirectedGraphNode neighbor : nodes.get(i).neighbors)
+                r.append(",").append(neighbor.label);
         }
         r.append("}");
         return r.toString();
@@ -106,5 +151,39 @@ public class Serializer {
             tail = node;
         }
         return start.next;
+    }
+
+    public static UndirectedGraphNode deserializeIntUDGraph(StreamTokenizer tokenizer) throws IOException {
+        UndirectedGraphNode graph = null;
+        HashMap<Integer, UndirectedGraphNode> memo = new HashMap<Integer, UndirectedGraphNode>();
+
+        tokenizer.nextToken();
+        int size = (int) tokenizer.nval;
+        for (int i = 0; i < size; i++) {
+            tokenizer.nextToken();
+            String nodeStr = tokenizer.sval;
+            String[] nodes = nodeStr.split(",");
+
+            int nodeLabel = Integer.parseInt(nodes[0]);
+            UndirectedGraphNode node = memo.get(nodeLabel);
+            if (node == null) {
+                node = new UndirectedGraphNode(nodeLabel);
+                memo.put(nodeLabel, node);
+            }
+            if (i == 0)
+                graph = node;
+
+            for (int j = 1; j < nodes.length; j++) {
+                nodeLabel = Integer.parseInt(nodes[0]);
+                UndirectedGraphNode neighbor = memo.get(nodeLabel);
+                if (neighbor == null) {
+                    neighbor = new UndirectedGraphNode(nodeLabel);
+                    memo.put(nodeLabel, neighbor);
+                }
+
+                node.neighbors.add(neighbor);
+            }
+        }
+        return graph;
     }
 }

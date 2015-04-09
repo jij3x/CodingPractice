@@ -4,6 +4,7 @@ TEXT = ":text"
 INT_ARR = ":array<:int>"
 INT_VEC = ":vector<:int>"
 INT_SLLIST = ":sllist<:int>"
+INT_UDGRAPH = ":udgraph<:int>"
 P_JAVA_T = "javaType"
 P_SER = "serializer"
 P_DES = "deserializer"
@@ -36,5 +37,10 @@ type_map = {
         P_JAVA_T: "ListNode",
         P_SER: "serializeIntSLList",
         P_DES: "deserializeIntSLList"
+    },
+    INT_UDGRAPH: {
+        P_JAVA_T: "UndirectedGraphNode",
+        P_SER: "serializeIntUDGraph",
+        P_DES: "deserializeIntUDGraph"
     }
 }
