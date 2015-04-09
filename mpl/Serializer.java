@@ -34,7 +34,7 @@ public class Serializer {
         return r.toString();
     }
 
-    public static String serializeSLList(ListNode node) {
+    public static String serializeIntSLList(ListNode node) {
         if (node == null)
             return "{}";
 
@@ -74,7 +74,7 @@ public class Serializer {
         return vector;
     }
 
-    public static ListNode deserializeSLList(StreamTokenizer tokenizer) throws IOException {
+    public static ListNode deserializeIntSLList(StreamTokenizer tokenizer) throws IOException {
         ListNode start = new ListNode(0), tail = start;
 
         tokenizer.nextToken();
