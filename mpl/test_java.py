@@ -4,7 +4,7 @@ import os
 import filecmp
 
 test_dir = sys.argv[1]
-python = "python"
+pythoncmd = "python"
 
 
 def clean_up_currdir():
@@ -28,7 +28,7 @@ for file in os.listdir(test_dir):
 # Generate Driver.java
 #
 with open("Driver.java", "w") as driver:
-    subprocess.call([python, "gen_java_driver.py", json_file], stdout=driver)
+    subprocess.call([pythoncmd, "gen_java_driver.py", json_file], stdout=driver)
 
 #
 # Compose Solution.java
@@ -54,4 +54,4 @@ with open("{}/{}".format(test_dir, "user.new.in")) as test_data, open("user.out"
 print(test_dir + " - ", end="")
 print("passed" if filecmp.cmp("user.out", "{}/{}".format(test_dir, "user.new.out")) else "failed!!!")
 
-clean_up_currdir()
+#clean_up_currdir()

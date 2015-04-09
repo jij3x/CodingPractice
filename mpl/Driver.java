@@ -16,20 +16,20 @@ public class Driver {
         int totalCases = (int) tokenizer.nval;
         for (int i = 0; i < totalCases; i++) {
 
-            // param deserialization code inject here
+            UndirectedGraphNode _PARAM_0_ = Serializer.deserializeIntUDGraph(tokenizer);
 
-            // input processing code inject here
 
-            // solution invoking code inject here
+            UndirectedGraphNode _RETURN_ = (new Solution()).cloneGraph(_PARAM_0_);
 
-            // output processing code inject here
+            String _OP_RETURN_0_ =  Helper.checkDeepClonedIntUDGraph(_PARAM_0_, _RETURN_);
 
-            // result serialization code inject here
+            printWriter.println(Serializer.serializeIntUDGraph(_RETURN_));
 
-            // error serialization code inject here
+            errorWriter.println(Serializer.serializeText(_OP_RETURN_0_));
 
         }
         printWriter.close();
         errorWriter.close();
     }
 }
+

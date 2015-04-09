@@ -45,7 +45,7 @@ public class Helper {
      */
     public static String checkDeepClonedIntUDGraph(UndirectedGraphNode n1, UndirectedGraphNode n2) {
         if (n1 == null || n2 == null)
-            return null;
+            return "";
 
         HashSet<UndirectedGraphNode> hash = new HashSet<UndirectedGraphNode>();
         ArrayList<UndirectedGraphNode> que = new ArrayList<UndirectedGraphNode>();

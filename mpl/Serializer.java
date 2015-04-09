@@ -174,7 +174,7 @@ public class Serializer {
                 graph = node;
 
             for (int j = 1; j < nodes.length; j++) {
-                nodeLabel = Integer.parseInt(nodes[0]);
+                nodeLabel = Integer.parseInt(nodes[j]);
                 UndirectedGraphNode neighbor = memo.get(nodeLabel);
                 if (neighbor == null) {
                     neighbor = new UndirectedGraphNode(nodeLabel);

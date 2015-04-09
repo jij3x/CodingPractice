@@ -8,4 +8,4 @@ for line in lines:
         print(0)
     else:
         parts = line.split("#")
-        print(str(len(parts)) + " " + " ".join(parts))
+        print(str(len(parts)) + " " + " ".join(map(lambda x: '"{}"'.format(x), parts)))

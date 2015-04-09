@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 public class Solution {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode graph) {
         if (graph == null) return null;
@@ -17,3 +19,4 @@ public class Solution {
         return node;
     }
 }
+

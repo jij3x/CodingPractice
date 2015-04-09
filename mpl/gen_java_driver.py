@@ -19,6 +19,7 @@ INPUT_PROCR_POS = "// input processing code inject here"
 SOLVING_POS = "// solution invoking code inject here"
 OUTPUT_PROCR_POS = "// output processing code inject here"
 OUTPUT_S_POS = "// result serialization code inject here"
+ERROR_S_POS = "// error serialization code inject here"
 
 #
 # Read problem description, and compose metadata
@@ -72,9 +73,9 @@ def gen_invoking_code(fn_ret, fn_name, params, lspc, rt_tmpl, fn_tmpl):
     return " " * lspc + fn_tmpl.format(return_par, fn_name, inputs)
 
 
-def gen_serlizing_code(lspc, fn_tmpl):
-    inputs = eval_prop(metadata[m.OUT])[CODE_NAME]
-    serializer = tim[eval_prop(metadata[m.OUT])[m.TYP]][t.P_SER]
+def gen_serlizing_code(out, lspc, fn_tmpl):
+    inputs = eval_prop(out)[CODE_NAME]
+    serializer = tim[eval_prop(out)[m.TYP]][t.P_SER]
     return " " * lspc + fn_tmpl.format(serializer, inputs)
 
 #
@@ -102,7 +103,14 @@ for procr in metadata[m.OPR]:
 #
 # Compose the code to serialize the Solution return
 #
-result_ser_code = gen_serlizing_code(12, "printWriter.println(Serializer.{}({}));\n")
+result_ser_code = gen_serlizing_code(metadata[m.OUT], 12, "printWriter.println(Serializer.{}({}));\n")
+
+#
+# Compose the code to serialize the error, which might be empty
+#
+error_ser_code = ""
+if m.ERR in metadata:
+    error_ser_code = gen_serlizing_code(metadata[m.ERR], 12, "errorWriter.println(Serializer.{}({}));\n")
 
 #
 # Inject the code into Driver template
@@ -113,5 +121,7 @@ with open(DRVTML_FNM) as driver_template:
     driver_code = re.sub(r"[ \t]*" + re.escape(SOLVING_POS) + r".*?\n", solving_code, driver_code)
     driver_code = re.sub(r"[ \t]*" + re.escape(OUTPUT_PROCR_POS) + r".*?\n", output_proc_code, driver_code)
     driver_code = re.sub(r"[ \t]*" + re.escape(OUTPUT_S_POS) + r".*?\n", result_ser_code, driver_code)
+    if error_ser_code:
+        driver_code = re.sub(r"[ \t]*" + re.escape(ERROR_S_POS) + r".*?\n", error_ser_code, driver_code)
 
 print(driver_code)
