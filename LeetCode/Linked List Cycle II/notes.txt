@@ -7,5 +7,5 @@ assume after 'N' steps they meet... 2-step cursor traveled '2N'
 so...   (I + 2N) % C = N % C
     =>  (I + 2N) - xC = N - yC
     =>  I + N = (x - y)C
-    =>  N = zC - I
+    =>  N = (x-y)C - I
 Second time they meet, loop start node will be 'I' steps ahead
