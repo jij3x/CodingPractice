@@ -15,7 +15,7 @@ public class Solution {
         String thousand = convert3((num / 1000) % 1000);
         result += thousand.isEmpty() ? "" : thousand + " Thousand";
         result += convert3(num % 1000);
-        return result.charAt(0) == ' ' ? result.substring(1) : result;
+        return result.trim();
     }
 
     private String convert3(int num) {
