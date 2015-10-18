@@ -48,24 +48,21 @@ class Solution2 {
         if (head == null || head.next == null)
             return head;
 
-        ListNode list1 = head, list2 = head, tail = head;
-        for (ListNode p = list1; p != null; p = p == null ? null : p.next) {
-            tail = list2;
-            list2 = list2.next;
-            p = p.next;
-        }
+        ListNode tail = head;
+        for (ListNode fast = head; fast.next != null && fast.next.next != null; fast = fast.next.next)
+            tail = tail.next;
+        ListNode a = sortList(tail.next);
         tail.next = null;
-
-        list1 = sortList(list1);
-        list2 = sortList(list2);
+        ListNode b = sortList(head);
 
         ListNode start = new ListNode(0);
-        for (ListNode prev = start; list1 != null || list2 != null; prev = prev.next) {
-            boolean leftIn = (list2 == null || (list1 != null && list2 != null && list1.val < list2.val));
-            prev.next = leftIn ? list1 : list2;
-            list1 = leftIn ? list1.next : list1;
-            list2 = leftIn ? list2 : list2.next;
+        for (tail = start; a != null && b != null; tail = tail.next) {
+            boolean fromA = a.val <= b.val;
+            tail.next = fromA ? a : b;
+            a = fromA ? a.next : a;
+            b = fromA ? b : b.next;
         }
+        tail.next = a == null ? b : a;
         return start.next;
     }
 }
