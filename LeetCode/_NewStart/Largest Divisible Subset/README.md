@@ -1,3 +1,10 @@
+<p><p>
+Given a set of <b>distinct</b> positive integers, find the largest subset such that every pair (S<sub>i</sub>, S<sub>j</sub>) of elements in this subset satisfies: S<sub>i</sub> % S<sub>j</sub> = 0 or S<sub>j</sub> % S<sub>i</sub> = 0.
+</p>
+
+<p>If there are multiple solutions, return any subset is fine.
+</p>
+
 <p><b>Example 1:</b>
 <pre>
 nums: [1,2,3]
