@@ -1,0 +1,2 @@
+(a*b) % k = (a%k * b%k) % k
+(a*k + b)^x % k = {[(a*k + b) % k] ^ x} % k = b^x % k
