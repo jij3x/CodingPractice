@@ -1,4 +1,4 @@
-<p><p>Given a <i>n</i> x <i>n</i> matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.</p>
+ï»¿<p><p>Given a <i>n</i> x <i>n</i> matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.</p>
 
 <p>
 Note that it is the kth smallest element in the sorted order, not the kth distinct element.
@@ -18,4 +18,4 @@ return 13.
 </p>
 
 <p><b>Note: </b><br>
-You may assume k is always valid, 1 ¡Ü k ¡Ü n<sup>2</sup>.</p></p>
+You may assume k is always valid, 1 â‰¤ k â‰¤ n<sup>2</sup>.</p></p>
